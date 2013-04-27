@@ -1,0 +1,12 @@
+/* 
+    Document   : usuario.registro.css
+    Created on : Mar 29, 2013, 11:34:42 AM
+    Author     : guy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.registro { }
+.registro tr td:first-child { text-align: right;  font-weight: bold;
+}
+.registro tr td:last-child { border:1px solid #DCDEE0;border-radius: 9px;}
