@@ -27,12 +27,12 @@ else
   ////////////////////////////////////////////////////////
   // Directorios
   ////////////////////////////////////////////////////////
-  define ("PATH"         , getBasePath());
+  define ("PATH"         , getBasePath()); //RUTA
 
   // SITE: SE MODIFICAN ARCHIVOS
-  define ("DIR_CLASES"   , PATH."/_inc/clases");
-  define ("DIR_SMARTY"   , PATH."/_inc/_smarty/");
-  define ("DIR_MAILTPL"  , PATH."/_inc/mail.tpl/");
+  define ("DIR_CLASES"   , PATH."/_inc/clases");   //OBJETOS
+  define ("DIR_SMARTY"   , PATH."/_inc/_smarty/"); //TEMPLATES
+  define ("DIR_MAILTPL"  , PATH."/_inc/mail.tpl/"); // TEMPLATES DE MAIL
 
 
   if (ENDESARROLLO)
@@ -49,7 +49,7 @@ else
   }
   
   //URL - 1 nivel de este archivo
-  define ("URL"        , getBaseUrl());
+  define ("URL"        , getBaseUrl()); // sapti.carga.com 
 
   define ("URL_JS"     , URL."js/");
   define ("URL_CSS"    , URL."css/");
@@ -78,8 +78,8 @@ else
     ini_set('display_errors','On');
 
     define ("DBHOST"        , "localhost");
-    define ("BDNAME"        , "");
-    define ("DBUSER"        , "");
+    define ("BDNAME"        , "sapti");
+    define ("DBUSER"        , "root");
     define ("BDPASS"        , "");
   }
   // SERVER
@@ -87,7 +87,7 @@ else
   else
   {
 		define ("DBHOST"        , "localhost");
-		define ("DBUSER"        , "");
-		define ("BDPASS"        , "");
-		define ("BDNAME"        , "");
+		define ("DBUSER"        , "rodolfo_sapti");
+		define ("BDNAME"        , "rodolfo_sapti");
+		define ("BDPASS"        , "DMUG*kb5RBDv");
   }

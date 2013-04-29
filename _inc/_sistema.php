@@ -10,6 +10,7 @@
   require("_configurar.php");
   require("_sesion.php");
   leerClase('Exceptions');
+  leerClase('Objectbase');
   
   if (isset($_GET['salir'])||isset($_POST['salir']))
   {  
@@ -24,11 +25,8 @@
     exit();
   }
   
-  /*
-  @TODO
   conectar_db();
   mysql_query('SET NAMES \'utf8\'');
-  */
 
 
   /**

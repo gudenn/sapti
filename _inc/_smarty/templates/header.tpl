@@ -1,38 +1,69 @@
 <!DOCTYPE HTML>
 <html  lang="es">
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>{$title}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="imagetoolbar" content="no" />
+
     <meta name="description" content="{$description}" />
     <meta name="keywords" content="{$keywords}" />
 
     {section name=css_i loop=$CSS}
       <link rel="stylesheet" href="{$CSS[css_i]}" type="text/css" />
     {/section}
-    <link href="css/blue_t/templatemo_style.css" rel="stylesheet" type="text/css" />
 
     {section name=js_i loop=$JS}
       <script type="text/javascript" src="{$JS[js_i]}"></script>
     {/section}
 
-  </head>
-<body>
-  <div id="templatemo_wrapper">
-  <div id="templatemo_header">
-    <div id="site_title">
-      <h1><a href="" >Proyecto</a><span >Sistema para dar soporte al proceso de titulacion</span></h1>
-    </div> <!-- end of site_title -->
-  </div> <!-- end of header -->
-      <div id="templatemo_menu">
-        <ul>
-          <li><a href="" class="current">INICIO</a></li>
-          <li><a href="">REGISTRO</a></li>
-        </ul> 
-      </div> <!-- end of templatemo_menu -->
-
-      <div id="templatemo_banner" style="height: 24px;">
-        <h2 style="color:#FFF;text-align: center">
-          Sistema para dar soporte al proceso de titulacion y a las materias de perfil y proyecto de grado
-        </h2>
-      </div>
-      <div id="templatemo_main"><span class="main_top"></span> 
+<link rel="stylesheet" href="{$URL_CSS}academic/layout.css" type="text/css" />
+<!-- Homepage Specific Elements -->
+<script type="text/javascript" src="{$URL_JS}academic/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="{$URL_JS}academic/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="{$URL_JS}academic/jquery.tabs.setup.js"></script>
+<!-- End Homepage Specific Elements -->
+</head>
+<body id="top">
+<div class="wrapper row1">
+  <div id="header" class="clear">
+    <div class="fl_left">
+      <h1><a href="index.html">Academic Education</a></h1>
+      <p>Free CSS Website Template</p>
+    </div>
+    <div class="fl_right">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">A - Z Index</a></li>
+        <li><a href="#">Student Login</a></li>
+        <li class="last"><a href="#">Staff Login</a></li>
+      </ul>
+      <form action="#" method="post" id="sitesearch">
+        <fieldset>
+          <strong>Search:</strong>
+          <input type="text" value="Search Our Website&hellip;" onfocus="this.value=(this.value=='Search Our Website&hellip;')? '' : this.value ;" />
+          <input type="image" src="{$URL_IMG}/academic/search.gif" id="search" alt="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- ####################################################################################################### -->
+<div class="wrapper row2">
+  <div class="rnd">
+    <!-- ###### -->
+    <div id="topnav">
+      <ul>
+        <li class="active"><a href="index.html">Home</a></li>
+        <li><a href="style-demo.html">Style Demo</a></li>
+        <li><a href="full-width.html">Full Width</a></li>
+        <li><a href="3-columns.html">3 Columns</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="#">This a very long link</a></li>
+        <li class="last"><a href="#">This is the last</a></li>
+      </ul>
+    </div>
+    <!-- ###### -->
+  </div>
+</div>

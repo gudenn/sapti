@@ -1,5 +1,5 @@
 <?php
-  require_once("_inc/_sistema.php");
+  require_once("../_inc/_sistema.php");
   
   /** Smarty */
   require(DIR_LIB.'/smarty/Smarty.class.php');
@@ -13,12 +13,11 @@
   $smarty->config_dir   = SMARTY_CONFIGDIR;
   $smarty->cache_dir    = SMARTY_CACHEDIR;
 
-  
-  
   $smarty->assign("URL",URL);  
   $smarty->assign("URL_CSS",URL_CSS);  
   $smarty->assign("URL_IMG",URL_IMG);  
   $smarty->assign("URL_JS",URL_JS);  
+  
   
   //$smarty->force_compile = true;
   $smarty->debugging      = false;
