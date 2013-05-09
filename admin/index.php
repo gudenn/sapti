@@ -9,8 +9,8 @@ try {
   $smarty->assign('keywords','Proyecto Final');
 
   //CSS
-  $CSS[]  = "css/style.css";
-  $smarty->assign('CSS','');
+  $CSS[]  = URL_CSS . "academic/3_column.css";
+  $smarty->assign('CSS',$CSS);
 
   //JS
   $JS[]  = "js/jquery.js";
@@ -45,7 +45,7 @@ catch(Exception $e)
   $smarty->assign("ERROR", handleError($e));
 }
 
-$TEMPLATE_TOSHOW = 'index.estuante.test.tpl';
+$TEMPLATE_TOSHOW = 'admin/3columnas.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>
