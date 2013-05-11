@@ -40,7 +40,7 @@
               <input type="text" name="password" id="password" value="{$estudiante->password}" size="22">
               <label for="password"><small>Clave de Ingreso</small></label>
             </p>
-            <h2 class="title">Grabar</h2>
+            <h2 class="title">Grabar Estudiante</h2>
             <p>
               <input type="hidden" name="id" value="{$estudiante->id}">
               <input type="hidden" name="tarea" value="registrar">
