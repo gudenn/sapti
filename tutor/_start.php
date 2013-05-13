@@ -13,10 +13,10 @@
   $smarty->config_dir   = SMARTY_CONFIGDIR;
   $smarty->cache_dir    = SMARTY_CACHEDIR;
 
-  $smarty->assign("URL"    ,URL);  
+  $smarty->assign("URL",URL);  
   $smarty->assign("URL_CSS",URL_CSS);  
   $smarty->assign("URL_IMG",URL_IMG);  
-  $smarty->assign("URL_JS" ,URL_JS);  
+  $smarty->assign("URL_JS",URL_JS);  
   
   
   //$smarty->force_compile = true;
