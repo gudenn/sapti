@@ -6,66 +6,55 @@
  */
 class Estudiante extends Objectbase 
 {
+
+ /**
+  * Codigo identificador del Objeto Usuario
+  * @var INT(11)
+  */
+  var $usuario_id;
+
  /**
   * Codigo sis del estudiante
   * @var VARCHAR(100)
   */
   var $codigo_sis;
 
- /**
-  * Cedula de identidad
-  * @var VARCHAR(100)
-  */
-  var $ci;
+  /**
+   * Crear un estudiante a partir de su codigo sis o verificar que se puede usar un nuevo estudiante
+   * 
+   * @param string $codigo_sis el codigo_sis
+   * @param type $verSiEstaDisponible para solo verificar si es que se puede usar este email
+   * @return boolean
+   * @throws Exception 
+   */
+  public function getByCodigoSis ($codigo_sis, $verSifueTomado = false ) {
+    $sql       = "select * from ".$this->getTableName()." where codigo_sis = '$codigo_sis'";
+    $result = mysql_query($sql);
+    if ($result === false)
+      throw new Exception("?".$this->getTableName ()."&m=Cant getByEmail <br />$sql<br /> ".$this->getTableName() . ' -> '. mysql_error() );
 
- /**
-  * Nombre del estudiante
-  * @var VARCHAR(100)
-  */
-  var $nombre;
+    if ($verSifueTomado)
+    {
+      if (mysql_num_rows($result))
+        throw new Exception("?codigo_sis&m=Este Codigo SIS ya esta en Uso.");
+      return;
+    }
 
- /**
-  * Apellidos paterno y/o materno del estudiante
-  * @var VARCHAR(100)
-  */
-  var $apellidos;
+    $estudiante = mysql_fetch_array($result,MYSQL_BOTH);
+    self::__construct($estudiante['id']);
+    return true;
+  }
 
- /**
-  * Cumpleanios del estudiante
-  * @var DATE
-  */
-  var $fecha_cumple;
-
- /**
-  * Sexo del estudiante
-  * @var VARCHAR(2)
-  */
-  var $sexo;
-
- /**
-  * Estado civil del estudiante
-  * @var VARCHAR(2)
-  */
-  var $estado_civil;
-
- /**
-  * Email del estudiante
-  * @var VARCHAR(150)
-  */
-  var $email;
-
- /**
-  * Login del estudiante
-  * @var VARCHAR(20)
-  */
-  var $login;
-
- /**
-  * Password del estudiante
-  * @var VARCHAR(100)
-  */
-  var $password;
-
+  /**
+   * Validamos al usuario ya sea para actualizar o para crear uno nuevo
+   * @param type $es_nuevo
+   */
+  function validar($es_nuevo = true) {
+    leerClase('Formulario');
+    Formulario::validar('codigo_sis' ,$this->codigo_sis ,'texto','El Codigo SIS');
+    if ( $es_nuevo ) // nuevo
+      $this->getByCodigoSis($this->codigo_sis,true);
+  }
 }
 
 ?>

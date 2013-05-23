@@ -1,10 +1,10 @@
 <?php
 /**
- * Esta clase es para guardar los datos tipo Tutor
+ * Esta clase es para guardar los datos tipo Docente
  *
  * @author Guyen Campero <guyencu@gmail.com>
  */
-class Tutor extends Objectbase 
+class Docente extends Objectbase 
 {
  /**
   * Codigo identificador del Objeto Usuario
