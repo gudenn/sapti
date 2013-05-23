@@ -3,6 +3,7 @@
           <h2 class="title">Menu Admmin</h2>
           <ul class="nostart">
             <li><a href="registro-estudiantes.php">Registro de Estudiantes</a></li>
+            <li><a href="registro-estudiantes-cvs.php">Registro de Estudiantes CVS</a></li>
             <li><a href="registro-tutor.php">Registro de Tutores</a></li>
             <li><a href="#">Alumni</a></li>
             <li><a href="#">Business &amp; Enterprise</a></li>
