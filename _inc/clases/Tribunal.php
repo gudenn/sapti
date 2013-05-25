@@ -21,6 +21,7 @@ class Tribunal extends Objectbase
   
   
   //  hola mundo
+  //prueba
   
   
 }
