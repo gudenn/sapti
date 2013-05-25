@@ -1,0 +1,11 @@
+diff a/_inc/clases/Tribunal.php b/_inc/clases/Tribunal.php	(rejected hunks)
+@@ -11,6 +11,8 @@
+   * @var INT(11)
+   */
+   var $usuario_id;
++  
++  // mio
+ }
+ 
+ ?>
+\ No newline at end of file
