@@ -6,13 +6,23 @@
  */
 class Tribunal extends Objectbase 
 {
+    /**
+     *
+     * @var type 
+     * Codigo identificador de objeto Defensa
+     */
+    var $defensa_id;
+    
  /**
   * Codigo identificador del Objeto Usuario
   * @var INT(11)
   */
   var $usuario_id;
   
-  // mio
+  
+  //  hola mundo
+  
+  
 }
 
 ?>
