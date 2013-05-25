@@ -19,7 +19,11 @@ class Tribunal extends Objectbase
   */
   var $usuario_id;
   
+<<<<<<< HEAD
   
+=======
+  // mio
+>>>>>>> origin/master
 }
 
 ?>
