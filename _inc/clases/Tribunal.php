@@ -18,11 +18,6 @@ class Tribunal extends Objectbase
   * @var INT(11)
   */
   var $usuario_id;
-  
-  
-  //  hola mundo
-  
-  
 }
 
 ?>
