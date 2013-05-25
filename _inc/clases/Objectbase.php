@@ -231,6 +231,24 @@ class Objectbase
     return true;
   }
 
+
+  /**
+   * Filtramos para la busqueda usando un objeto Filtro
+   * @param Filtro $filtro el objeto filtro
+   * @return boolean
+   */
+  public function filtrar($filtro)
+  {
+    foreach($this as $key => $value)
+    {
+      /** if the $key refer to an object continue */
+      if ($this->isKeyObject($key))
+        continue;
+      $this->$key = $filtro->filtro($key);
+    }
+    return true;
+  }
+
  /**
   * Vaciar las variables del Objeto
   *
