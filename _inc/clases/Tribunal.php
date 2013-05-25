@@ -1,6 +1,6 @@
 <?php
 /**
- * Esta clase es para guardar los datos tipo Tribunal
+ * Esta clase es para guardar los datos tipo Tribunal serafin
  *
  * @author Guyen Campero <guyencu@gmail.com>
  */
