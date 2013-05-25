@@ -68,5 +68,4 @@ catch(Exception $e)
 
 $TEMPLATE_TOSHOW = 'admin/3columnas.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
-
 ?>
