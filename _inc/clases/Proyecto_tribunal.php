@@ -4,20 +4,21 @@
  *
  * @author Guyen Campero <guyencu@gmail.com>
  */
-class Tribunal extends Objectbase 
+class Proyecto_tribunal extends Objectbase 
 {
     /**
      *
      * @var type 
      * Codigo identificador de objeto Defensa
      */
-    var $defensa_id;
+    var $proyecto_id;
     
  /**
   * Codigo identificador del Objeto Usuario
   * @var INT(11)
   */
-  var $usuario_id;
+    
+    var $tribunal_id;
   
   
 }
