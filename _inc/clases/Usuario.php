@@ -132,6 +132,61 @@ class Usuario  extends Objectbase
     }
     Formulario::validar_fecha('fecha_cumple',$this->fecha_cumple,TRUE);
   }
+  
+  
+
+  /**
+   * Inicia el filtro para el admin
+   * @param Filtro $filtro el fitro que se usara en el admin
+   */
+  function iniciarFiltro(&$filtro) 
+  {
+    
+    if (isset($_GET['order']))
+      $filtro->order($_GET['order']);
+
+    $filtro->nombres[] = 'Estado';
+    $filtro->valores[] = array ('select','estado'  ,$filtro->filtro('estado'),
+        array(''      ,'AC'         ,'NC'           ,'IN'          ,'DE'        ),
+        array('Todos' ,'Confirmados','No Confirmado','Desctivado'  ,'Eliminado' ));
+    $filtro->nombres[] = 'Nombre';
+    $filtro->valores[] = array ('input' ,'nombre',$filtro->filtro('nombre'));
+    $filtro->nombres[] = 'Apellidos';
+    $filtro->valores[] = array ('input' ,'apellidos',$filtro->filtro('apellidos'));
+    $filtro->nombres[] = 'Login';
+    $filtro->valores[] = array ('input' ,'login',$filtro->filtro('login'));
+    $filtro->nombres[] = 'Email';
+    $filtro->valores[] = array ('input' ,'email',$filtro->filtro('email'));
+  }
+
+  /**
+   * Devuelve el order para el SQL
+   * @param array $order_array arreglo con las claves para el order
+   * @return string
+   */
+  function getOrderString(&$filtro) 
+  {
+    $order_array                        = array();
+    $order_array['id']                  = " {$this->getTableName ()}.id ";
+    $order_array['nombre']              = " {$this->getTableName ()}.nombre ";
+    $order_array['apellidos']           = " {$this->getTableName ()}.apellidos ";
+    $order_array['login']               = " {$this->getTableName ()}.login ";
+    $order_array['email']               = " {$this->getTableName ()}.email ";
+    $order_array['estado']              = " {$this->getTableName ()}.estado ";
+    return $filtro->getOrderString($order_array);
+  }
+
+  /**
+   * Filtramos para la busqueda usando un objeto Filtro
+   * @param Filtro $filtro el objeto filtro
+   * @return boolean
+   */
+  public function filtrar(&$filtro)
+  {
+    parent::filtrar($filtro);
+    $filtro_sql = '';
+    return $filtro_sql;
+  }
 }
 
 ?>
