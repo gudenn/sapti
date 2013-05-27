@@ -1,4 +1,5 @@
 {include file="header.tpl"}
+
     <form action="" method="post" id="pedido_form" >
       <table class="tbl_lista" id="pedido">
         <thead>
@@ -275,7 +276,7 @@
     </tbody> 
 </table>
 <script type="text/javascript">
-    {literal}
+  
   jQuery(function(){
     $("#almacen tbody").on("click", "tr", function(event){
     alert( " hola");
@@ -284,7 +285,9 @@
       return false;
     });
   });
-    {/literal}
+   
 
 </script>
 {include file="footer.tpl"}
+
+
