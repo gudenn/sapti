@@ -36,6 +36,10 @@ class Tribunal extends Objectbase
      */
     var $descripcion_asignacion;
   
-  }
+  
+     
+
+}
+
 
 ?>
