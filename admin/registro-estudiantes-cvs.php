@@ -10,9 +10,10 @@ try {
 
   //CSS
   $CSS[]  = URL_CSS . "academic/3_column.css";
-  $CSS[]  = URL_JS  . "/validate/validationEngine.jquery.css";
+  $CSS[]  = URL_css  . "/validate/validationEngine.jquery.css";
   
-  $CSS[]  = URL_JS . "ui/cafe-theme/jquery-ui-1.10.2.custom.min.css";
+  $CSS[]  = URL_CSS . "ui/cafe-theme/jquery-ui-1.10.2.custom.min.css";
+ 
   
   $smarty->assign('CSS',$CSS);
 
@@ -26,6 +27,15 @@ try {
   //Validation
   $JS[]  = URL_JS . "validate/idiomas/jquery.validationEngine-es.js";
   $JS[]  = URL_JS . "validate/jquery.validationEngine.js";
+      
+  $JS[]  = URL_JS . "js/aplication.js";
+  $JS[]  = URL_JS . "js/bootstrap.js";
+  $JS[]  = URL_JS . "js/jquery.multi-select.js";
+  
+  $JS[]  = URL_JS . "js/jquery.quicksearch.js";
+  $JS[]  = URL_JS . "js/jquery.tinysort.js";
+  $JS[]  = URL_JS . "js/rainbow.js";
+  
 
   $smarty->assign('JS',$JS);
 

@@ -17,24 +17,24 @@ try {
   $smarty->assign('JS','');
 
   //CREAR UN TIPO   DE DEF
-  /**
- leerClase('Defensa');
- $defensa        = new Defensa();
+
+ leerClase('Usuario');
+ $usuario        = new Usuario();
 // $tipos->descripcion_tipodefensa = 'Es%';       
- $defensa_mysql  = $defensa->getAll();
- $defensa_id     = array();
- $defensa_nombre = array();
- while ($defensa_mysql && $row = mysql_fetch_array($defensa_mysql[0]))
+ $usuario_mysql  = $usuario->getAll();
+ $usuario_id     = array();
+ $usuario_nombre = array();
+ while ($usuario_mysql && $row = mysql_fetch_array($usuario_mysql[0]))
  {
-   $defensa_id[]     = $row['id'];
-   $defensa_nombre[] = $row['nombre_tipodefensa'];
+   $usuario_id[]     = $row['id'];
+   $usuario_nombre[] = $row['nombre'];
  }
-$smarty->assign('cust_ids'  , $tipos_id);
-$smarty->assign('cust_names', $tipos_nombre);
-*/
+$smarty->assign('usuario_id'  , $usuario_id);
+$smarty->assign('usuario_nombre', $usuario_nombre);
+
 //contruyendo el usuario
   
-  /**
+  
 leerClase("Proyecto");
 $proyecto= new Proyecto();
 $proyecto_sql= $proyecto->getAll();
@@ -50,7 +50,7 @@ while ($proyecto_sql && $rows = mysql_fetch_array($proyecto_sql[0]))
 $smarty->assign('proyecto_id',$proyecto_id);
 $smarty->assign('proyecto_nombre',$proyecto_nombre);
   
-  */  
+  
   leerClase('Tribunal');
   
   $tribunal = new Tribunal();

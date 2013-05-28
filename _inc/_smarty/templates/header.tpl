@@ -17,10 +17,17 @@
     {/section}
 
 <link rel="stylesheet" href="{$URL_CSS}academic/layout.css" type="text/css" />
+
+
 <!-- Homepage Specific Elements -->
 <script type="text/javascript" src="{$URL_JS}academic/jquery-1.4.1.min.js"></script>
 <script type="text/javascript" src="{$URL_JS}academic/jquery-ui-1.7.2.custom.min.js"></script>
 <script type="text/javascript" src="{$URL_JS}academic/jquery.tabs.setup.js"></script>
+
+<script type="text/javascript" src="{$URL_JS}academic/jquery.tabs.setup.js"></script>
+
+
+
 <!-- End Homepage Specific Elements -->
 </head>
 <body id="top">
