@@ -39,14 +39,22 @@ try {
 
   $id     = '';
   $editar = FALSE;
-  if (isset($_GET['editar']) && isset($_GET['estudiante_id']) && is_numeric($_GET['estudiante_id']) )
+  $hola=$_GET['estudiante_id'];
+  
+ 
+  if ( isset($_GET['estudiante_id']) && is_numeric($_GET['estudiante_id']) )
   {
+      
+      
     $editar = TRUE;
     $id     = $_GET['estudiante_id'];
+   //  echo "<script>alert('Error al aliminar $hola');</script>";
   }
 
   $estudiante = new Estudiante($id);
-  $usuario    = new Usuario();
+  $usuario    = new Usuario($id);
+  
+  echo "<script>alert('Error al aliminar $usuario->ci');</script>";
 
   $smarty->assign("usuario"   , $usuario);
   $smarty->assign("estudiante", $estudiante);
