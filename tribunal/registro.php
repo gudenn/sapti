@@ -34,28 +34,23 @@ $smarty->assign('cust_names', $tipos_nombre);
 */
 //contruyendo el usuario
   
-  
-leerClase("Usuario");
-$usuario= new Usuario();
-$usuario_sql= $usuario->getAll();
-$usuario_id= array();
-$usuario_nombre=array();
-while ($usuario_sql && $rows = mysql_fetch_array($usuario_sql[0]))
+  /**
+leerClase("Proyecto");
+$proyecto= new Proyecto();
+$proyecto_sql= $proyecto->getAll();
+$proyecto_id= array();
+$proyecto_nombre=array();
+while ($proyecto_sql && $rows = mysql_fetch_array($proyecto_sql[0]))
  {
-   $usuario_id[]     = $rows['id'];
-   $usuario_nombre[] = $rows['nombre'];
+   $proyecto_id[]     = $rows['id'];
+   $proyecto_nombre[] = $rows['nombre_proyecto'];
  }
 
 
-$smarty->assign('usuario_id',$usuario_id);
-$smarty->assign('usuario_nombre',$usuario_nombre);
+$smarty->assign('proyecto_id',$proyecto_id);
+$smarty->assign('proyecto_nombre',$proyecto_nombre);
   
-  
-  
-  
-  
-  
-  
+  */  
   leerClase('Tribunal');
   
   $tribunal = new Tribunal();

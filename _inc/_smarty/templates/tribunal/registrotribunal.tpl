@@ -4,15 +4,17 @@
   <div class="rnd">
     <div id="container" class="clear">
       <form action="" method="post">
-           <label for="nombre">Nombre Usuario </label>   <select name=usuario_id>
+           <label for="nombre">Nombre </label>
+           <input type="text" id="nombre" name="nombre_tribunal" value="{$tribunal->nombre_tribunal}" /><br />
+     
+           <label for="nombre">Nombre Proyecto</label> 
+           <select name=usuario_id>
             {html_options values=$usuario_id output=$usuario_nombre selected=$usuario_id}
              </select><br />
-              <label for="nombre">Tipo Defensa </label>   <select name=proyecto_nombre>
-            {html_options values=$cust_ids output=$cust_names selected=$proyecto_nombre}
-             </select><br />
-        <label for="nombre">Fecha Defensa</label><input type="date" id="fecha_defensa" name="fecha_defensa" value="{$defensa->fecha_defensa}" /><br />
-        <label for="nombre">Hora Defensa</label>  {html_select_time use_24_hours=true} <br />
-        <input type="hidden" id="tarea" name="tarea" value="grabar" />
+              <label for="nombre">Descripcion </label> <br />
+              <textarea   id="descripcion_asignacion"  name="descripcion_asignacion"  value="{$tribunal->descripcion_asignacion}" >  </textarea><br />
+            
+          <input type="hidden" id="tarea" name="tarea" value="grabar" />
         <input type="submit" value="registro" />
       </form>
     </div>

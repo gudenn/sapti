@@ -9,17 +9,40 @@ class Tribunal extends Objectbase
     /**
      *
      * @var type 
-     * Codigo identificador de objeto Defensa
+     * Codigo identificador de objeto proyecto
      */
-    var $defensa_id;
+    var $proyecto_id;
     
  /**
-  * Codigo identificador del Objeto Usuario
+  * Nombre de asignacion de tribunal
   * @var INT(11)
   */
-  var $usuario_id;
+    
+    var $nombre_tribunal;
+    /**
+     *
+     * @var type date fecha de asignacion de los tribunales
+     */
+    var $fecha_asignacion;
+    /**
+     *
+     * @var type time hora de asignacion de los tribunales
+     */
+    var $hora_asignacion;
+    /**
+     *
+     * @var type var char (500)
+     * una pequeña descripcion de la asignacion de los tribunales
+     */
+    var $descripcion_asignacion;
   
+<<<<<<< HEAD
+=======
+  
+     
+>>>>>>> origin/master
 
 }
+
 
 ?>
