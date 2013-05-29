@@ -47,7 +47,7 @@ try {
 
   $estudiante = new Estudiante($id);
   $usuario    = new Usuario($estudiante->usuario_id);
-
+  
   $smarty->assign("usuario"   , $usuario);
   $smarty->assign("estudiante", $estudiante);
   

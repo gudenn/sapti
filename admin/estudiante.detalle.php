@@ -13,7 +13,7 @@ try {
   $CSS[]  = URL_JS  . "/validate/validationEngine.jquery.css";
   
   $CSS[]  = URL_JS . "ui/cafe-theme/jquery-ui-1.10.2.custom.min.css";
-  
+ 
   $smarty->assign('CSS',$CSS);
 
   //JS
