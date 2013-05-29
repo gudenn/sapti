@@ -1,7 +1,7 @@
       <div id="content">
-        <h1 class="title">Registro de Estudiantes</h1>
-        <p>Formulario de registro de estudiantes</p>
-        <h2 class="title">Formulario de Registro</h2>
+        <h1 class="title">Edici&oacute;n del Estudiante "<i>{$usuario->nombre} {$usuario->apellidos}</i>"</h1>
+        <p>Formulario de Edici&oacute;n de estudiantes</p>
+        <h2 class="title">Formulario de Edici&oacute;n</h2>
         <div id="respond">
           <form action="#" method="post" id="registro" name="registro" >
             <p>
@@ -47,9 +47,8 @@
               <input type="hidden" name="tarea" value="registrar">
               <input type="hidden" name="token" value="{$token}">
 
-              <input name="submit" type="submit" id="submit" value="Grabar">
+              <input name="submit" type="submit" id="submit" value="Modificar">
               &nbsp;
-              <input name="reset" type="reset" id="reset" tabindex="5" value="Resetear">
             </p>
           </form>
         </div>

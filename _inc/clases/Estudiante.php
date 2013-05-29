@@ -55,6 +55,51 @@ class Estudiante extends Objectbase
     if ( $es_nuevo ) // nuevo
       $this->getByCodigoSis($this->codigo_sis,true);
   }
+
+  /**
+   * Inicia el filtro para el admin
+   * @param Filtro $filtro el fitro que se usara en el admin
+   */
+  function iniciarFiltro(&$filtro) 
+  {
+    
+    if (isset($_GET['order']))
+      $filtro->order($_GET['order']);
+    Usuario::iniciarFiltro($filtro);
+    $filtro->nombres[] = 'Codigo Sis';
+    $filtro->valores[] = array ('input' ,'codigo_sis',$filtro->filtro('nombre'));
+  }
+
+  /**
+   * Devuelve el order para el SQL
+   * @param array $order_array arreglo con las claves para el order
+   * @return string
+   */
+  function getOrderString(&$filtro) 
+  {
+    $order_array                        = array();
+    $order_array['codigo_sis']              = " {$this->getTableName ()}.codigo_sis ";
+
+    $order_array['id']                  = " {$this->getTableName ('Usuario')}.id ";
+    $order_array['nombre']              = " {$this->getTableName ('Usuario')}.nombre ";
+    $order_array['apellidos']           = " {$this->getTableName ('Usuario')}.apellidos ";
+    $order_array['login']               = " {$this->getTableName ('Usuario')}.login ";
+    $order_array['email']               = " {$this->getTableName ('Usuario')}.email ";
+    $order_array['estado']              = " {$this->getTableName ('Usuario')}.estado ";
+    return $filtro->getOrderString($order_array);
+  }
+
+  /**
+   * Filtramos para la busqueda usando un objeto Filtro
+   * @param Filtro $filtro el objeto filtro
+   * @return boolean
+   */
+  public function filtrar(&$filtro)
+  {
+    parent::filtrar($filtro);
+    $filtro_sql = '';
+    return $filtro_sql;
+  }
 }
 
 ?>

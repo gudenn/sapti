@@ -32,19 +32,30 @@ try {
 
   $smarty->assign("ERROR", '');
 
-  $columnacentro = 'admin/columna.centro.registro-estudiante-cvs.tpl';
-  $smarty->assign('columnacentro',$columnacentro);
 
   //CREAR UN ESTUDIANTE
   leerClase('Usuario');
   leerClase('Estudiante');
 
-  $usuario    = new Usuario();
-  $estudiante = new Estudiante();
-  
+  $id     = '';
+  $editar = FALSE;
+  if ( isset($_GET['estudiante_id']) && is_numeric($_GET['estudiante_id']) )
+  {
+    $editar = TRUE;
+    $id     = $_GET['estudiante_id'];
+  }
+
+  $estudiante = new Estudiante($id);
+  $usuario    = new Usuario($estudiante->usuario_id);
+
   $smarty->assign("usuario"   , $usuario);
   $smarty->assign("estudiante", $estudiante);
   
+  if (!$editar)
+    $columnacentro = 'admin/columna.centro.estudiante-registro.tpl';
+  else
+    $columnacentro = 'admin/columna.centro.estudiante-registro-editar.tpl';
+  $smarty->assign('columnacentro',$columnacentro);
   
   if (isset($_POST['tarea']) && $_POST['tarea'] == 'registrar' && isset($_POST['token']) && $_SESSION['register'] == $_POST['token'])
   {

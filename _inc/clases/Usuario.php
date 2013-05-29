@@ -106,6 +106,36 @@ class Usuario  extends Objectbase
     self::__construct($usuario['id']);
     return true;
   }
+  
+  /**
+   * Obtenemos los nombres y apellidos del usuario de una cadena 
+   * @param string $nombreyapellidos cadena con el nombre y los appellidos ejemplo BASTO RODRIGUEZ PEDRO EDUARDO
+   * @param string $delimiter un spacio por lo general
+   * @return boolean
+   */
+  function parserNombreApellidos($nombreyapellidos = false,$delimiter = ' ') 
+  {
+    if (!$nombreyapellidos)
+      return false;
+    $array = explode($delimiter, $nombreyapellidos);
+    switch (count($array)) {
+      case 0:
+        return false;
+        break;
+      case 3://BASTO RODRIGUEZ EDUARDO 
+        $this->apellidos = $array[0] . ' ' . $array[1];
+        $this->nombre    = $array[2];
+        break;
+      case 4://BASTO RODRIGUEZ PEDRO EDUARDO 
+        $this->apellidos = $array[0] . ' ' . $array[1];
+        $this->nombre    = $array[2] . ' ' . $array[3];
+        break;
+      default: //odos los otros casos
+        $this->nombre    = $nombreyapellidos;
+        break;
+    }
+    
+  }
 
   /**
    * Validamos al usuario ya sea para actualizar o para crear uno nuevo
@@ -127,7 +157,7 @@ class Usuario  extends Objectbase
       $pas1 = isset($_POST['password1'])?$_POST['password1']:false;
       $pas2 = isset($_POST['password2'])?$_POST['password2']:false;
       $pas3 = isset($_POST['password3'])?$_POST['password3']:false;
-      Formulario::validarCambioPassword('password',$this->password,$pas1,$pas2,$pas3,true,'texto','La Clave de acceso',FALSE);
+      Formulario::validarCambioPassword('password',$this->clave,$pas1,$pas2,$pas3,true,'texto','La Clave de acceso',FALSE);
       $this->password = $pas2;
     }
     Formulario::validar_fecha('fecha_cumple',$this->fecha_cumple,TRUE);

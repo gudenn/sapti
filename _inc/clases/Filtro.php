@@ -180,8 +180,8 @@ class Filtro {
    */
   function iconOrder($o_key) 
   {
-    $asc  = '<img src="'.URL_IMG.'ico_descendente.gif" alt="Acendente"   title="cambiar"/>';
-    $desc = '<img src="'.URL_IMG.'ico_ascendente.gif"  alt="Descendente" title="cambiar" />';
+    $asc  = '<img src="'.URL_IMG.'ico-down.png" alt="Acendente" title="cambiar"/>';
+    $desc = '<img src="'.URL_IMG.'ico-up.png"  alt="Descendente" title="cambiar" />';
     if (!isset($_SESSION['filtro'][$this->key]['order'][$o_key]))
       return '';
     if ($_SESSION['filtro'][$this->key]['order'][$o_key] == 'ASC' )

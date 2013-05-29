@@ -171,6 +171,34 @@ function clean_inside_tags($txt,$tags){
     return $txt;
 }
 
+  /**
+   * Imprime un icono de la carpeta icon en imagenes
+   * @param string $file  nombre del archivo del icono
+   * @param string $alt  texto alternativo
+   * @param string $width ancho del icono
+   * @param string $height alto del icono (por defecto lleva el mismo valor del ancho)
+   * @param string $extra estilo o clases o cuaquier cosa
+   * @param boolean $echo si se muestra o no
+   * @return string
+   */
+  function icono($file,$title,$width = '24px',$height = false,$extra = false,$alt = false,$echo = false) 
+  {
+    if (!$alt)
+      $alt = $title;
+    if (!$height)
+      $height = $width;
+    $URL = URL_IMG."icons/$file";
+    $img = <<<____IMG
+      <img src="$URL" width="$width" height="$height" alt="$alt"  title="$title" $extra />
+____IMG;
+    if ($echo)
+      echo $img;
+    else
+      return $img;
+    return;
+  }
+
+
 /**
  * Cerrar tags abiertos
  * @param string $html

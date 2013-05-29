@@ -11,7 +11,7 @@
             <h2 class="title">Grabar Estudiantes</h2>
             <p>
               <input type="hidden" name="tarea" value="registrar">
-              <input type="hidden" name="token" value="{$token}FALSE">
+              <input type="hidden" name="token" value="{$token}">
 
               <input name="submit" type="submit" id="submit" value="Grabar">
               &nbsp;

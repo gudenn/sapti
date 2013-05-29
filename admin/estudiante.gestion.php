@@ -11,6 +11,7 @@ try {
   
 
   leerClase("Usuario");
+  leerClase("Estudiante");
   leerClase("Formulario");
   leerClase("Pagination");
   leerClase("Filtro");
@@ -36,27 +37,28 @@ try {
   //////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////
-
+  if (isset($_GET['eliminar']) && isset($_GET['estudiante_id']) && is_numeric($_GET['estudiante_id']) )
+  {
+    $estudiante = new Estudiante($_GET['estudiante_id']);
+    $usaurio    = new Usuario($estudiante->usuario_id);
+    $usaurio->delete();
+    $estudiante->delete();
+  }
 
   $smarty->assign('mascara'     ,'admin/listas.mascara.tpl');
-  $smarty->assign('lista'       ,'admin/usuario.lista.tpl');
+  $smarty->assign('lista'       ,'admin/estudiante.lista.tpl');
 
   //Filtro
-  $filtro     = new Filtro('usuario',__FILE__);
-  $usuario = new Usuario();
-  $usuario->iniciarFiltro($filtro);
-  $filtro_sql = $usuario->filtrar($filtro);
+  $filtro     = new Filtro('g_estudiante',__FILE__);
+  $estudiante = new Estudiante();
+  $estudiante->iniciarFiltro($filtro);
+  $filtro_sql = $estudiante->filtrar($filtro);
 
-  /*
-  $usuario->pais_id         = '%';
-  $usuario->departamento_id = '%';
-  $usuario->ciudad_id       = '%';
-*/
+  $estudiante->usuario_id = '%';
   
-  $o_string   = $usuario->getOrderString($filtro);
-  $obj_mysql  = $usuario->getAll('',$o_string,$filtro_sql,TRUE,TRUE);
-  $objs_pg    = new Pagination($obj_mysql, 'usuario','',false,10);
-
+  $o_string   = $estudiante->getOrderString($filtro);
+  $obj_mysql  = $estudiante->getAll('',$o_string,$filtro_sql,TRUE,TRUE);
+  $objs_pg    = new Pagination($obj_mysql, 'g_estudiante','',false,10);
 
   $smarty->assign("filtros"  ,$filtro);
   $smarty->assign("objs"     ,$objs_pg->objs);

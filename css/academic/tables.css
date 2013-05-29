@@ -24,6 +24,11 @@ table thead th{
 	table-layout:auto;
 	vertical-align:middle;
 	}
+table thead th a{
+  background-color: #06213F!important;
+  color: #FFF!important;
+	}
+
 
 table tbody td{
 	vertical-align:top;

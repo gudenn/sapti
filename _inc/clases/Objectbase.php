@@ -17,6 +17,8 @@ class Objectbase
   const FIDATE    = "fecha_";
   /** constant to para las fechas tipo fecha_cumple todas tendran el mismo comportamiento  */
   const OBJEND    = "_objs";
+  /** constant to para realizar join */
+  const JOINEND   = "_id";
   /** constant to the status of one table  */
   const STATUS    = "estado";
   /** constant to the status able  */
@@ -27,6 +29,8 @@ class Objectbase
   const STATUS_IN = "IN";
   /** constant to the status need confirmation  */
   const STATUS_NC = "NC";
+  /** constant to the status deleted */
+  const STATUS_DE = "DE";
   /** constant to add in the begin of the key to find the date values   */
   const HISTORIAL = "historial_objs";
 
@@ -231,24 +235,6 @@ class Objectbase
     return true;
   }
 
-
-  /**
-   * Filtramos para la busqueda usando un objeto Filtro
-   * @param Filtro $filtro el objeto filtro
-   * @return boolean
-   */
-  public function filtrar($filtro)
-  {
-    foreach($this as $key => $value)
-    {
-      /** if the $key refer to an object continue */
-      if ($this->isKeyObject($key))
-        continue;
-      $this->$key = $filtro->filtro($key);
-    }
-    return true;
-  }
-
  /**
   * Vaciar las variables del Objeto
   *
@@ -267,6 +253,22 @@ class Objectbase
     return true;
   }
 
+  /**
+   * Convierte un objeto en un array
+   * @return \Objectbase
+   */
+  function getArray ()
+  {
+    $esto = array();
+    foreach($this as $key => $value)
+    {
+      /**  if the $key no refer to an object continue */
+      if ($this->isKeyObject($key))
+        continue;
+      $esto[$key] = $value;
+    }
+    return $esto;
+  }
 
  /**
   * Convertimos todas las fechas de HUMAN a SQL
@@ -423,39 +425,63 @@ class Objectbase
   * @param string $limit the limit in the sql
   * @param string $orderby the ORDER BY sentence, in the sql
   * @param string $filter  some firlter to the sql, like: KEY LIKE "%"
+  * @param bool $just_mysql  if just need myql recurse
+  * @param bool $autojoin  make the joins in the sql
   *
   * @return array array(the sql result,the number of afected rows) or (null,0)
   *
   */
-  function getAll ($limit = "",$orderby = "",$filter = "" , $just_mysql = false)
+  function getAll ($limit = "",$orderby = "",$filter = "" , $just_mysql = false , $autojoin = false)
   {
+    /** fechas a SQL */
+    $this->datesHTS();    
+    /** Join automatico */
+    $joinfrom  = '';
+    $joinwhere = '';
+    $joinselect = '';
+    /** Extra para las fechas */
+    $extra_fechas = '';
+    
     if ($orderby === "")
-      $orderby = 'ORDER BY '.$this->getIdlabel() .' DESC';
+      $orderby = "ORDER BY {$this->getTableName()}.{$this->getIdlabel()} DESC";
     $where = "";
     foreach($this as $key => $value)
     {
       /**  if the $key refer to an object continue */
       if ($this->isKeyObject($key))
         continue;
+      if ($autojoin && $this->isJoinKey($key) &&  $value != FALSE )
+      {
+        $joinfrom   .= $this->joinFrom($key);
+        $joinwhere  .= $this->joinWhere($key);
+        $joinselect .= $this->joinSelect($key);
+      }
       if ('' != $value)
       {
         $COMP = ' = ';
         if (strpos($value, '%') !== FALSE)
           $COMP = ' LIKE ';
-        if ( '' == $where )
-        {
-          $where  = " ".strtolower($key)." $COMP '$value' ";
-        }
-        else
-        {
-          $where .= " AND ".strtolower($key)." $COMP '$value' ";
-        }
+        $where .= " AND {$this->getTableName()}.".strtolower($key)." $COMP '$value' ";
+      }
+      /**
+       * Tratamiento especial de las fechas
+       * sacamos las fechas para que la genta la vea
+       */
+      if ($this->isKeyDate($key))
+      {
+        $extra_fechas .= " , DATE_FORMAT($key,'%d %b %Y') as {$key}_toshow ";
       }
     }
+    if ($autojoin && trim($joinwhere) != '')
+      $where = " $joinwhere $where ";
     if ( '' != $where )
-      $where = " WHERE $where ";
+      $where = " WHERE 1 $where ";
 
-    $sql = "SELECT * FROM ".$this->getTableName()." $where $filter $orderby $limit";
+    /** fechas a HUMAN */
+    $this->datesSTH();    
+
+
+    $sql = "SELECT {$this->getTableName()}.* $joinselect $extra_fechas FROM {$this->getTableName()}  $joinfrom $where $joinwhere $filter $orderby $limit";
     //echo $sql;
     $result = mysql_query($sql);
     if (!$result)
@@ -494,15 +520,15 @@ class Objectbase
   * Build all the son objects of this object
   *
   * @param string $key the key that refers to an object
+  * @param string $class_base la base que referencia al objeto principal
   * @return array array of objects
-  *
   */
   function getThisObjects ($key ,$class_base )
   {
 
     $class  = $this->getClassNameOfKey($key);
     $sql    = "SELECT * FROM ". $this->getTableName($class) ." WHERE ".$this->getIdlabelBase($class_base)." = '".$this->getIdValue()."' AND ".Objectbase::STATUS." = '".Objectbase::STATUS_AC."' order by id ASC ";
-
+    //echo $sql;
     $result = mysql_query($sql);
     if (!$result)
       return false;
@@ -518,6 +544,7 @@ class Objectbase
         if (isset($array[$obj_key]))
           $obj->$obj_key = $array[$obj_key];
       }
+      $obj->datesSTH();
       $objs[] = $obj;
     }
     return $objs;
@@ -533,6 +560,85 @@ class Objectbase
   {
     return ucfirst(str_replace(Objectbase::OBJEND, "", $key));
   }
+
+
+  /**
+   *  Return if the key atribute refers to an object to make a JOIN
+   * @param type $key
+   * @return boolean
+   */
+  function isJoinKey($key) 
+  {
+    if (Objectbase::JOINEND == substr($key, - strlen(Objectbase::JOINEND)))
+      return true;
+    return false;
+  }
+
+  /**
+   * Genera el FROM para el join
+   * @param string $key key para testear
+   * @param string $as nombre alternativo para el join 
+   * @return type
+   */
+  function joinFrom($key , $as = false ) 
+  {
+    $class = substr($key, 0 , - strlen(Objectbase::JOINEND));
+    $as    = ($as)?" as $as ":$as;
+    return ' , '. $this->getTableName($class)." $as ";
+  }
+
+  /**
+   * Genera el where para el join
+   * @param string $key la llave
+   * @param string $as si se esta manejando un alias
+   * @param bool $ponerAndAlFinal si ponemos el And al final
+   * @return string the where clause
+   */
+  function joinWhere($key , $as = false , $ponerAndAlFinal = false) 
+  {
+    $class = substr($key, 0 , - strlen(Objectbase::JOINEND));
+    $as    = ($as)?" $as.":$as;
+    $id = $this->getIdlabel();
+    if (!$as)
+      $where = " {$this->getTableName()}.$key = $class.$id ";
+    else
+      $where = " {$this->getTableName()}.$key = {$as}$id ";
+
+    if ($ponerAndAlFinal)
+      return " $where AND ";
+    else
+      return " AND $where ";
+  }
+
+  /**
+   * Genera el select para el join
+   * @param string $key la llave
+   * @param string $as si se esta manejando un alias
+   * @return string the where clause
+   */
+  function joinSelect($key , $as = false ) 
+  {
+    $class      = substr($key, 0 , - strlen(Objectbase::JOINEND));
+    $classObj   = $this->getClassNameOfKey($class);
+    leerClase($classObj);
+    $obj        = new $classObj();
+    $Idlabel    = $this->getIdlabel();
+    $joinSelect = '';
+    foreach ($obj as $obj_key => $value )
+    {
+      if ($this->isKeyObject($obj_key) )
+        continue;
+      if ( $obj_key != $Idlabel )
+      {
+        if ($as)
+          $joinSelect .= " , $as.$obj_key as {$as}_{$obj_key} ";
+        else
+          $joinSelect .= " , $class.$obj_key as {$class}_{$obj_key} ";
+      }
+    }
+    return $joinSelect;
+  }
+
 
   /**
    * Return the name of the table of this object
@@ -911,8 +1017,30 @@ class Objectbase
     }
     return true;
   }
-  
+
+
+  /**
+   * Filtramos para la busqueda usando un objeto Filtro
+   * @param Filtro $filtro el objeto filtro
+   * @return boolean
+   */
+  public function filtrar($filtro)
+  {
+    foreach($this as $key => $value)
+    {
+      /** if the $key refer to an object continue */
+      if ($this->isKeyObject($key))
+        continue;
+      $this->$key = $filtro->filtro($key);
+    }
+    return true;
+  }
+
+
   function dateHumanToSQl($date , $h_format = 'DD/MM/YYYY' , $h_sep = '/' , $s_format = 'YYYY/MM/DD' , $s_sep = '-') {
+    $new_date = explode(' ',$date);
+    if (count($new_date) === 2)
+      return Objectbase::dateHumanToSQl($new_date[0], $h_format, $h_sep, $s_format, $s_sep).' '.$new_date[1];
     if ($date == '') return '';
     if ($h_format == 'DD/MM/YYYY')
       $dateArray = explode($h_sep,$date);
@@ -922,6 +1050,9 @@ class Objectbase
   }
 
   function dateSQlToHuman($date , $h_format = 'DD/MM/YYYY' , $h_sep = '/' , $s_format = 'YYYY/MM/DD' , $s_sep = '-') {
+    $new_date = explode(' ',$date);
+    if (count($new_date) === 2)
+      return Objectbase::dateSQlToHuman($new_date[0], $h_format, $h_sep, $s_format, $s_sep).' '.$new_date[1];
     if ($date == '') return '';
     if ($s_format == 'YYYY/MM/DD')
       $dateArray = explode($s_sep,$date);
@@ -929,7 +1060,6 @@ class Objectbase
       $date = $dateArray[2].$h_sep.$dateArray[1].$h_sep.$dateArray[0];
     return $date;
   }
-  
   
   function objs_unshift(&$objs,$more) 
   {
