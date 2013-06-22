@@ -65,7 +65,8 @@ class Estudiante extends Objectbase
     
     if (isset($_GET['order']))
       $filtro->order($_GET['order']);
-    Usuario::iniciarFiltro($filtro);
+    $usuario = new Usuario();
+    $usuario->iniciarFiltro($filtro);
     $filtro->nombres[] = 'Codigo Sis';
     $filtro->valores[] = array ('input' ,'codigo_sis',$filtro->filtro('nombre'));
   }
@@ -98,6 +99,14 @@ class Estudiante extends Objectbase
   {
     parent::filtrar($filtro);
     $filtro_sql = '';
+    if ($filtro->filtro('email'))
+      $filtro_sql .= " AND {$this->getTableName ('usuario')}.email like '%{$filtro->filtro('email')}%' ";
+    if ($filtro->filtro('login'))
+      $filtro_sql .= " AND {$this->getTableName ('usuario')}.login like '%{$filtro->filtro('login')}%' ";
+    if ($filtro->filtro('nombre'))
+      $filtro_sql .= " AND {$this->getTableName ('usuario')}.nombre like '%{$filtro->filtro('nombre')}%' ";
+    if ($filtro->filtro('apellidos'))
+      $filtro_sql .= " AND {$this->getTableName ('usuario')}.apellidos like '%{$filtro->filtro('apellidos')}%' ";
     return $filtro_sql;
   }
 }

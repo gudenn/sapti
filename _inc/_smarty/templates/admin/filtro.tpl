@@ -29,11 +29,32 @@
   <tr>
     <td>
       <form action="{$filtros->clearaction}" method="post" id="filtro_clear">
-        <input type="submit" value="Limpiar" name="clear" class="sendme" />
+        <input type="submit" value="Limpiar" name="clear" class="sendme" onclick="clear_form('#filtro')" />
       </form>
     </td>
   </tr>
 </table>
+<script type="text/javascript">
+{literal}
+  function clear_form(ele) {
+      $(ele).find(':input').each(function() {
+          switch(this.type) {
+              case 'password':
+              case 'select-multiple':
+              case 'select-one':
+              case 'text':
+              case 'textarea':
+                  $(this).val('');
+                  break;
+              case 'checkbox':
+              case 'radio':
+                  this.checked = false;
+          }
+      });
+
+  }
+{/literal}
+</script>
 {if isset($crear_nuevo)}
   <table  style="width: 90px;float: left;" class="tbl_filtro">
     <tr>

@@ -10,11 +10,19 @@
 
 
 class Pagination {
+  const First    = "&laquo;Primer";
+  const Prev     = "&laquo;Previo";
+  const Next     = "Siguiente&raquo;";
+  const Last     = "Ultimo&raquo;";
+  const To       = "a";
+  const Of       = "de";
+    
   var $selc_combo; // get the option of the selector 
   var $link_pages; // get the link footer pagination
   var $ses_pg;     // current page
   var $ses_pp;     // rows per page
   var $ses_tp;     // total of pages
+  var $ses_to;     // total de registros
   var $objs;       // the object content the number of rows that correspond
 
   /**
@@ -81,7 +89,7 @@ class Pagination {
     $start   = ($_SESSION[$clave]['pg'] - 1 )* $_SESSION[$clave]['pp'];
     ////////////////////////////////
     //for ($i =  mysql_num_rows($result) - 1; $i >= 0; $i--) {
-    for ($i = $start; $i <= ($start + $n_rows); $i++) {
+    for ($i = $start; $i < ($start + $n_rows); $i++) {
       if ($i >= $mysql_num_rows)
         break;
       if (!mysql_data_seek($result, $i)) {
@@ -100,14 +108,14 @@ class Pagination {
     $p_pages   = array();
     // the first elemnet
     if (1 != $_SESSION[$clave]['pg'])
-      $p_pages[] = '<span><a href="'.self::getUrlLink(1).'" class="tajax" >&laquo;First</a></span>';
+      $p_pages[] = '<span><a href="'.self::getUrlLink(1).'" class="tajax" >'.Pagination::Prev.'</a></span>';
     else
-      $p_pages[] = '<span class="nextprev">&laquo;First</span>';
+      $p_pages[] = '<span class="nextprev">'.Pagination::First.'</span>';
 
     if (1 != $_SESSION[$clave]['pg'])
-      $p_pages[] = '<span><a href="'.self::getUrlLink($_SESSION[$clave]['pg']-1).'" class="tajax" >&laquo;Previous</a></span>';
+      $p_pages[] = '<span><a href="'.self::getUrlLink($_SESSION[$clave]['pg']-1).'" class="tajax" >'.Pagination::Prev.'</a></span>';
     else
-      $p_pages[] = '<span class="nextprev">&laquo;Previous</span>';
+      $p_pages[] = '<span class="nextprev">'.Pagination::Prev.'</span>';
 
     $n_fisrt  = 3;
     $n_before = 2;
@@ -155,20 +163,29 @@ class Pagination {
     }
     if ($_SESSION[$clave]['pg'] < $_SESSION[$clave]['tp'])
     {
-      $p_pages[] = '<span><a href="'.self::getUrlLink($_SESSION[$clave]['pg']+1).'"  class="tajax" >Next&raquo;</a></span>';
-      $p_pages[] = '<span><a href="'.self::getUrlLink($_SESSION[$clave]['tp']).'"  class="tajax" >Last&raquo;</a></span>';
+      $p_pages[] = '<span><a href="'.self::getUrlLink($_SESSION[$clave]['pg']+1).'"  class="tajax" >'.Pagination::Next.'</a></span>';
+      $p_pages[] = '<span><a href="'.self::getUrlLink($_SESSION[$clave]['tp']).'"  class="tajax" >'.Pagination::Last.'</a></span>';
     }
     else
     {
-      $p_pages[] = '<span class="nextprev">Next&raquo;</span>';
-      $p_pages[] = '<span class="nextprev">Last&raquo;</span>';
+      $p_pages[] = '<span class="nextprev">'.Pagination::Next.'</span>';
+      $p_pages[] = '<span class="nextprev">'.Pagination::Last.'</span>';
     }
+    
+    //$this->show_totales;
+            
+    $anterior  = (($_SESSION[$clave]['pg']-1) * $_SESSION[$clave]['pp']) + 1;
+    $atual     = $_SESSION[$clave]['pg']     * $_SESSION[$clave]['pp'];
+    $atual     = ($atual > $mysql_num_rows )?$mysql_num_rows:$atual;
+    $p_pages[] = '<span class="nextprev" > '.$anterior.' '.Pagination::To.' '.$atual.' '.Pagination::Of.' '.$mysql_num_rows.' </span>';
+    
     $this->p_pages     = $p_pages;
     $this->selc_combo  = $records_combo;
     $this->link_pages  = $p_pages;
     $this->ses_pg      = $_SESSION[$clave]['pg'];
     $this->ses_pp      = $_SESSION[$clave]['pp'];
     $this->ses_tp      = $_SESSION[$clave]['tp'];
+    $this->ses_to      = $mysql_num_rows;
     $this->ses_lk      = $_SESSION[$clave]['lk'];
     $this->objs        = $rows;
 

@@ -1024,7 +1024,7 @@ class Objectbase
    * @param Filtro $filtro el objeto filtro
    * @return boolean
    */
-  public function filtrar($filtro)
+  public function filtrar(&$filtro)
   {
     foreach($this as $key => $value)
     {

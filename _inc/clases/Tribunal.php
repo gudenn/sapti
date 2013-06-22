@@ -36,11 +36,6 @@ class Tribunal extends Objectbase
      */
     var $descripcion_asignacion;
   
-<<<<<<< HEAD
-=======
-  
-     
->>>>>>> origin/master
 
 }
 

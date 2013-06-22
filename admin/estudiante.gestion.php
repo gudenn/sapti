@@ -2,6 +2,8 @@
 try {
   require('_start.php');
   global $PAISBOX;
+  if(!isAdminSession())
+    header("Location: login.php");  
 
 //  if(!isAdminSession())
 //    header("Location: login.php");
