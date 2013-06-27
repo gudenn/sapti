@@ -1,7 +1,8 @@
 <?php
 try {
   require('_start.php');
-  global $PAISBOX;
+  if(!isEstudianteSession())
+    header("Location: login.php");  
 
   /** HEADER */
   $smarty->assign('title','Proyecto Final');

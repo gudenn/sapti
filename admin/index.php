@@ -1,7 +1,8 @@
 <?php
 try {
   require('_start.php');
-  global $PAISBOX;
+  if(!isAdminSession())
+    header("Location: login.php");  
 
   /** HEADER */
   $smarty->assign('title','Proyecto Final');

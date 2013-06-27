@@ -45,6 +45,25 @@ class Estudiante extends Objectbase
     return true;
   }
 
+/**
+  * get user if exist else return 0
+  * @param type $login
+  * @param type $clave
+  * @return object 
+  */
+  public function issetEstudiante($login, $clave) {
+    if ($login == "" || $clave == "")
+      return false;
+    $activo = Objectbase::STATUS_AC;
+    $sql  = "select * from ".$this->getTableName()." as a , ".$this->getTableName('usuario')." as u   where u.login = '$login' and u.clave = '$clave' and a.usuario_id = u.id and u.estado = '$activo' and a.estado = '$activo'  ";
+    //echo $sql; 
+    $resultado = mysql_query($sql);
+    if (!$resultado)
+      return false;
+    $user = mysql_fetch_object($resultado);
+    return $user;
+  }
+
   /**
    * Validamos al usuario ya sea para actualizar o para crear uno nuevo
    * @param type $es_nuevo
