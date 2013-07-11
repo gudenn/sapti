@@ -20,8 +20,6 @@
               <input type="hidden" name="token" value="{$token}">
 
               <input name="submit" type="submit" id="submit" value="Grabar">
-              &nbsp;
-              <input name="reset" type="reset" id="reset" tabindex="5" value="Resetear">
             </p>
           </form>
         </div>
