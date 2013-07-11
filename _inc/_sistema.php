@@ -24,6 +24,12 @@
     header("Location: index.php");
     exit();
   }
+  if (isset($_GET['salirestudiante'])||isset($_POST['salirestudiante']))
+  {  
+    closeEstudianteSession();
+    header("Location: index.php");
+    exit();
+  }
   
   conectar_db();
   mysql_query('SET NAMES \'utf8\'');

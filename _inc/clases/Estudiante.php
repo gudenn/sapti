@@ -7,7 +7,7 @@
 class Estudiante extends Objectbase 
 {
 
- /**
+  /**
   * Codigo identificador del Objeto Usuario
   * @var INT(11)
   */
@@ -128,6 +128,26 @@ class Estudiante extends Objectbase
       $filtro_sql .= " AND {$this->getTableName ('usuario')}.apellidos like '%{$filtro->filtro('apellidos')}%' ";
     return $filtro_sql;
   }
+  
+  function grabarCorrecion($file = 'file')
+  {
+    if (is_uploaded_file($_FILES[$file]['tmp_name']))
+    {
+      $nombreDirectorio = PATH.'proyecto/proyecto_id/correciones/';
+      $nombreFichero    = $_FILES[$file]['name'];
+      $nombreCompleto   = $nombreDirectorio . $nombreFichero;
+      if (file_exists($nombreCompleto))
+      {
+        $idUnico = time();
+        $nombreFichero = $idUnico . "-" . $nombreFichero;
+      }
+      move_uploaded_file($_FILES[$file]['tmp_name'], $nombreDirectorio.$nombreFichero);
+      return true;
+    }
+    else
+      return false;
+  }
+  
 }
 
 ?>

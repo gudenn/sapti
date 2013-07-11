@@ -5,9 +5,9 @@ try {
     header("Location: login.php");  
 
   /** HEADER */
-  $smarty->assign('title','SAPTI - Registro Modificaciones');
-  $smarty->assign('description','Formulario de registro de modificaciones');
-  $smarty->assign('keywords','SAPTI,Estudiantes,Registro,Modificaciones');
+  $smarty->assign('title','SAPTI - Registro Correciones');
+  $smarty->assign('description','Formulario de registro de Correciones');
+  $smarty->assign('keywords','SAPTI,Estudiantes,Registro,Correciones');
 
   //CSS
   $CSS[]  = URL_CSS . "academic/3_column.css";
@@ -37,42 +37,32 @@ try {
   //CREAR UN ESTUDIANTE
   leerClase('Usuario');
   leerClase('Estudiante');
-  leerClase('Revicion');
+  leerClase('Revision');
 
   $id     = '';
-  $editar = FALSE;
-  if ( isset($_GET['modificacion_id']) && is_numeric($_GET['modificacion_id']) )
+  if (isEstudianteSession())
   {
+    $estudiante = getSessionEstudiante();
     $editar = TRUE;
-    $id     = $_GET['modificacion_id'];
+    $id     = $estudiante->id;
+  }
+  
+  $estudiante = new Estudiante($id);
+
+  if ( isset($_POST['tarea']) && $_POST['tarea'] == 'registrar_correcion' && isset($_SESSION['registrar_correcion']) && isset($_POST['token']) && $_SESSION['registrar_correcion'] == $_POST['token']  )
+  {
+    $estudiante->grabarCorrecion();
   }
 
   $estudiante = new Estudiante($id);
   $usuario    = new Usuario($estudiante->usuario_id);
   
   $smarty->assign("usuario"   , $usuario);
-  $smarty->assign("estudiante", $estudiante);
-  
-  if (!$editar)
-    $columnacentro = 'estudiante/columna.centro.revision-registro.tpl';
-  else
-    $columnacentro = 'estudiante/columna.centro.revision-registro.tpl';
+  $smarty->assign("estudiante", $estudiante);  
+  $columnacentro = 'estudiante/columna.centro.correccion-registro.tpl';
   $smarty->assign('columnacentro',$columnacentro);
   
-  if (isset($_POST['tarea']) && $_POST['tarea'] == 'registrar' && isset($_POST['token']) && $_SESSION['register'] == $_POST['token'])
-  {
-    $usuario->objBuidFromPost();
-    $usuario->estado = Objectbase::STATUS_AC;
-    $es_nuevo = (!isset($_POST['usuario_id'])||trim($_POST['usuario_id'])=='' )?TRUE:FALSE;
-    $usuario->validar($es_nuevo);
-    $usuario->save();
 
-    $estudiante->objBuidFromPost();
-    $estudiante->estado = Objectbase::STATUS_AC;
-    $estudiante->usuario_id = $usuario->id;
-    $estudiante->validar($es_nuevo);
-    $estudiante->save();
-  }
 
   
 
@@ -86,7 +76,7 @@ catch(Exception $e)
 }
 
 $token                = sha1(URL . time());
-$_SESSION['register'] = $token;
+$_SESSION['registrar_correcion'] = $token;
 $smarty->assign('token',$token);
 
 $TEMPLATE_TOSHOW = 'estudiante/3columnas.tpl';

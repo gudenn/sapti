@@ -138,6 +138,16 @@ function getSessionAdmin() {
   }
 }
 
+function getSessionEstudiante() {
+  global $SYSTEM_NAME;
+  if (isEstudianteSession()) {
+    return loadObject("$SYSTEM_NAME-ESTUDIANTE");
+  }
+  else {
+    return 0;
+  }
+}
+
 function saveObject($object, $name) {
   $_SESSION[$name] = serialize($object);
 }

@@ -25,7 +25,7 @@
       <h1><a href="{$URL}">SAPTI</a></h1>
       <p>Licenciatura en Ingenier&iacute;a De Sistemas.</p>
     </div>
-    {include file="admin/menu.up.derecha.tpl"}
+    {include file="estudiante/menu.up.derecha.tpl"}
   </div>
 </div>
-{include file="admin/menu.topnav.tpl"}
+{include file="estudiante/menu.topnav.tpl"}
