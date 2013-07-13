@@ -391,14 +391,116 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`administrador`
+-- Table `sapti`.`admin`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`administrador` ;
+DROP TABLE IF EXISTS `sapti`.`admin` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`administrador` (
+CREATE  TABLE IF NOT EXISTS `sapti`.`admin` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `usuario_id` INT NULL ,
   `estado` VARCHAR(2) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `sapti`.`revision`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sapti`.`revision` ;
+
+CREATE  TABLE IF NOT EXISTS `sapti`.`revision` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `proyecto_id` INT NULL ,
+  `revisor` INT NULL ,
+  `fecha_observacion` DATE NULL ,
+  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `sapti`.`observacion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sapti`.`observacion` ;
+
+CREATE  TABLE IF NOT EXISTS `sapti`.`observacion` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `revision_id` INT NOT NULL ,
+  `observacion` VARCHAR(200) NULL ,
+  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `sapti`.`notificacion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sapti`.`notificacion` ;
+
+CREATE  TABLE IF NOT EXISTS `sapti`.`notificacion` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `proyecto_id` INT NOT NULL ,
+  `tipo` VARCHAR(45) NULL COMMENT 'Mensaje normal, Mensaje de tiempo se acaba, y otros ' ,
+  `detalle` VARCHAR(45) NULL ,
+  `prioridad` VARCHAR(45) NULL ,
+  `estado_notificacion` VARCHAR(45) NULL COMMENT 'aca se ppondra el estado de la noticifacion si ya fue vista o no' ,
+  `estado` VARCHAR(2) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `sapti`.`notificacion_tribunal`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sapti`.`notificacion_tribunal` ;
+
+CREATE  TABLE IF NOT EXISTS `sapti`.`notificacion_tribunal` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `notificacion_id` INT NOT NULL ,
+  `tribunal_id` INT NOT NULL ,
+  `estado` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `sapti`.`notificacion_estudiante`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sapti`.`notificacion_estudiante` ;
+
+CREATE  TABLE IF NOT EXISTS `sapti`.`notificacion_estudiante` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `notificacion_id` INT NOT NULL ,
+  `estudiante_id` INT NOT NULL ,
+  `estado` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `sapti`.`notificacion_docente`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sapti`.`notificacion_docente` ;
+
+CREATE  TABLE IF NOT EXISTS `sapti`.`notificacion_docente` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `notificacion_id` INT NOT NULL ,
+  `docente_id` INT NOT NULL ,
+  `estado` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `sapti`.`notificacion_tutor`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sapti`.`notificacion_tutor` ;
+
+CREATE  TABLE IF NOT EXISTS `sapti`.`notificacion_tutor` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `notificacion_id` INT NOT NULL ,
+  `tutor_id` INT NOT NULL ,
+  `estado` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
