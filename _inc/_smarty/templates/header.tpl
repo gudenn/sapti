@@ -25,8 +25,7 @@
 <script type="text/javascript" src="{$URL_JS}academic/jquery.tabs.setup.js"></script>
 
 <script type="text/javascript" src="{$URL_JS}academic/jquery.tabs.setup.js"></script>
-
-
+<script type="text/javascript" src="{$URL_JS}jquery.min.js"></script>
 
 <!-- End Homepage Specific Elements -->
 </head>
