@@ -18,9 +18,31 @@ try {
 
   //CREAR UN TIPO   DE DEF
 
- leerClase('Usuario');
- $usuario        = new Usuario();
-// $tipos->descripcion_tipodefensa = 'Es%';       
+  leerClase("Proyecto");
+  leerClase("Usuario");
+  leerClase("Estudiante");
+  leerClase("Formulario");
+  leerClase("Pagination");
+  leerClase("Filtro");
+ $filtro     = new Filtro('g_estudiante',__FILE__);
+  $estudiante = new Estudiante();
+  $estudiante->iniciarFiltro($filtro);
+  $filtro_sql = $estudiante->filtrar($filtro);
+
+  $estudiante->usuario_id = '%';
+  
+  $o_string   = $estudiante->getOrderString($filtro);
+  $obj_mysql  = $estudiante->getAll('',$o_string,$filtro_sql,TRUE,TRUE);
+  $objs_pg    = new Pagination($obj_mysql, 'g_estudiante','',false,10);
+
+  $smarty->assign("filtros"  ,$filtro);
+  $smarty->assign("objs"     ,$objs_pg->objs);
+  $smarty->assign("pages"    ,$objs_pg->p_pages);
+ 
+ /**
+ $rows = array();
+
+$smarty->assign('rows', $rows);
  $usuario_mysql  = $usuario->getAll();
  $usuario_id     = array();
  $usuario_nombre = array();
@@ -28,10 +50,14 @@ try {
  {
    $usuario_id[]     = $row['id'];
    $usuario_nombre[] = $row['nombre'];
+   $rows=$row;
  }
+ $smarty->assign('filas'  , $rows);
 $smarty->assign('usuario_id'  , $usuario_id);
 $smarty->assign('usuario_nombre', $usuario_nombre);
 
+
+*/
 //contruyendo el usuario
   
   
@@ -56,10 +82,33 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
   $tribunal = new Tribunal();
   $smarty->assign("tribunal", $tribunal);
   
-  if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
+    echo "hola mundo";
+  
+   if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
   {
+    
+  
+    
+    
     $tribunal->objBuidFromPost();
     $tribunal->save();
+   //   echo "hola mundo";
+    
+     foreach ($_POST['pedido'] as $indice => $valor)
+      { 
+       echo $valor;
+      
+                $registro_tribunal= new Registro_tribunal();
+                $smarty->assign("registro_tribunal",$registro_tribunal);
+  
+                $registro_tribunal->objBuidFromPost();
+                $registro_tribunal->tribunal_id= $tribunal->id;
+                $registro_tribunal->usuario_id =$valor;
+                $registro_tribunal->save();
+     } 
+    
+    
+    
   }
 
   
