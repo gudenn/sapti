@@ -34,6 +34,42 @@
   conectar_db();
   mysql_query('SET NAMES \'utf8\'');
 
+ 
+  /**
+   * Permisos del Sistema
+   */
+  verpermisos();
+  
+  /**
+   * 
+   * @global type $USUARIO
+   */
+  function verpermisos() {
+    if (isAdminSession())
+    {
+      leerClase('Administrador');
+      $admin = getSessionAdmin();
+      $admin = new Administrador($admin->id);
+      if (defined ("MODULO"))
+        $_SESSION["MODULO"] = MODULO;
+      else
+        $_SESSION["MODULO"] = 'VISITA';
+      if (!isset($_SESSION['PERMISOS']))
+        $_SESSION['PERMISOS'] = array();
+      if (!isset($_SESSION['PERMISOS'][$_SESSION["MODULO"]]))
+        $_SESSION['PERMISOS'][$_SESSION["MODULO"]] = $admin->getPermiso($_SESSION["MODULO"]);
+      //var_dump($_SESSION);
+    }
+  }
+  
+  /**
+   * Destroza todos los permimsos almacenados en la session
+   */
+  function destroyPermisos()
+  {
+    $_SESSION['PERMISOS'] = array();
+    unset($_SESSION['PERMISOS']);
+  }
 
   /**
   * funcion para leer las clases

@@ -1,5 +1,6 @@
 <?php
 try {
+  define ("MODULO", "GRUPO-GESTION");
   require('_start.php');
   if(!isAdminSession())
     header("Location: login.php");  
@@ -7,8 +8,7 @@ try {
 
   
 
-  leerClase("Usuario");
-  leerClase("Estudiante");
+  leerClase("Grupo");
   leerClase("Formulario");
   leerClase("Pagination");
   leerClase("Filtro");
@@ -17,9 +17,10 @@ try {
   $ERROR = '';
 
   /** HEADER */
-  $smarty->assign('title','Gestion de Usuarios');
-  $smarty->assign('description','Pagina de gestion de Usuarios');
-  $smarty->assign('keywords','Gestion,Usuarios');
+  $smarty->assign('title','Gestion de Grupos');
+  $smarty->assign('description','Pagina de gestion de Grupos');
+  $smarty->assign('keywords','Gestion,Grupos');
+  $smarty->assign('menudirslast','Gestion Grupos');
 
   //CSS
   $CSS[]  = URL_CSS . "academic/tables.css";
@@ -34,28 +35,23 @@ try {
   //////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////
-  if (isset($_GET['eliminar']) && isset($_GET['estudiante_id']) && is_numeric($_GET['estudiante_id']) )
-  {
-    $estudiante = new Estudiante($_GET['estudiante_id']);
-    $usaurio    = new Usuario($estudiante->usuario_id);
-    $usaurio->delete();
-    $estudiante->delete();
-  }
+
 
   $smarty->assign('mascara'     ,'admin/listas.mascara.tpl');
-  $smarty->assign('lista'       ,'admin/estudiante.lista.tpl');
+  $smarty->assign('lista'       ,'admin/grupo.lista.tpl');
 
   //Filtro
-  $filtro     = new Filtro('g_estudiante',__FILE__);
-  $estudiante = new Estudiante();
-  $estudiante->iniciarFiltro($filtro);
-  $filtro_sql = $estudiante->filtrar($filtro);
-
-  $estudiante->usuario_id = '%';
+  $filtro     = new Filtro('grupo',__FILE__);
+  $grupo = new Grupo();
+  $grupo->verificaTodosPermisos();
   
-  $o_string   = $estudiante->getOrderString($filtro);
-  $obj_mysql  = $estudiante->getAll('',$o_string,$filtro_sql,TRUE,TRUE);
-  $objs_pg    = new Pagination($obj_mysql, 'g_estudiante','',false,10);
+  $grupo->iniciarFiltro($filtro);
+  $filtro_sql = $grupo->filtrar($filtro);
+
+  $o_string   = $grupo->getOrderString($filtro);
+  $obj_mysql  = $grupo->getAll('',$o_string,$filtro_sql,TRUE,FALSE);
+  $objs_pg    = new Pagination($obj_mysql, 'grupo','',false,30);
+
 
   $smarty->assign("filtros"  ,$filtro);
   $smarty->assign("objs"     ,$objs_pg->objs);

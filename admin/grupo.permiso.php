@@ -1,5 +1,6 @@
 <?php
 try {
+  define ("MODULO", "PERMISO-GESTION");
   require('_start.php');
   if(!isAdminSession())
     header("Location: login.php");  
@@ -7,8 +8,8 @@ try {
 
   
 
-  leerClase("Usuario");
-  leerClase("Estudiante");
+  leerClase("Grupo");
+  leerClase("Permiso");
   leerClase("Formulario");
   leerClase("Pagination");
   leerClase("Filtro");
@@ -17,9 +18,10 @@ try {
   $ERROR = '';
 
   /** HEADER */
-  $smarty->assign('title','Gestion de Usuarios');
-  $smarty->assign('description','Pagina de gestion de Usuarios');
-  $smarty->assign('keywords','Gestion,Usuarios');
+  $smarty->assign('title','Gestion de Permisos');
+  $smarty->assign('description','Pagina de gestion de Permisos');
+  $smarty->assign('keywords','Gestion,Permisos');
+  $smarty->assign('menudirslast','Gestion Permisos');
 
   //CSS
   $CSS[]  = URL_CSS . "academic/tables.css";
@@ -34,29 +36,35 @@ try {
   //////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////
-  if (isset($_GET['eliminar']) && isset($_GET['estudiante_id']) && is_numeric($_GET['estudiante_id']) )
-  {
-    $estudiante = new Estudiante($_GET['estudiante_id']);
-    $usaurio    = new Usuario($estudiante->usuario_id);
-    $usaurio->delete();
-    $estudiante->delete();
-  }
+
 
   $smarty->assign('mascara'     ,'admin/listas.mascara.tpl');
-  $smarty->assign('lista'       ,'admin/estudiante.lista.tpl');
+  $smarty->assign('lista'       ,'admin/grupo.permiso.tpl');
 
   //Filtro
-  $filtro     = new Filtro('g_estudiante',__FILE__);
-  $estudiante = new Estudiante();
-  $estudiante->iniciarFiltro($filtro);
-  $filtro_sql = $estudiante->filtrar($filtro);
-
-  $estudiante->usuario_id = '%';
+  $filtro     = new Filtro('premisos',__FILE__);
   
-  $o_string   = $estudiante->getOrderString($filtro);
-  $obj_mysql  = $estudiante->getAll('',$o_string,$filtro_sql,TRUE,TRUE);
-  $objs_pg    = new Pagination($obj_mysql, 'g_estudiante','',false,10);
+  if (isset($_GET['grupo_id']))
+    $_SESSION['grpasigpermi_id'] = $_GET['grupo_id'];
+  elseif (!isset ($_SESSION['grpasigpermi_id']))
+    $_SESSION['grpasigpermi_id'] = 1;
+  else
+    $_SESSION['grpasigpermi_id'] = $_SESSION['grpasigpermi_id'];
+    
+  $grupo_id = $_SESSION['grpasigpermi_id'];
+  
+  $permiso = new Permiso();
+  $permiso->grupo_id = $grupo_id;
+  $permiso->iniciarFiltro($filtro);
+  $filtro_sql = $permiso->filtrar($filtro);
+  
+  $permiso->modulo_id = '%';
 
+  $o_string   = $permiso->getOrderString($filtro);
+  $obj_mysql  = $permiso->getAll('',$o_string,$filtro_sql,TRUE,TRUE);
+  $objs_pg    = new Pagination($obj_mysql, 'grupo','',false,30);
+
+  
   $smarty->assign("filtros"  ,$filtro);
   $smarty->assign("objs"     ,$objs_pg->objs);
   $smarty->assign("pages"    ,$objs_pg->p_pages);

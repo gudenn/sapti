@@ -26,31 +26,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`rol`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`rol` ;
-
-CREATE  TABLE IF NOT EXISTS `sapti`.`rol` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `sapti`.`privilegio`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`privilegio` ;
-
-CREATE  TABLE IF NOT EXISTS `sapti`.`privilegio` (
-  `id_privilegios` INT NOT NULL AUTO_INCREMENT ,
-  `rol_id` INT NOT NULL ,
-  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
-  PRIMARY KEY (`id_privilegios`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `sapti`.`estudiante`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `sapti`.`estudiante` ;
@@ -197,21 +172,9 @@ DROP TABLE IF EXISTS `sapti`.`grupo` ;
 
 CREATE  TABLE IF NOT EXISTS `sapti`.`grupo` (
   `id` INT NOT NULL AUTO_INCREMENT ,
+  `codigo` VARCHAR(40) NULL ,
+  `descripcion` VARCHAR(300) NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `sapti`.`tiene`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`tiene` ;
-
-CREATE  TABLE IF NOT EXISTS `sapti`.`tiene` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
-  `grupo_id` INT NOT NULL ,
-  `privilegios_id_privilegios` INT NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -441,8 +404,8 @@ CREATE  TABLE IF NOT EXISTS `sapti`.`notificacion` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `proyecto_id` INT NOT NULL ,
   `tipo` VARCHAR(45) NULL COMMENT 'Mensaje normal, Mensaje de tiempo se acaba, y otros ' ,
-  `detalle` VARCHAR(45) NULL ,
-  `prioridad` VARCHAR(45) NULL ,
+  `detalle` TEXT NULL ,
+  `prioridad` VARCHAR(10) NULL ,
   `estado_notificacion` VARCHAR(45) NULL COMMENT 'aca se ppondra el estado de la noticifacion si ya fue vista o no' ,
   `estado` VARCHAR(2) NULL ,
   PRIMARY KEY (`id`) )
@@ -501,6 +464,38 @@ CREATE  TABLE IF NOT EXISTS `sapti`.`notificacion_tutor` (
   `notificacion_id` INT NOT NULL ,
   `tutor_id` INT NOT NULL ,
   `estado` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `sapti`.`modulo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sapti`.`modulo` ;
+
+CREATE  TABLE IF NOT EXISTS `sapti`.`modulo` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `codigo` VARCHAR(40) NULL ,
+  `descripcion` VARCHAR(300) NULL ,
+  `estado` VARCHAR(2) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `sapti`.`permiso`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sapti`.`permiso` ;
+
+CREATE  TABLE IF NOT EXISTS `sapti`.`permiso` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `grupo_id` INT NULL ,
+  `modulo_id` INT NULL ,
+  `ver` TINYINT(1) NULL ,
+  `crear` TINYINT(1) NULL ,
+  `editar` TINYINT(1) NULL ,
+  `eliminar` TINYINT(1) NULL ,
+  `estado` VARCHAR(2) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
