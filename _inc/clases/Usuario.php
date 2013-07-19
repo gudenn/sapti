@@ -81,6 +81,8 @@ class Usuario  extends Objectbase
   */
   var $estudiante_objs;
 
+
+  
   /**
    * Crear un usario a partir de su login o verificar que se puede usar un login
    * 
@@ -106,6 +108,9 @@ class Usuario  extends Objectbase
     self::__construct($usuario['id']);
     return true;
   }
+
+  
+  
   
   /**
    * Obtenemos los nombres y apellidos del usuario de una cadena 

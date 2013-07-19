@@ -9,13 +9,10 @@
     Formulario de Asignacion de Tribunales
     </h1>
     <div class="clear"></div>
-    <form action="pedidoembarque.crear.php" method="get" name="filtro" id="filtro" >
-     
-      <table>
-        <tr>
-          
-          <td>
-            <h1>  Busqueda por Estudiante</h1>
+    
+    
+    <form action="" method="post" >
+             <h1>  Busqueda por Estudiante</h1>
           <table  style="width: 75%;float: left;" class="tbl_filtro">
           <tr>
               <th><label for="estado_lugar">Codigo Sis</label></th>
@@ -25,55 +22,27 @@
            <tr>
             
                  <td>
-                      <input type="text" name="codigo_box"  id="codigo_box" value="" />
+                      <input type="text" name="codigosis"  id="codigosis" value="" />
                   </td>
-                   <td>
-                      <input type="text" name="proveedor"  id="proveedor" value="" />
+                  <td>
+                      <input type="text" name="nombre"  id="nombre" value="" />
                   </td>
         
-                  <td><input type="submit" value="Buscar" name="find" class="sendme" /></td>
+                  <td><input type="submit" value="Buscar" name="buscar" class="sendme" /></td>
            </tr>
+          
           </table>
-          
-          </td>
-          <td>
-                 <h1>  Busqueda por Proyecto</h1> 
-<table  style="width: 75%;float: left;" class="tbl_filtro">
-    <tr>
-              <th><label for="estado_lugar">Nombre Proyecto</label></th>
-              <th><label for="codigo_box">Codigo</label></th>
-              <th>&nbsp;</th>
-    </tr>
-    <tr>
-            
-                 <td>
-                      <input type="text" name="codigo_box"  id="codigo_box" value="" />
-                  </td>
-                   <td>
-                      <input type="text" name="proveedor"  id="proveedor" value="" />
-                  </td>
-        
-                  <td><input type="submit" value="Buscar" name="find" class="sendme" /></td>
-    </tr>
-  </table>
-          
-          </td>
-        </tr>
+           </form>
+    
+       
       
       
-      </table>
+           
+<div  >
   
-
-          </form>
-    
-  <form action="" method="post" id="pedido_form" >
-    
-      <table border="0">
-        <tr>
-          
-          <td>
-            <h1> Lista de Docentes </h1>
- <table class="tbl_lista" id="almacen">
+  
+   <div>
+    <table class="tbl_lista" id="docentes"  mane="docentes">
   <thead>
   <tr>
     <th><a href='?order=id'                class="tajax"   title='Ordenar por Id'               >Id            </a></th>
@@ -85,7 +54,9 @@
   <tbody>
   {section name=ic loop=$objs}
     <tr  class="selectable">
-      <td>{$objs[ic]['id']}</td>
+      <td>{$objs[ic]['id']}
+        <input type="hidden" name="ids[]" value="{$objs[ic]['id']}">
+      </td>
       <td>{$objs[ic]['usuario_nombre']}</td>
       <td>{$objs[ic]['usuario_apellidos']}</td>
       <td>{$objs[ic]['codigo_sis']}</td>
@@ -93,12 +64,20 @@
   {/section}
     </tbody> 
 </table>
-      
-          
-          </td>
+   </div>          
+
+    <form action="" method="post" id="pedido_form" >
+    
+  
+    
+      <table >
+        <tr>
+     
           <td>
              <h1> Lista de Docentes Asignados </h1>
-       <table class="tbl_lista" id="pedido">
+         
+             
+       <table  multiple id="asignados" >
         <thead>
           <tr>
             <th>Id            </th>
@@ -117,7 +96,7 @@
       
       
       </table>
- 
+
     
       <div>
         Observaci&oacute;n<br/>
@@ -128,29 +107,31 @@
         <input type="hidden" name="salida_id" value="25" />
         <input type="submit" value="grabar" name="tarea" class="sendme" 
          
-        
+ 
       </div>
-    </form>
-
+   </div>
+ </form>
+ 
+  
+    
+    
 
   </div>
 
-  
+ 
 
 </div>
 </div>
-  
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 
   jQuery(function(){
-    $("#almacen tbody").on("click", "tr", function(event){
- if ($('#pedido > tbody >tr').length==3)
+    $("#docentes tbody").on("click", "tr", function(event){
+ if ($('#asignados > tbody >tr').length==3)
     {
      alert ( "Solo se Permitern tres Tribunales!!" );
       } else
         {
-           $("#pedido").append('<tr>' + $(this).html() + '</tr>');
+           $("#asignados").append('<tr>' + $(this).html() + '</tr>');
          $(this).remove();
           }
         return false;
@@ -167,9 +148,9 @@
 <script type="text/javascript">
 
   jQuery(function(){
-    $("#pedido tbody").on("click", "tr", function(event){
+    $("#asignados tbody").on("click", "tr", function(event){
     
-      $("#almacen tbody").append('<tr>' + $(this).html() + '</tr>');
+      $("#docentes tbody").append('<tr>' + $(this).html() + '</tr>');
       $(this).remove();
       return false;
     });

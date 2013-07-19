@@ -27,34 +27,30 @@ class Proyecto extends Objectbase
    * @return boolean
    * @throws Exception 
    */
-  public function getByCodigoSis ($codigo_sis, $verSifueTomado = false ) {
-    $sql       = "select * from ".$this->getTableName()." where codigo_sis = '$codigo_sis'";
-    $result = mysql_query($sql);
-    if ($result === false)
-      throw new Exception("?".$this->getTableName ()."&m=Cant getByEmail <br />$sql<br /> ".$this->getTableName() . ' -> '. mysql_error() );
-
-    if ($verSifueTomado)
-    {
-      if (mysql_num_rows($result))
-        throw new Exception("?codigo_sis&m=Este Codigo SIS ya esta en Uso.");
-      return;
-    }
-
-    $estudiante = mysql_fetch_array($result,MYSQL_BOTH);
-    self::__construct($estudiante['id']);
-    return true;
+ 
+  
+  function getProyectoAprobados()
+  {
+    //@TODO revisar
+    //leerClase('Proyecto_area');
+    leerClase('Area');
+    
+    $activo = Objectbase::STATUS_AC;
+   // $sql = "select p.* from ".$this->getTableName('Proyecto_estudiante')." as pe , ".$this->getTableName('Proyecto')." as p   where pe.estudiante_id = '$this->id' and pe.proyecto_id = p.id and pe.estado = '$activo' and p.estado = '$activo'  ";
+   
+ $sql = "select * from ".$this->getTableName('Proyecto_area')." as pa , ".$this->getTableName('Area')." as a   where pa.proyecto_id = '$this->id' and pa.area_id = a.id and pa.estado = '$activo' and a.estado = '$activo'  ";
+      
+//echo $sql;
+    $resultado = mysql_query($sql);
+    if (!$resultado)
+      return false;
+    $proyecto = mysql_fetch_array($resultado);
+   // $proyecto = new Proyecto($proyecto);
+    return $proyecto;
   }
-
-  /**
-   * Validamos al usuario ya sea para actualizar o para crear uno nuevo
-   * @param type $es_nuevo
-   */
-  function validar($es_nuevo = true) {
-    leerClase('Formulario');
-    Formulario::validar('codigo_sis' ,$this->codigo_sis ,'texto','El Codigo SIS');
-    if ( $es_nuevo ) // nuevo
-      $this->getByCodigoSis($this->codigo_sis,true);
-  }
+  
+  
+  
 }
 
 ?>

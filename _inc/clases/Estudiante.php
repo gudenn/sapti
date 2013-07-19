@@ -20,6 +20,37 @@ class Estudiante extends Objectbase
   var $codigo_sis;
 
   /**
+   * Constructor del estudiante
+   * @param type $id id de la tabla
+   * @param type $codigo_sis codigo sis del estudiante
+   * @return estudiante`|false
+   */
+  public function __construct($id = '',$codigo_sis= false)
+  {
+    if ($codigo_sis)
+    {
+      $sql = "SELECT * FROM ".$this->getTableName()." WHERE codigo_sis = '$codigo_sis'";
+      //echo $sql;
+      $result = mysql_query($sql);
+      if (!$result)
+        return false;
+      $row = mysql_fetch_array($result, MYSQL_ASSOC);
+      foreach($this as $key => $value)
+      {
+        /**  if the $key refer to an object continue */
+        if ($this->isKeyObject($key))
+          continue;
+        if (isset($row[strtolower($key)]))
+          $this->$key   = $row[strtolower($key)];
+      }
+      /** solo para los leidos desde la base de datos */
+      $this->datesSTH();
+    }
+    else
+      parent::__construct ($id);
+  }
+  
+  /**
    * Crear un estudiante a partir de su codigo sis o verificar que se puede usar un nuevo estudiante
    * 
    * @param string $codigo_sis el codigo_sis
@@ -63,6 +94,31 @@ class Estudiante extends Objectbase
     $user = mysql_fetch_object($resultado);
     return $user;
   }
+  /**
+   * Obtiene el proyecto del estudiante
+   * @return boolean|Proyecto si no encuentra su proyecto retorna false
+   * @todo verificar que el proyecto sea el actual
+   */
+  function getProyecto()
+  {
+    //@TODO revisar
+    leerClase('Proyecto');
+    $activo = Objectbase::STATUS_AC;
+   // $sql = "select p.* from ".$this->getTableName('Proyecto_estudiante')." as pe , ".$this->getTableName('Proyecto')." as p   where pe.estudiante_id = '$this->id' and pe.proyecto_id = p.id and pe.estado = '$activo' and p.estado = '$activo'  ";
+   
+ $sql = "select p.* from ".$this->getTableName('Proyecto_estudiante')." as pe , ".$this->getTableName('Proyecto')." as p   where pe.estudiante_id = '$this->id' and pe.proyecto_id = p.id and pe.estado = '$activo' and p.estado = '$activo'  ";
+      
+//echo $sql;
+    $resultado = mysql_query($sql);
+    if (!$resultado)
+      return false;
+    $proyecto = mysql_fetch_array($resultado);
+    $proyecto = new Proyecto($proyecto);
+    return $proyecto;
+  }
+
+
+
 
   /**
    * Validamos al usuario ya sea para actualizar o para crear uno nuevo
