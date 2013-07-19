@@ -30,7 +30,6 @@
 <script type="text/javascript" src="{$URL_JS}js/jquery.multi-select.js"></script>
 <script type="text/javascript" src="{$URL_JS}js/jquery.quicksearch.js"></script>
 <script type="text/javascript" src="{$URL_JS}js/application.js"></script>
-<script type="text/javascript" src="{$URL_JS}js/jquery.validate.min"></script>
 
 <script type="text/javascript" src="{$URL_JS}academic/jquery.tabs.setup.js"></script>
 <script type="text/javascript" src="{$URL_JS}jquery.min.js"></script>

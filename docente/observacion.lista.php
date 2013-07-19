@@ -6,10 +6,6 @@ try {
 //  if(!isAdminSession())
 //    header("Location: login.php");
   
-  //MODULO -> REGISTRO DE MERCADERIA
-  //ACCION -> GESTION
-  
-
   leerClase("Revision");
   leerClase("Observacion");
   leerClase("Formulario");

@@ -116,8 +116,25 @@ class Estudiante extends Objectbase
     $proyecto = new Proyecto($proyecto);
     return $proyecto;
   }
-
-
+/**
+ * 
+ * @return boolean|\Usuario
+ * retorna los datos de un usuario asociado a un estudiante
+ */
+ function getDatos()
+ {
+   $activo = Objectbase::STATUS_AC;
+   $sql = "select u.* from ".$this->getTableName('Estudiante')." as es , ".$this->getTableName('Usuario')." as u   where es.usuario_id= '$this->id' and es.estado = '$activo' and u.estado = '$activo'  ";
+      
+//echo $sql;
+    $resultado = mysql_query($sql);
+    if (!$resultado)
+      return false;
+    $usuario = mysql_fetch_array($resultado);
+    $usuario = new Usuario($usuario);
+    return $usuario;
+   
+ }
 
 
   /**
@@ -164,6 +181,8 @@ class Estudiante extends Objectbase
     $order_array['estado']              = " {$this->getTableName ('Usuario')}.estado ";
     return $filtro->getOrderString($order_array);
   }
+  
+ 
 
   /**
    * Filtramos para la busqueda usando un objeto Filtro

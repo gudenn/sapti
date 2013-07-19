@@ -1,4 +1,4 @@
 <?php 
-require('estudiante.registro.php');
+//require('estudiante.registro.php');
 
 ?>

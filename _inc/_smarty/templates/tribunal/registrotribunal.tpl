@@ -11,13 +11,15 @@
     <div class="clear"></div>
     
     
+       <center> <td bgcolor="#F7F7F7" style="text-align:center"><strong>FORMULARIO DE REGISTRO DE TRIBUNALES</strong></td></center>
+        <div style="width: 50%;float: left;" class="tbl_filtro">
     <form action="" method="post" >
              <h1>  Busqueda por Estudiante</h1>
-          <table  style="width: 75%;float: left;" class="tbl_filtro">
+          <table  style="width: 100%;float: left;" class="tbl_filtro">
           <tr>
               <th><label for="estado_lugar">Codigo Sis</label></th>
               <th><label for="codigo_box">Nombre </label></th>
-              <th>&nbsp;</th>
+             
           </tr>
            <tr>
             
@@ -32,16 +34,35 @@
            </tr>
           
           </table>
-           </form>
-    
+     </form>
+
+  </div>
+    <div style="width: 50%;float: left;" class="tbl_filtro">
+        
+   <form action="" method="post">
+      <h1> Resultado de la  Busqueda por Estudiante</h1>
+        <label for="nombre">nombre:{$usuariobuscado->nombre}</label><br />
+        <label for="nombre">Apellidos:{$usuariobuscado->apellidos}</label><br />
+         <label for="nombre">Codigo Sis:{$estudiantebuscado->codigo_sis}</label><br />
+         <label for="nombre">Proyecto:{$proyectobuscado->nombre_proyecto}</label><br />
+         <label for="nombre">Area del Proyecto:{$proyectoarea->nombre}</label><br />
+        <input type="text" id="proyecto_id" name="proyecto_id" value="{$proyectobuscado->id}" /><br />
+
+ </form>
+  
+  
+</div>   
        
-      
+       
+<div style="width: 100%;float: left;" class="tbl_filtro"></div>
+   
       
            
-<div  >
+<div >
   
   
-   <div>
+   <div style="width: 100%;float: left;" class="tbl_filtro">
+     <Hi> Lista de Docentes </Hi>
     <table class="tbl_lista" id="docentes"  mane="docentes">
   <thead>
   <tr>
@@ -59,16 +80,17 @@
       </td>
       <td>{$objs[ic]['usuario_nombre']}</td>
       <td>{$objs[ic]['usuario_apellidos']}</td>
-      <td>{$objs[ic]['codigo_sis']}</td>
+      <td>Numero</td>
+     
     </tr>
   {/section}
     </tbody> 
 </table>
    </div>          
-
-    <form action="" method="post" id="pedido_form" >
-    
-  
+    <div style="width: 100%;float: left;" class="tbl_filtro">
+      
+       <form action="" method="post" id="pedido_form" >
+ 
     
       <table >
         <tr>
@@ -97,7 +119,7 @@
       
       </table>
 
-    
+      <input type="text" id="proyecto_id" name="proyecto_id" value="{$proyectobuscado->id}" /><br />
       <div>
         Observaci&oacute;n<br/>
         <textarea name="comentario" rows="4" style="width: 90%"></textarea>
@@ -111,17 +133,16 @@
       </div>
    </div>
  </form>
+    </div>
+   
  
-  
-    
-    
-
   </div>
 
  
 
 </div>
 </div>
+    
 <script type="text/javascript">
 
   jQuery(function(){

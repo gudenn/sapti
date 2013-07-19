@@ -167,7 +167,7 @@ catch(Exception $e)
   $smarty->assign("ERROR", handleError($e));
 }
 
-$TEMPLATE_TOSHOW = 'tribunal/registrotribunal.tpl';
+$TEMPLATE_TOSHOW = 'tribunal/listas.lista.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>
