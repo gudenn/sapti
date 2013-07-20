@@ -1,7 +1,6 @@
       <div id="content">
-        <h1 class="title">Registro de Evaluaciones</h1>
-        <p>Formulario de registro de Revision</p>
-        <h2 class="title">Formulario de Revision</h2>
+        <h1 class="title">Registro de Observacion</h1>
+        <p>Formulario de Registro de Observacion</p>
         <div id="respond">
           <form action="#" method="post" id="registro" name="registro" >
             <p>
@@ -18,7 +17,7 @@
             <label  accesskey="">Observacion
             </label>
             </p>
-            <input  type="text"  name="materiales[]" id="materiales[]" style="width:500px;" /> 
+            <input  type="text"  name="observaciones[]" id="observaciones[]" style="width:500px;" /> 
             <input class="bt_plus" id="1" type="button" value="Añadir Observacion" />
             <div class="error_form"></div>
             </div>
@@ -81,7 +80,6 @@
             jQuery('select').data('promptPosition',wo);
           });
         {/literal} 
-        </script>
         </script>
       </div>
         

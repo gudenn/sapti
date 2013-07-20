@@ -33,20 +33,18 @@ try {
 
   $smarty->assign("ERROR", '');
 
- //$mascara = 'docente/registro-evaluacion.tpl';
- //$smarty->assign('mascara',$mascara);
-
-  //CREAR UN ESTUDIANTE
+  //CREAR UNA REVISION
   leerClase('Revision');
   leerClase('Observacion');
-  
-  $obser=$_POST['materiales'];
+  if (isset($_POST['observaciones'])) 
+  $observaciones=$_POST['observaciones'];
   
   $observacion = new Observacion();
   $revision = new Revision();
+  //$observaciones=array();
   
-  //$smarty->assign($_POST["materiales"], $obser);
-  //$smarty->assign("materiales", $obser);
+  //$smarty->assign($obser, $_POST["materiales"]);
+  //$smarty->assign("observaciones", $observaciones);
   $smarty->assign("revision", $revision);
   $smarty->assign("observacion", $observacion);
     date_default_timezone_set('UTC');
@@ -57,7 +55,7 @@ try {
     $revision->objBuidFromPost();
     $revision->estado = Objectbase::STATUS_AC;
     $revision->save();
-    foreach ($obser as $obser_array){
+    foreach ($observaciones as $obser_array){
     $observacion->objBuidFromPost();
     $observacion->estado = Objectbase::STATUS_AC;
     $observacion->observacion=$obser_array;
