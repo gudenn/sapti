@@ -54,6 +54,22 @@ function initEstudianteSession($login, $passwd) {
     return false;
 }
 
+/**
+ * Inicia la session del docente
+ */
+function initDocenteSession($login, $passwd) {
+  global $SYSTEM_NAME,$SESSION_TIME;
+  leerClase("Docente");
+  $docente = new Docente();
+  $docente = $docente->issetDocente($login, $passwd);
+  if ($docente) {
+    saveObject($docente, "$SYSTEM_NAME-DOCENTE");
+    setcookie("$SYSTEM_NAME-DOCENTE", $login, time() + $SESSION_TIME, '/');
+    return true;
+  }
+  else
+    return false;
+}
 
 function isUserSession() {
   global $SYSTEM_NAME,$SESSION_TIME;
@@ -116,6 +132,22 @@ function isEstudianteSession() {
   return isset($_SESSION["$SYSTEM_NAME-ESTUDIANTE"]) ? 1 : 0;
 }
 
+function isDocenteSession() {
+  global $SYSTEM_NAME,$SESSION_TIME;
+  if(!isset($_SESSION))
+    session_start();
+  if ( !isset($_COOKIE["$SYSTEM_NAME-DOCENTE"]) )
+  {
+    closeDocenteSession();
+    return 0;
+  }
+  // renovamos en tiempo de la session pq hay actividad del usuario
+  $login = $_COOKIE["$SYSTEM_NAME-DOCENTE"];
+  setcookie("$SYSTEM_NAME-DOCENTE", $login, time() + $SESSION_TIME, '/');
+
+  return isset($_SESSION["$SYSTEM_NAME-DOCENTE"]) ? 1 : 0;
+}
+
 
 
 function getSessionUser() {
@@ -142,6 +174,16 @@ function getSessionEstudiante() {
   global $SYSTEM_NAME;
   if (isEstudianteSession()) {
     return loadObject("$SYSTEM_NAME-ESTUDIANTE");
+  }
+  else {
+    return 0;
+  }
+}
+
+function getSessionDocente() {
+  global $SYSTEM_NAME;
+  if (isDocenteSession()) {
+    return loadObject("$SYSTEM_NAME-DOCENTE");
   }
   else {
     return 0;
@@ -188,6 +230,20 @@ function closeEstudianteSession() {
   if(isset($_SESSION)) {
     setcookie("$SYSTEM_NAME-ESTUDIANTE", "" , 1 - ($SESSION_TIME * 2), '/');
     unset($_SESSION["$SYSTEM_NAME-ESTUDIANTE"]);
+  }
+}
+
+/**
+ * Cierra la sesion del docente
+ * @global string $SYSTEM_NAME
+ * @global type $SESSION_TIME
+ */
+
+function closeDocenteSession() {
+  global $SYSTEM_NAME,$SESSION_TIME;
+  if(isset($_SESSION)) {
+    setcookie("$SYSTEM_NAME-DOCENTE", "" , 1 - ($SESSION_TIME * 2), '/');
+    unset($_SESSION["$SYSTEM_NAME-DOCENTE"]);
   }
 }
 

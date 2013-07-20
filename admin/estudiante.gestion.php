@@ -1,5 +1,6 @@
 <?php
 try {
+  define ("MODULO", "ESTUDIANTE-GESTION");
   require('_start.php');
   if(!isAdminSession())
     header("Location: login.php");  

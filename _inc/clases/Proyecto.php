@@ -11,13 +11,8 @@ class Proyecto extends Objectbase
   * Codigo identificador del Objeto Usuario
   * @var INT(11)
   */
-  var $nombre_proyecto;
+  var $nombre;
 
- /**
-  * Codigo sis del estudiante
-  * @var VARCHAR(100)
-  */
-  var $estudiante_id;
 
   /**
    * 

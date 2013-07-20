@@ -1,8 +1,7 @@
 <?php
 try {
   require('_start.php');
-  if(!isDocenteSession())
-    header("Location: login.php");  
+  global $PAISBOX;
 
   /** HEADER */
   $smarty->assign('title','Proyecto Final');
@@ -10,24 +9,16 @@ try {
   $smarty->assign('keywords','Proyecto Final');
 
   //CSS
-  $CSS[]  = URL_CSS . "academic/3_column.css";
-  $smarty->assign('CSS',$CSS);
+  $CSS[]  = "css/style.css";
+  $smarty->assign('CSS','');
 
   //JS
   $JS[]  = "js/jquery.js";
   $smarty->assign('JS','');
 
 
-  //CREAR UN DOCENTE
-  leerClase('Docente');
-  
-  $docente = new Docente(1);
-
-  $docente->estado = "AC";
-  $docente->save();
   
   
-  $smarty->assign("docente", $docente);
   $smarty->assign("ERROR", $ERROR);
   
 
@@ -40,7 +31,7 @@ catch(Exception $e)
   $smarty->assign("ERROR", handleError($e));
 }
 
-$TEMPLATE_TOSHOW = 'docente/3columnas.tpl';
+$TEMPLATE_TOSHOW = 'index.academic.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>

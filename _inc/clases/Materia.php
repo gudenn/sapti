@@ -9,10 +9,6 @@ class Materia extends Objectbase
   * @var INT(11)
   */
   var $nombre;
-  
-  
-  var $ids;
-  
 
 }
 

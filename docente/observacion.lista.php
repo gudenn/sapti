@@ -5,7 +5,7 @@ try {
 
 //  if(!isAdminSession())
 //    header("Location: login.php");
-  
+
   leerClase("Revision");
   leerClase("Observacion");
   leerClase("Formulario");
@@ -16,9 +16,9 @@ try {
   $ERROR = '';
 
   /** HEADER */
-  $smarty->assign('title','Gestion de Usuarios');
-  $smarty->assign('description','Pagina de gestion de Usuarios');
-  $smarty->assign('keywords','Gestion,Usuarios');
+  $smarty->assign('title','Gestion de Observaciones');
+  $smarty->assign('description','Pagina de gestion de Observaciones');
+  $smarty->assign('keywords','Gestion,Observaciones');
 
   //CSS
   $CSS[]  = URL_CSS . "academic/tables.css";
@@ -33,24 +33,32 @@ try {
   //////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////
-  if (isset($_GET['eliminar']) && isset($_GET['estudiante_id']) && is_numeric($_GET['estudiante_id']) )
+  if (isset($_GET['eliminar']) && isset($_GET['revisiones_id']) && is_numeric($_GET['revisiones_id']) )
   {
-    $estudiante = new Estudiante($_GET['estudiante_id']);
-    $usaurio    = new Usuario($estudiante->usuario_id);
-    $usaurio->delete();
-    $estudiante->delete();
+    $revision    = new Revision($_GET['revisiones_id']);
+    $resul = "select id from observacion where revision_id =".$_GET['revisiones_id']." ";
+    $sql=mysql_query($resul);
+    $a=0;
+    $sql1=array();
+  while($res=mysql_fetch_row($sql)) {
+      $sql1[$a]=$res[0];
+      $a=$a+1;
+    }
+    foreach ($sql1 as $array1){
+    $observacion = new Observacion($array1);
+    $observacion->delete();
+    }
+    $revision->delete();
   }
-
   $smarty->assign('mascara'     ,'docente/listas.mascara.tpl');
   $smarty->assign('lista'       ,'docente/observacion.lista.tpl');
 
   //Filtro
-  $filtro     = new Filtro('g_estudiante',__FILE__);
+  $filtro   = new Filtro('g_revision',__FILE__);
   $revision = new Revision();
   $revision->iniciarFiltro($filtro);
   $filtro_sql = $revision->filtrar($filtro);
-
-  $revision->revisor = '%';
+  $revision->id = '%';
   
   $o_string   = $revision->getOrderString($filtro);
   $obj_mysql  = $revision->getAll('',$o_string,$filtro_sql,TRUE,TRUE);
