@@ -31,6 +31,13 @@
     exit();
   }
   
+    if (isset($_GET['salirdocente'])||isset($_POST['salirdocente']))
+  {  
+        closeDocenteSession();
+    header("Location: index.php");
+    exit();
+  }
+  
   conectar_db();
   mysql_query('SET NAMES \'utf8\'');
 
