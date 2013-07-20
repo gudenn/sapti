@@ -47,8 +47,30 @@ class Proyecto extends Objectbase
     $proyecto = new Proyecto($proyecto);
     return $proyecto;
   }
-   function getArea()
+  
+    function getProyectoAsignados()
   {
+   //leerClase('Proyecto');
+    $activo = Objectbase::STATUS_AC;
+   // $sql = "select p.* from ".$this->getTableName('Proyecto_estudiante')." as pe , ".$this->getTableName('Proyecto')." as p   where pe.estudiante_id = '$this->id' and pe.proyecto_id = p.id and pe.estado = '$activo' and p.estado = '$activo'  ";
+   
+ $sql = "select p.* from ".$this->getTableName('Proyecto_estudiante')." as pe , ".$this->getTableName('Proyecto')." as p   where pe.estudiante_id = '$this->id' and pe.proyecto_id = p.id and pe.estado = '$activo' and p.estado = '$activo'  ";
+      
+//echo $sql;
+    $resultado = mysql_query($sql);
+    if (!$resultado)
+      return false;
+    $proyecto = mysql_fetch_array($resultado);
+    var_dump($proyecto);
+    $proyecto = new Proyecto($proyecto);
+    return $proyecto;
+  }
+  
+  
+  
+  
+   function getArea()
+    {
     //@TODO revisar
    //  leerClase('Proyecto_area');
     leerClase('Area');
@@ -61,7 +83,7 @@ class Proyecto extends Objectbase
     $areas = mysql_fetch_array($resultado);
     $area = new Area($areas);
     return $area;
-  }
+    }
   
   
   

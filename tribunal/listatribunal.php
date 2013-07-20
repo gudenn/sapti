@@ -43,7 +43,60 @@ try {
   $smarty->assign("filtros"  ,$filtro);
   $smarty->assign("objs"     ,$objs_pg->objs);
   $smarty->assign("pages"    ,$objs_pg->p_pages);
+   $proyectostribunales= array();
+   
  
+   $proyec= new Proyecto();
+    //var_dump( $proyec->getProyectoAsignados());
+   
+   $usuario = new Usuario();
+//$smarty->assign('rows', $rows);
+ $usuario_mysql  = $usuario->getAll();
+ $usuario_id     = array();
+ $usuario_nombre = array();
+ $sql="SELECT pt.`id` , u.`nombre` ,u.`apellidos`, es.`codigo_sis` , p.`nombre_proyecto`
+FROM `proyecto` p , `proyecto_tribunal`  pt , `usuario` u, `estudiante` es , `proyecto_estudiante` pe
+WHERE   u.`id`=es.`usuario_id` and  es.`id`=pe.`estudiante_id` and  pe.`proyecto_id`=p.`id` and p.`id`=pt.`proyecto_id`;";
+ $resultado = mysql_query($sql);
+ $arraytribunal= array();
+ 
+ while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
+  // $arraytribunal=$fila;
+   
+   //array('name' => $fila["id"], 'home' => $fila["nombre"],'cell' => $fila["apellidos"], 'email' => 'john@myexample.com');
+   
+   $arraytribunal[]=$fila;
+ }
+
+
+//foreach ()
+
+
+//var_dump($arraytribunal);
+$smarty->assign('arraytribunal'  , $arraytribunal);
+ /**
+ $resultado = mysql_query($sql);
+ while ($fila = mysql_fetch_assoc($resultado)) {
+    echo $fila["id"];
+    echo $fila["nombre"];
+    echo $fila["apellidos"];
+}
+ 
+ */
+ while ($usuario_mysql && $row = mysql_fetch_array($usuario_mysql[0]))
+ {
+   $usuario_id[]     = $row['id'];
+   $usuario_nombre[] = $row['nombre'];
+   $rows=$row;
+ }
+   
+ 
+   
+  
+  
+  
+  
+  
   
   
  
@@ -104,7 +157,7 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
   
     $usuariobuscado= new Usuario($estudiante->usuario_id);
   //echo  $estudiante->i;
-    var_dump( $proyecto->getArea());
+  //  var_dump( $proyecto->getArea());
    // echo $estudiante->codigo_sis;
      $smarty->assign('usuariobuscado',  $usuariobuscado);
     $smarty->assign('estudiantebuscado', $estudiante);
