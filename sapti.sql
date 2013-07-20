@@ -46,7 +46,7 @@ DROP TABLE IF EXISTS `sapti`.`proyecto` ;
 
 CREATE  TABLE IF NOT EXISTS `sapti`.`proyecto` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `estado_proyecto_id` INT NULL ,
+  `nombre` VARCHAR(300) NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
@@ -138,6 +138,47 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `sapti`.`materia`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sapti`.`materia` ;
+
+CREATE  TABLE IF NOT EXISTS `sapti`.`materia` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `nombre` VARCHAR(200) NULL ,
+  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `sapti`.`semestre`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sapti`.`semestre` ;
+
+CREATE  TABLE IF NOT EXISTS `sapti`.`semestre` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `codigo` VARCHAR(45) NULL ,
+  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `sapti`.`dicta`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sapti`.`dicta` ;
+
+CREATE  TABLE IF NOT EXISTS `sapti`.`dicta` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `docente_id` INT NULL ,
+  `materia_id` INT NULL ,
+  `semestre_id` INT NULL ,
+  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `sapti`.`proyecto_docente`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `sapti`.`proyecto_docente` ;
@@ -145,7 +186,7 @@ DROP TABLE IF EXISTS `sapti`.`proyecto_docente` ;
 CREATE  TABLE IF NOT EXISTS `sapti`.`proyecto_docente` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `proyecto_id` INT NULL ,
-  `docente_id` INT NULL ,
+  `dicta_id` INT NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
@@ -194,27 +235,18 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`materia`
+-- Table `sapti`.`evaluacion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`materia` ;
+DROP TABLE IF EXISTS `sapti`.`evaluacion` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`materia` (
+CREATE  TABLE IF NOT EXISTS `sapti`.`evaluacion` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `sapti`.`dicta`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`dicta` ;
-
-CREATE  TABLE IF NOT EXISTS `sapti`.`dicta` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `docente_id` INT NULL ,
-  `materia_id` INT NULL ,
-  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  `evaluacion 1` INT NULL ,
+  `evaluacion 2` INT NULL ,
+  `evaluacion 3` INT NULL ,
+  `promedio` INT NULL ,
+  `rfinal` VARCHAR(45) NULL ,
+  `estado` VARCHAR(2) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -226,33 +258,9 @@ DROP TABLE IF EXISTS `sapti`.`inscrito` ;
 
 CREATE  TABLE IF NOT EXISTS `sapti`.`inscrito` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `materia_id` INT NULL ,
+  `evaluacion_id` INT NULL ,
+  `dicta_id` INT NULL ,
   `estudiante_id` INT NULL ,
-  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `sapti`.`semestre`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`semestre` ;
-
-CREATE  TABLE IF NOT EXISTS `sapti`.`semestre` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `sapti`.`semestre_materia`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`semestre_materia` ;
-
-CREATE  TABLE IF NOT EXISTS `sapti`.`semestre_materia` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `materia_id` INT NULL ,
   `semestre_id` INT NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
   PRIMARY KEY (`id`) )
@@ -354,11 +362,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`admin`
+-- Table `sapti`.`administrador`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`admin` ;
+DROP TABLE IF EXISTS `sapti`.`administrador` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`admin` (
+CREATE  TABLE IF NOT EXISTS `sapti`.`administrador` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `usuario_id` INT NULL ,
   `estado` VARCHAR(2) NULL ,
@@ -375,7 +383,11 @@ CREATE  TABLE IF NOT EXISTS `sapti`.`revision` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `proyecto_id` INT NULL ,
   `revisor` INT NULL ,
-  `fecha_observacion` DATE NULL ,
+  `revisor_tipo` VARCHAR(2) NULL COMMENT 'docente (DO), tutor (TU), tribunal (TR)' ,
+  `fecha_revision` DATE NULL ,
+  `fecha_correccion` DATE NULL ,
+  `fecha_aprobacion` DATE NULL ,
+  `estado_revision` VARCHAR(2) NULL COMMENT 'estado 1 creado (CR), estado 2 visto (VI), estado 2 aprobado (AP)' ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
@@ -389,7 +401,8 @@ DROP TABLE IF EXISTS `sapti`.`observacion` ;
 CREATE  TABLE IF NOT EXISTS `sapti`.`observacion` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `revision_id` INT NOT NULL ,
-  `observacion` VARCHAR(200) NULL ,
+  `observacion` VARCHAR(1500) NULL ,
+  `estado_observacion` VARCHAR(2) NULL COMMENT 'estado 1 creado (CR), etado 2 corregido (CO), estado 4  aprobado (AP)' ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
