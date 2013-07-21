@@ -4,19 +4,12 @@
   <div class="rnd">
     <div id="container" class="clear">
       
-        <div class="clear"></div>
+   <div class="clear"></div>
     <h1 style="text-align: center;margin: 5px 0;">
     Formulario de Asignacion de Tribunales
     </h1>
     <div class="clear"></div>
-    
-    
-       <center> <td bgcolor="#F7F7F7" style="text-align:center"><strong>Proyectos Asignados</strong></td></center>
-
-
-
-
-
+           <center> <td bgcolor="#F7F7F7" style="text-align:center"><strong>Proyectos Asignados</strong></td></center>
        <table class="tbl_lista">
   <thead>
     <tr>
@@ -35,7 +28,7 @@
       <td>{$arraytribunal[ic]['id']}</td>
       <td>{$arraytribunal[ic]['nombre']} {$arraytribunal[ic]['apellidos']}</td>
       <td>{$arraytribunal[ic]['nombre_proyecto']}</td>
-      <td> <a href="estudiante.detalle.php?estudiante_id={$objs[ic]['id']}" target="_blank" >{icono('detalle.png','Detalle')}</a>
+      <td> <a href="mostrartribunal.php?tribunal_id={$arraytribunal[ic]['id']}" target="_blank" >{icono('detalle.png','Detalle')}</a>
       </td>
       <td>
         <a href="p.detalle.php?estudiante_id={$objs[ic]['id']}" target="_blank" >{icono('detalle.png','Detalle')}</a>
@@ -49,11 +42,8 @@
     </tbody> 
 </table> 
 
-
-</table>
-
 </div>
 </div>
- 
+ </div>
               
 {include file="footer.tpl"}
