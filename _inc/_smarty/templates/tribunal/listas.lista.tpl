@@ -9,8 +9,10 @@
     Formulario de Asignacion de Tribunales
     </h1>
     <div class="clear"></div>
-           <center> <td bgcolor="#F7F7F7" style="text-align:center"><strong>Proyectos Asignados</strong></td></center>
-       <table class="tbl_lista">
+     <center> <td bgcolor="#F7F7F7" style="text-align:center"><strong>Proyectos Asignados</strong></td></center>
+   
+      <form action="" method="get" >
+     <table class="tbl_lista">
   <thead>
     <tr>
       <th><a href='?order=id'                    accesskey="" class="tajax"  title='Ordenar por Id'           >Id           {$filtros->iconOrder('id')}</a></th>
@@ -41,7 +43,7 @@
   {/section}
     </tbody> 
 </table> 
-
+      </form>
 </div>
 </div>
  </div>

@@ -50,89 +50,30 @@
   
   
 </div>   
-       
-       
-<div style="width: 100%;float: left;" class="tbl_filtro"></div>
-   
-      
-           
-<div >
-  
-  
-   <div style="width: 100%;float: left;" class="tbl_filtro">
-     <Hi> Lista de Docentes </Hi>
-    <table class="tbl_lista" id="docentes"  mane="docentes">
+        <table class="tbl_lista">
   <thead>
-  <tr>
-    <th><a href='?order=id'                class="tajax"   title='Ordenar por Id'               >Id            </a></th>
-    <th><a href='?order=codigo_box'        class="tajax"   title='Ordenar por Codigo'           >Nombre       </a></th>
-    <th><a href='?order=proveedor'         class="tajax"   title='Ordenar por Proveedor'        >Apellidos     </a></th>
-    <th><a href='?order=usuario_nombre'    class="tajax"   title='Ordenar por USuario'          >Area      </a></th>
-     </tr>
+    <tr>
+      <th><a href='?order=id'                    accesskey="" class="tajax"  title='Ordenar por Id'           >Id           {$filtros->iconOrder('id')}</a></th>
+      <th><a href='?order=proyecto_id'                        class="tajax"  title='Ordenar por Proyecto'     >Nombre     {$filtros->iconOrder('proyecto_id')}</a></th>
+      <th><a href='?order=fecha_observacion'                  class="tajax"  title='Ordenar por Fecha'        >Apellidos     {$filtros->iconOrder('fecha_observacion')}</a></th>
+       </tr>
   </thead>
+  
+  
   <tbody>
-  {section name=ic loop=$objs}
+  {section name=ic loop=$arraytribunal}
     <tr  class="selectable">
-      <td>{$objs[ic]['id']}
-        <input type="hidden" name="ids[]" value="{$objs[ic]['id']}">
-      </td>
-      <td>{$objs[ic]['usuario_nombre']}</td>
-      <td>{$objs[ic]['usuario_apellidos']}</td>
-      <td>Numero</td>
-     
+     <td>{$arraytribunal[ic]['id']} </td>
+      <td>{$arraytribunal[ic]['nombre']} </td>
+       <td>{$arraytribunal[ic]['apellidos']}</td>
+        </td>
+      
+        
     </tr>
   {/section}
     </tbody> 
-</table>
-   </div>          
-    <div style="width: 100%;float: left;" class="tbl_filtro">
-      
-       <form action="" method="post" id="pedido_form" >
- 
-    
-      <table >
-        <tr>
-     
-          <td>
-             <h1> Lista de Docentes Asignados </h1>
-         
-             
-       <table  multiple id="asignados" >
-        <thead>
-          <tr>
-            <th>Id            </th>
-            <th>Nombre       </th>
-            <th>Apellidos    </th>
-            <th>Area    </th>
-           
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-          
-          </td>
-        </tr>
-      
-      
-      </table>
+</table> 
 
-      <input type="text" id="proyecto_id" name="proyecto_id" value="{$proyectobuscado->id}" /><br />
-      <div>
-        Observaci&oacute;n<br/>
-        <textarea name="comentario" rows="4" style="width: 90%"></textarea>
-      </div>
-      <div style="text-align: center">
-        <input type="hidden" name="id" value="" />
-        <input type="hidden" name="salida_id" value="25" />
-        <input type="submit" value="grabar" name="tarea" class="sendme"  />
-         
- 
-      </div>
-   </div>
- </form>
-    </div>
-   
  
   </div>
 
