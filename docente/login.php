@@ -43,6 +43,7 @@ try {
     $ir = "Location: index.php";
     header($ir);
   }
+  $_SESSION['docente_id']=$docente->id;
   //No hay ERROR
   $smarty->assign("ERROR",'');
   $smarty->assign("URL",URL);  

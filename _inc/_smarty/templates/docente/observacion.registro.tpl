@@ -5,8 +5,9 @@
           <form action="#" method="post" id="registro" name="registro" >
             <p>
                <label for="nombre de proyecto"><small>Nombre de Proyecto:</small></label>
-               <br/>
+               <span>{$nombre_pr}</span><br/>
                <label for="nombre de estudiante"><small>Nombre de Estudiante:</small></label>
+               <span>{$nombre_es}</span>
             </p>
             <br/>
             <object data="proyecto.pdf" type="application/pdf" width="900" height="300">
@@ -23,23 +24,23 @@
             </div>
 
             <p>
-              <input type="text" name="fecha_observacion" id="fecha_cumple" value="{$revision->fecha_observacion}" size="22">
-              <label for="fecha_observacion"><small>Fecha de Revison</small></label>
+              <input type="text" name="fecha_revision" id="fecha_revision" value="{$revision->fecha_revision}" size="22">
+              <label for="fecha_revision"><small>Fecha de Revison</small></label>
             </p>
             <p>
 
             
                         <p>
-              <input type="text" name="fecha_revision" id="fecha" value="{$revision->id}" size="22">
-              <label for="fecha_revision"><small>id rev</small></label>
+              <input type="text" name="fech" id="fecha" value="{$revision->id}" size="22">
+              <label for="fech"><small>id rev</small></label>
             </p>
                         <p>
-              <input type="text" name="fecha_revision" id="fecha_" value="{$revision->proyecto_id}" size="22">
-              <label for="fecha_revision"><small>id proy</small></label>
+              <input type="text" name="fecha_" id="fecha_" value="{$revision->proyecto_id}" size="22">
+              <label for="fecha_"><small>id proy</small></label>
             </p>
                         <p>
-              <input type="text" name="fecha_revision" id="fecha_r" value="{$revision->revisor}" size="22">
-              <label for="fecha_revision"><small>Revisor</small></label>
+              <input type="text" name="fecha_re" id="fecha_r" value="{$revision->revisor}" size="22">
+              <label for="fecha_re"><small>Revisor</small></label>
             </p>
 
             <h2 class="title">Grabar Revision</h2>
@@ -62,7 +63,7 @@
         <script type="text/javascript">
         {literal} 
           $(function(){
-            $('#fecha_cumple').datepicker({
+            $('#fecha_revision').datepicker({
               dateFormat:'dd/mm/yy',
               changeMonth: true,
               changeYear: true,

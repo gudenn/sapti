@@ -1,15 +1,15 @@
 <?php
 try {
   require('_start.php');
-    if(!isDocenteSession())
+  if(!isDocenteSession())
     header("Location: login.php"); 
   global $PAISBOX;
 
 //  if(!isAdminSession())
 //    header("Location: login.php");
 
-  leerClase("Revision");
-  leerClase("Observacion");
+  leerClase("Evaluacion");
+    leerClase("Revision");
   leerClase("Formulario");
   leerClase("Pagination");
   leerClase("Filtro");
@@ -22,38 +22,32 @@ try {
   $smarty->assign('description','Pagina de gestion de Observaciones');
   $smarty->assign('keywords','Gestion,Observaciones');
 
-  //CSS
-  $CSS[]  = URL_CSS . "academic/tables.css";
-  //$CSS[]  = URL_CSS . "pg.css";
+  $CSS[]  = URL_CSS . "academic/3_column.css";
+  $CSS[]  = URL_JS  . "/validate/validationEngine.jquery.css";
+  
+  $CSS[]  = URL_JS . "ui/cafe-theme/jquery-ui-1.10.2.custom.min.css";
+  
   $smarty->assign('CSS',$CSS);
 
   //JS
-  $JS[]  = URL_JS . "jquery.js";
+  $JS[]  = URL_JS . "jquery.1.9.1.js";
+
+  //Datepicker UI
+  $JS[]  = URL_JS . "ui/jquery-ui-1.10.2.custom.min.js";
+  $JS[]  = URL_JS . "ui/i18n/jquery.ui.datepicker-es.js";
+
+  //Validation
+  $JS[]  = URL_JS . "validate/idiomas/jquery.validationEngine-es.js";
+  $JS[]  = URL_JS . "validate/jquery.validationEngine.js";
+
   $smarty->assign('JS',$JS);
 
-  
-  //////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////
-  if (isset($_GET['eliminar']) && isset($_GET['revisiones_id']) && is_numeric($_GET['revisiones_id']) )
-  {
-    $revision    = new Revision($_GET['revisiones_id']);
-    $resul = "select id from observacion where revision_id =".$_GET['revisiones_id']." ";
-    $sql=mysql_query($resul);
-    $a=0;
-    $sql1=array();
-  while($res=mysql_fetch_row($sql)) {
-      $sql1[$a]=$res[0];
-      $a=$a+1;
-    }
-    foreach ($sql1 as $array1){
-    $observacion = new Observacion($array1);
-    $observacion->delete();
-    }
-    $revision->delete();
-  }
 
+  $smarty->assign("ERROR", '');
+
+  
   $proyecto_ids = $_GET['proyecto_id'];
+  $evaluacion_ids = $_GET['evaluacion_id'];
   $docente=  getSessionDocente();
   $docente_ids=$docente->id;
   
@@ -82,8 +76,9 @@ AND pe.proyecto_id=pr.id;";
     $smarty->assign("nombre_pr", $nombre_pr);
   
     $sql1="SELECT re.id as 'id_re', pr.nombre as 'nombrep', pr.id as 'id_pr', re.fecha_revision as 'fecha', COUNT(ob.revision_id) as num
-FROM proyecto pr, revision re, observacion ob
-WHERE pr.id='".$proyecto_ids."'
+FROM docente dt, proyecto pr, revision re, observacion ob
+WHERE dt.id='".$docente_ids."'
+AND pr.id='".$proyecto_ids."'
 AND re.proyecto_id=pr.id
 AND re.id=ob.revision_id
 GROUP BY ob.revision_id";
@@ -107,10 +102,21 @@ GROUP BY ob.revision_id";
   $smarty->assign("filtros"  ,$filtro);
   $smarty->assign("objs"     ,$arraylista1);
   $smarty->assign("pages"    ,$objs_pg->p_pages);
+  
+  $evaluacion=new Evaluacion($evaluacion_ids);
+  $smarty->assign('evaluacion',$evaluacion);
+  if (isset($_POST['tarea']) && $_POST['tarea'] == 'registrar' && isset($_POST['token']) && $_SESSION['register'] == $_POST['token'])
+  {
+  $evaluacion->objBuidFromPost();
+  $evaluacion->save();
+  }
 
-
+  $token = sha1(URL . time());
+  $_SESSION['register'] = $token;
+  $smarty->assign('token',$token);
+  
   $smarty->assign('mascara'     ,'docente/listas.mascara.tpl');
-  $smarty->assign('lista'       ,'docente/observacion.lista.tpl');
+  $smarty->assign('lista'       ,'docente/evaluacion.proyecto.tpl');
 
   //No hay ERROR
   $smarty->assign("ERROR",'');
@@ -125,7 +131,7 @@ catch(Exception $e)
 if (isset($_GET['tlista']) && $_GET['tlista']) //recargamos la tabla central
   $smarty->display('docente/listas.lista.tpl'); 
 else
-  $smarty->display('docente/full-width.lista.observacion.tpl');
+  $smarty->display('docente/full-width.evaluacion.tpl');
 
 
 ?>
