@@ -7,6 +7,14 @@
 class Proyecto extends Objectbase 
 {
 
+  /** constant to add in the begin of the key to find the date values   */
+  const ARCHIVO_PATH         = "/ARCHIVO";
+  /** constant to add in the begin of the key to find the date values   */
+  const ARCHIVO_PREFOLDER    = "/PROYECTO_ID_";
+  /** constant to add in the begin of the key to find the date values   */
+  const ARCHIVO_CORRECIONES  = "/CORRECIONES";
+
+
  /**
   * Codigo identificador del Objeto Usuario
   * @var INT(11)
