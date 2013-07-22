@@ -36,14 +36,14 @@ try {
   $docente=  getSessionDocente();
   $docenteid=$docente->id;
 $sql="SELECT es.id as 'id', us.nombre as 'nombre', us.apellidos as 'apellidos', pr.nombre as 'nombrep', pr.id as 'id_pr', it.evaluacion_id as 'eva'
-FROM docente dt, dicta di, materia ma, estudiante es, usuario us, inscrito it, proyecto pr, proyecto_estudiante pe
+FROM docente dt, dicta di, estudiante es, usuario us, inscrito it, proyecto pr, proyecto_estudiante pe
 WHERE dt.id='".$docenteid."'
 AND di.docente_id=dt.id 
-AND es.usuario_id=us.id
-AND it.dicta_id=di.id
+AND di.id=it.dicta_id
 AND it.estudiante_id=es.id
-AND es.id=pe.estudiante_id
-AND pe.proyecto_id=pr.id;";
+AND es.usuario_id=us.id
+AND pe.estudiante_id=es.id
+AND pe.proyecto_id=pr.id";
  $resultado = mysql_query($sql);
  $arraylista= array();
  
