@@ -27,6 +27,8 @@ try {
   leerClase("Filtro");
   leerClase("Proyecto_tribunal");
   leerClase("Proyecto_estudiante");
+  leerClase("Notifiacion_tribunal");
+  leerClase("Notificacion");
   
   
  $filtro     = new Filtro('g_docente',__FILE__);
@@ -137,6 +139,9 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
       $proyecto_tribunal->objBuidFromPost();
       $proyecto_tribunal->estado = Objectbase::STATUS_AC;
       $proyecto_tribunal->save();
+      $notificaciones= new Notificacion();
+      $notificaciones->
+      
     
      if (isset($_POST['ids']))
      foreach ($_POST['ids'] as $id)
@@ -150,7 +155,18 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
                $tribunal->proyecto_tribunal_id=$proyecto_tribunal->id;;
                 $tribunal->objBuidFromPost();
                $tribunal->save();
+               
+               $tribunal->id;
+               
+               
      }
+     
+     
+     
+     
+     
+     
+     
    }
 
   

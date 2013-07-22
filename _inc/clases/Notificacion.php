@@ -31,6 +31,7 @@ class Notificacion extends Objectbase
   * @var INT(11)
   */
   var $proyecto_id;
+  
 
  /**
   * Tipo de notificacion

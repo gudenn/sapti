@@ -1,3 +1,5 @@
+
+
 {include file="header.tpl"}
 
 <div class="wrapper row3">
@@ -17,7 +19,7 @@
       <th><a href='?order=proyecto_id'                        class="tajax"  title='Ordenar por Proyecto'     >Estudiante     {$filtros->iconOrder('proyecto_id')}</a></th>
       <th><a href='?order=fecha_observacion'                  class="tajax"  title='Ordenar por Fecha'        >Proyecto       {$filtros->iconOrder('fecha_observacion')}</a></th>
       <th><a href='?order=revisor'                            class="tajax"  title='Ordenar por Revisor'      >Ver Tribunales     {$filtros->iconOrder('revisor')}</a></th>
-      <th>Opciones</th>
+      <th>Editar</th>
     </tr>
   </thead>
   
@@ -31,8 +33,7 @@
       <td> <a href="mostrartribunal.php?tribunal_id={$arraytribunal[ic]['id']}" target="_blank" >{icono('detalle.png','Ver Tribunales')}</a>
       </td>
       <td>
-    <a href="eliminartribunal.php?eliminar&tribunaleliminar_id={$arraytribunal[ic]['id']}" onclick="return confirm('Eliminar la Asignacion de Tribunales?');"  >{icono('borrar.png','Eliminar')}</a>
-  
+   <a href="editartribunal.php?editar&tribunaleditar_id={$arraytribunal[ic]['id']}" target="_blank">{icono('editar.png','Editar')}</a>
       </td>
         
     </tr>

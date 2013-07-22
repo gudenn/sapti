@@ -43,17 +43,63 @@ try {
   $smarty->assign("filtros"  ,$filtro);
   $smarty->assign("objs"     ,$objs_pg->objs);
   $smarty->assign("pages"    ,$objs_pg->p_pages);
-  
- $proyectostribunales= array();
- $proyec= new Proyecto();
- $usuario = new Usuario();
+   $proyectostribunales= array();
+   
+ 
+   $proyec= new Proyecto();
+    //var_dump( $proyec->getProyectoAsignados());
+   
+   $usuario = new Usuario();
+//$smarty->assign('rows', $rows);
  $usuario_mysql  = $usuario->getAll();
  $usuario_id     = array();
  $usuario_nombre = array();
+ $sql="SELECT pt.`id` , u.`nombre` ,u.`apellidos`, es.`codigo_sis` , p.`nombre` as nombreproyecto
+FROM `proyecto` p , `proyecto_tribunal`  pt , `usuario` u, `estudiante` es , `proyecto_estudiante` pe
+WHERE   u.`id`=es.`usuario_id` and  es.`id`=pe.`estudiante_id` and  pe.`proyecto_id`=p.`id` and p.`id`=pt.`proyecto_id`;";
+ $resultado = mysql_query($sql);
+ $arraytribunal= array();
  
- 
+ while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
+  // $arraytribunal=$fila;
+   
+   //array('name' => $fila["id"], 'home' => $fila["nombre"],'cell' => $fila["apellidos"], 'email' => 'john@myexample.com');
+   
+   $arraytribunal[]=$fila;
+ }
 
+
+//foreach ()
+
+
+//var_dump($arraytribunal);
+$smarty->assign('arraytribunal'  , $arraytribunal);
+ /**
+ $resultado = mysql_query($sql);
+ while ($fila = mysql_fetch_assoc($resultado)) {
+    echo $fila["id"];
+    echo $fila["nombre"];
+    echo $fila["apellidos"];
+}
+ 
+ */
+ while ($usuario_mysql && $row = mysql_fetch_array($usuario_mysql[0]))
+ {
+   $usuario_id[]     = $row['id'];
+   $usuario_nombre[] = $row['nombre'];
+   $rows=$row;
+ }
+   
+ 
+   
   
+  
+  
+  
+  
+  
+  
+ 
  $rows = array();
 $usuario = new Usuario();
 //$smarty->assign('rows', $rows);
@@ -71,6 +117,10 @@ $smarty->assign('usuario_id'  , $usuario_id);
 $smarty->assign('usuario_nombre', $usuario_nombre);
 
 
+
+//contruyendo el usuario
+  
+
 $proyecto= new Proyecto();
 $proyecto_sql= $proyecto->getAll();
 $proyecto_id= array();
@@ -85,46 +135,7 @@ while ($proyecto_sql && $rows = mysql_fetch_array($proyecto_sql[0]))
 $smarty->assign('proyecto_id',$proyecto_id);
 $smarty->assign('proyecto_nombre',$proyecto_nombre);
   
-  if(isset($_GET['tribunal_id']))
-  {
-     $sql="SELECT u.nombre , u.apellidos
-FROM  usuario u, tribunal t, proyecto_tribunal pt
-WHERE   u.id=t.usuario_id  and  t.proyecto_tribunal_id=pt.id  and  pt.id=".$_GET['tribunal_id'];;
- $resultado = mysql_query($sql);
- $arraytribunal= array();
- 
- while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
-    $arraytribunal[]=$fila;
- }
-$smarty->assign('arraytribunal'  , $arraytribunal);
-    
-    
-  echo  $_GET['tribunal_id'];
-  
-  
-  
-  
-  
-  $sqllt=  "SELECT u.nombre , u.apellidos , e.codigo_sis , p.nombre as nombreproyecto
-FROM  usuario u , estudiante e , proyecto_estudiante pe , proyecto p, proyecto_tribunal pt
-WHERE u.id= e.usuario_id and e.id=pe.estudiante_id and p.id= pe.proyecto_id and p.id=pt.proyecto_id and pt.id=".$_GET['tribunal_id'];
 
-$resultados = mysql_query($sqllt);
- $arraytribunaldatos= array();
- 
- while ($filas = mysql_fetch_array($resultados, MYSQL_ASSOC))
- { 
-   $arraytribunaldatos[]=$filas;
- }
-      
-      $smarty->assign('arraytribunaldatos'  , $arraytribunaldatos);
-  
-
-  
-  
-  
-    
-  }
 
   
   //$tribunal = new Tribunal();
@@ -152,9 +163,50 @@ $resultados = mysql_query($sqllt);
     $smarty->assign('estudiantebuscado', $estudiante);
      $smarty->assign('proyectobuscado', $proyecto);
       $smarty->assign('proyectoarea', $proyecto->getArea());
+    
+    
+   // return $proyecto;
+    
+    //$proyecto->getProyectoAprobados();
+    
+  //  var_dump($proyecto->getProyectoAprobados());
+   // $
    
+    
   }
+  
+  $proyecto_tribunal= new Proyecto_tribunal();
+  //$varfdf=$_POST['proyecto_id'];
+ // $proyecto_tribunal->proyecto_id=$varfdf;
+  //if(isset($_POST['proyecto_id']))
+ // echo $_POST['proyecto_id'];
+   
+  
+  
+   if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
+  {
+     
+     
+      $proyecto_tribunal->objBuidFromPost();
+      $proyecto_tribunal->estado = Objectbase::STATUS_AC;
+      $proyecto_tribunal->save();
+    
+     if (isset($_POST['ids']))
+     foreach ($_POST['ids'] as $id)
+     {
+       echo $id;
+               $tribunal= new Tribunal();
+          //     $smarty->assign("tribunal",$tribunal);
+             
+               $tribunal->usuario_id =$id;
+                $tribunal->estado = Objectbase::STATUS_AC;
+               $tribunal->proyecto_tribunal_id=$proyecto_tribunal->id;;
+                $tribunal->objBuidFromPost();
+               $tribunal->save();
+     }
+   }
 
+  
   
   $smarty->assign("ERROR", $ERROR);
   
@@ -168,7 +220,7 @@ catch(Exception $e)
   $smarty->assign("ERROR", handleError($e));
 }
 
-$TEMPLATE_TOSHOW = 'tribunal/mostrartribunal.tpl';
+$TEMPLATE_TOSHOW = 'tribunal/listatribunaleditar.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>

@@ -5,51 +5,26 @@
     <div id="container" class="clear">
       
         <div class="clear"></div>
-    <center> <td bgcolor="#F7F7F7" style="text-align:center"><strong>FORMULARIO DE REGISTRO DE TRIBUNALES</strong></td></center>
-    
-    <div class="clear"></div>
-    
-    
-          <div style="width: 50%;float: left;" class="tbl_filtro">
-    <form action="" method="post" >
-             <h1>  Busqueda por Estudiante</h1>
-          <table  style="width: 100%;float: left;" class="tbl_filtro">
-          <tr>
-              <th><label for="estado_lugar">Codigo Sis</label></th>
-              <th><label for="codigo_box">Nombre </label></th>
-             
-          </tr>
-           <tr>
-            
-                 <td>
-                      <input type="text" name="codigosis"  id="codigosis" value="" />
-                  </td>
-                  <td>
-                      <input type="text" name="nombre"  id="nombre" value="" />
-                  </td>
-        
-                  <td><input type="submit" value="Buscar" name="buscar" class="sendme" /></td>
-           </tr>
-          
-          </table>
-     </form>
-
+      <div class="clear"></div>    
+ <div style="width: 50%;float: left;" class="tbl_filtro">
+  
   </div>
     <div style="width: 50%;float: left;" class="tbl_filtro">
         
    <form action="" method="post">
-      <h1> Resultado de la  Busqueda por Estudiante</h1>
-        <label for="nombre">nombre:{$usuariobuscado->nombre}</label><br />
-        <label for="nombre">Apellidos:{$usuariobuscado->apellidos}</label><br />
-         <label for="nombre">Codigo Sis:{$estudiantebuscado->codigo_sis}</label><br />
-         <label for="nombre">Proyecto:{$proyectobuscado->nombre_proyecto}</label><br />
-         <label for="nombre">Area del Proyecto:{$proyectoarea->nombre}</label><br />
-        <input type="text" id="proyecto_id" name="proyecto_id" value="{$proyectobuscado->id}" /><br />
-
+      <h1> Detalle del Proyecto </h1>
+        {section name=ic loop=$arraytribunaldatos}
+       <label for="nombre">nombre:  {$arraytribunaldatos[ic]['nombre']}</label><br />
+        <label for="nombre">Apellidos:  {$arraytribunaldatos[ic]['apellidos']}</label><br />
+         <label for="nombre">Codigo Sis:  {$arraytribunaldatos[ic]['codigo_sis']}</label><br />
+          <label for="nombre">Nombre Proyecto:  {$arraytribunaldatos[ic]['nombreproyecto']}</label><br />
+       
+       {/section}
  </form>
-  
-  
-</div>   
+  <div style="width: 50%;float: left;" class="tbl_filtro">  </div>
+   <h1> Lista de los Tribunales </h1>
+</div>  
+
         <table class="tbl_lista">
   <thead>
     <tr>

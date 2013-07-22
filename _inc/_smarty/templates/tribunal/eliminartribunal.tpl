@@ -62,7 +62,8 @@
     <th><a href='?order=id'                class="tajax"   title='Ordenar por Id'               >Id            </a></th>
     <th><a href='?order=codigo_box'        class="tajax"   title='Ordenar por Codigo'           >Nombre       </a></th>
     <th><a href='?order=proveedor'         class="tajax"   title='Ordenar por Proveedor'        >Apellidos     </a></th>
-      </tr>
+    <th><a href='?order=usuario_nombre'    class="tajax"   title='Ordenar por USuario'          >Area      </a></th>
+     </tr>
   </thead>
   <tbody>
   {section name=ic loop=$objs}
@@ -72,7 +73,7 @@
       </td>
       <td>{$objs[ic]['usuario_nombre']}</td>
       <td>{$objs[ic]['usuario_apellidos']}</td>
-     
+      <td>Numero</td>
      
     </tr>
   {/section}
@@ -97,6 +98,7 @@
             <th>Id            </th>
             <th>Nombre       </th>
             <th>Apellidos    </th>
+            <th>Area    </th>
            
           </tr>
         </thead>
