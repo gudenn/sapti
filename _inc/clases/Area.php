@@ -3,6 +3,7 @@ class Area extends Objectbase
 {
     var $nombre;
     var $descripcion;
+    var $estado;
             
 }
 /*
