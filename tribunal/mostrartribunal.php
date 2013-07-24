@@ -52,16 +52,7 @@ try {
  $usuario_nombre = array();
  
  
- $sql="SELECT pt.`id` , u.`nombre` ,u.`apellidos`, es.`codigo_sis` , p.`nombre_proyecto`
-FROM `proyecto` p , `proyecto_tribunal`  pt , `usuario` u, `estudiante` es , `proyecto_estudiante` pe
-WHERE   u.`id`=es.`usuario_id` and  es.`id`=pe.`estudiante_id` and  pe.`proyecto_id`=p.`id` and p.`id`=pt.`proyecto_id`;";
- $resultado = mysql_query($sql);
- $arraytribunal= array();
- 
- while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
-    $arraytribunal[]=$fila;
- }
-$smarty->assign('arraytribunal'  , $arraytribunal);
+
   
  $rows = array();
 $usuario = new Usuario();
@@ -80,10 +71,6 @@ $smarty->assign('usuario_id'  , $usuario_id);
 $smarty->assign('usuario_nombre', $usuario_nombre);
 
 
-
-//contruyendo el usuario
-  
-
 $proyecto= new Proyecto();
 $proyecto_sql= $proyecto->getAll();
 $proyecto_id= array();
@@ -98,7 +85,46 @@ while ($proyecto_sql && $rows = mysql_fetch_array($proyecto_sql[0]))
 $smarty->assign('proyecto_id',$proyecto_id);
 $smarty->assign('proyecto_nombre',$proyecto_nombre);
   
+  if(isset($_GET['tribunal_id']))
+  {
+     $sql="SELECT u.nombre , u.apellidos
+FROM  usuario u, tribunal t, proyecto_tribunal pt
+WHERE   u.id=t.usuario_id  and  t.proyecto_tribunal_id=pt.id  and  pt.id=".$_GET['tribunal_id'];;
+ $resultado = mysql_query($sql);
+ $arraytribunal= array();
+ 
+ while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
+    $arraytribunal[]=$fila;
+ }
+$smarty->assign('arraytribunal'  , $arraytribunal);
+    
+    
+  echo  $_GET['tribunal_id'];
+  
+  
+  
+  
+  
+  $sqllt=  "SELECT u.nombre , u.apellidos , e.codigo_sis , p.nombre as nombreproyecto
+FROM  usuario u , estudiante e , proyecto_estudiante pe , proyecto p, proyecto_tribunal pt
+WHERE u.id= e.usuario_id and e.id=pe.estudiante_id and p.id= pe.proyecto_id and p.id=pt.proyecto_id and pt.id=".$_GET['tribunal_id'];
 
+$resultados = mysql_query($sqllt);
+ $arraytribunaldatos= array();
+ 
+ while ($filas = mysql_fetch_array($resultados, MYSQL_ASSOC))
+ { 
+   $arraytribunaldatos[]=$filas;
+ }
+      
+      $smarty->assign('arraytribunaldatos'  , $arraytribunaldatos);
+  
+
+  
+  
+  
+    
+  }
 
   
   //$tribunal = new Tribunal();
@@ -142,7 +168,7 @@ catch(Exception $e)
   $smarty->assign("ERROR", handleError($e));
 }
 
-$TEMPLATE_TOSHOW = 'tribunal/listas.lista.tpl';
+$TEMPLATE_TOSHOW = 'tribunal/mostrartribunal.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>

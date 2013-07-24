@@ -16,19 +16,14 @@
           <table  style="width: 100%;float: left;" class="tbl_filtro">
           <tr>
               <th><label for="estado_lugar">Codigo Sis</label></th>
-              <th><label for="codigo_box">Nombre </label></th>
-             
+               
           </tr>
            <tr>
             
                  <td>
                       <input type="text" name="codigosis"  id="codigosis" value="" />
                   </td>
-                  <td>
-                      <input type="text" name="nombre"  id="nombre" value="" />
-                  </td>
-        
-                  <td><input type="submit" value="Buscar" name="buscar" class="sendme" /></td>
+        <td><input type="submit" value="Buscar" name="buscar" class="sendme" /></td>
            </tr>
           
           </table>
@@ -38,14 +33,14 @@
     <div style="width: 50%;float: left;" class="tbl_filtro">
         
    <form action="" method="post">
-      <h1> Resultado de la  Busqueda por Estudiante</h1>
-        <label for="nombre">nombre:{$usuariobuscado->nombre}</label><br />
-        <label for="nombre">Apellidos:{$usuariobuscado->apellidos}</label><br />
-         <label for="nombre">Codigo Sis:{$estudiantebuscado->codigo_sis}</label><br />
-         <label for="nombre">Proyecto:{$proyectobuscado->nombre_proyecto}</label><br />
-         <label for="nombre">Area del Proyecto:{$proyectoarea->nombre}</label><br />
-        <input type="text" id="proyecto_id" name="proyecto_id" value="{$proyectobuscado->id}" /><br />
-
+      <h1> Resultado de la  Busqueda</h1>
+        <label for="nombre">nombre:  {$usuariobuscado->nombre}</label><br />
+        <label for="nombre">Apellidos:   {$usuariobuscado->apellidos}</label><br />
+         <label for="nombre">Codigo Sis:   {$estudiantebuscado->codigo_sis}</label><br />
+         <label for="nombre">Proyecto:   {$proyectobuscado->nombre}</label><br />
+         <label for="Area">Numero:   {$proyectobuscado->id}</label><br />
+         <label for="nombre">Area del Proyecto:   {$proyectoarea->nombre}</label><br />
+       
  </form>
   
   
@@ -67,8 +62,7 @@
     <th><a href='?order=id'                class="tajax"   title='Ordenar por Id'               >Id            </a></th>
     <th><a href='?order=codigo_box'        class="tajax"   title='Ordenar por Codigo'           >Nombre       </a></th>
     <th><a href='?order=proveedor'         class="tajax"   title='Ordenar por Proveedor'        >Apellidos     </a></th>
-    <th><a href='?order=usuario_nombre'    class="tajax"   title='Ordenar por USuario'          >Area      </a></th>
-     </tr>
+      </tr>
   </thead>
   <tbody>
   {section name=ic loop=$objs}
@@ -78,7 +72,7 @@
       </td>
       <td>{$objs[ic]['usuario_nombre']}</td>
       <td>{$objs[ic]['usuario_apellidos']}</td>
-      <td>Numero</td>
+     
      
     </tr>
   {/section}
@@ -103,7 +97,6 @@
             <th>Id            </th>
             <th>Nombre       </th>
             <th>Apellidos    </th>
-            <th>Area    </th>
            
           </tr>
         </thead>
@@ -117,11 +110,19 @@
       
       </table>
 
-      <input type="text" id="proyecto_id" name="proyecto_id" value="{$proyectobuscado->id}" /><br />
+      <input type="hidden" id="proyecto_id" name="proyecto_id" value="{$proyectobuscado->id}" /><br />
+      
+      
+      <div>
+        Mensaje<br/>
+        <textarea name="comentario" rows="5" style="width: 90%"></textarea>
+      </div>
       <div>
         Observaci&oacute;n<br/>
         <textarea name="comentario" rows="4" style="width: 90%"></textarea>
       </div>
+      
+      
       <div style="text-align: center">
         <input type="hidden" name="id" value="" />
         <input type="hidden" name="salida_id" value="25" />

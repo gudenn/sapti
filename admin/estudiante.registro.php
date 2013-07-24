@@ -52,6 +52,38 @@ try {
   $smarty->assign("usuario"   , $usuario);
   $smarty->assign("estudiante", $estudiante);
   
+  //Asignar Semestre al estudiante
+  leerClase('Semestre');
+  $semestre     = new Semestre();
+  $semestres    = $semestre->getAll();
+  $semestre_values[] = '';
+  $semestre_output[] = '- Seleccione -';
+  while ($row = mysql_fetch_array($semestres[0])) 
+  {
+    $semestre_values[] = $row['id'];
+    $semestre_output[] = $row['codigo'];
+  }
+  $smarty->assign("semestre_values", $semestre_values);
+  $smarty->assign("semestre_output", $semestre_output);
+  $smarty->assign("semestre_selected", ""); 
+  
+  //Asignar Materia al estudiante
+  leerClase('Materia');
+  $materia     = new Materia();
+  $materias    = $materia->getAll();
+  $materia_values[] = '';
+  $materia_output[] = '- Seleccione -';
+  while ($row = mysql_fetch_array($materias[0])) 
+  {
+    $materia_values[] = $row['id'];
+    $materia_output[] = $row['nombre'];
+  }
+  $smarty->assign("materia_values", $materia_values);
+  $smarty->assign("materia_output", $materia_output);
+  $smarty->assign("materia_selected", "");  
+  
+  
+  
   if (!$editar)
     $columnacentro = 'admin/columna.centro.estudiante-registro.tpl';
   else
@@ -60,6 +92,8 @@ try {
   
   if (isset($_POST['tarea']) && $_POST['tarea'] == 'registrar' && isset($_POST['token']) && $_SESSION['register'] == $_POST['token'])
   {
+    
+    mysql_query("BEGIN");
     $usuario->objBuidFromPost();
     $usuario->estado = Objectbase::STATUS_AC;
     $es_nuevo = (!isset($_POST['usuario_id'])||trim($_POST['usuario_id'])=='' )?TRUE:FALSE;
@@ -71,6 +105,21 @@ try {
     $estudiante->usuario_id = $usuario->id;
     $estudiante->validar($es_nuevo);
     $estudiante->save();
+    
+    // grabamos si lo inscribimos a una materia
+    if ( isset($_POST['dicta_id']) && isset($_POST['semestre_id']) )
+    {
+      leerClase('Inscrito');
+      $inscrito = new Inscrito();
+      $inscrito->semestre_id   = $_POST['semestre_id'];
+      $inscrito->dicta_id      = $_POST['dicta_id'];
+      $inscrito->estudiante_id = $estudiante->id;
+      $inscrito->estado        = Objectbase::STATUS_AC;
+      $inscrito->save();
+      
+    }
+    
+    mysql_query("COMMIT");
   }
 
   
@@ -81,6 +130,7 @@ try {
 } 
 catch(Exception $e) 
 {
+  mysql_query("ROLLBACK");
   $smarty->assign("ERROR", handleError($e));
 }
 

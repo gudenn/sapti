@@ -1,6 +1,8 @@
 <?php
 try {
   require('_start.php');
+    if(!isDocenteSession())
+    header("Location: login.php"); 
   global $PAISBOX;
 
 //  if(!isAdminSession())
@@ -50,10 +52,48 @@ try {
     }
     $revision->delete();
   }
-  $smarty->assign('mascara'     ,'docente/listas.mascara.tpl');
-  $smarty->assign('lista'       ,'docente/observacion.lista.tpl');
 
-  //Filtro
+  $proyecto_ids = $_GET['proyecto_id'];
+  $docente=  getSessionDocente();
+  $docente_ids=$docente->id;
+  
+    $sql="SELECT es.id as 'id', us.nombre as 'nombre', us.apellidos as 'apellidos', pr.nombre as 'nombrep', pr.id as 'id_pr'
+FROM docente dt, dicta di, materia ma, estudiante es, usuario us, inscrito it, proyecto pr, proyecto_estudiante pe
+WHERE dt.id='".$docente_ids."'
+AND pr.id='".$proyecto_ids."'
+AND di.docente_id=dt.id 
+AND es.usuario_id=us.id
+AND it.dicta_id=di.id
+AND it.estudiante_id=es.id
+AND es.id=pe.estudiante_id
+AND pe.proyecto_id=pr.id;";
+ $resultado = mysql_query($sql);
+ $arraylista= array();
+ while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
+   $arraylista[]=$fila;
+ }
+    $nombre_n=$arraylista[0]['nombre'];
+    $nombre_a=$arraylista[0]['apellidos'];
+    $es=' ';
+    $nombre_es=$nombre_n.$es.$nombre_a;
+    $nombre_pr=$arraylista[0]['nombrep']; 
+    
+    $smarty->assign("nombre_es", $nombre_es);
+    $smarty->assign("nombre_pr", $nombre_pr);
+  
+    $sql1="SELECT re.id as 'id_re', pr.nombre as 'nombrep', pr.id as 'id_pr', re.fecha_revision as 'fecha', COUNT(ob.revision_id) as num
+FROM proyecto pr, revision re, observacion ob
+WHERE pr.id='".$proyecto_ids."'
+AND re.proyecto_id=pr.id
+AND re.id=ob.revision_id
+GROUP BY ob.revision_id";
+ $resultado1 = mysql_query($sql1);
+ $arraylista1= array();
+ while ($fila1 = mysql_fetch_array($resultado1, MYSQL_ASSOC)) {
+   $arraylista1[]=$fila1;
+ }
+
+//Filtro
   $filtro   = new Filtro('g_revision',__FILE__);
   $revision = new Revision();
   $revision->iniciarFiltro($filtro);
@@ -65,11 +105,12 @@ try {
   $objs_pg    = new Pagination($obj_mysql, 'g_estudiante','',false,10);
 
   $smarty->assign("filtros"  ,$filtro);
-  $smarty->assign("objs"     ,$objs_pg->objs);
+  $smarty->assign("objs"     ,$arraylista1);
   $smarty->assign("pages"    ,$objs_pg->p_pages);
 
 
-
+  $smarty->assign('mascara'     ,'docente/listas.mascara.tpl');
+  $smarty->assign('lista'       ,'docente/observacion.lista.tpl');
 
   //No hay ERROR
   $smarty->assign("ERROR",'');
@@ -84,7 +125,7 @@ catch(Exception $e)
 if (isset($_GET['tlista']) && $_GET['tlista']) //recargamos la tabla central
   $smarty->display('docente/listas.lista.tpl'); 
 else
-  $smarty->display('docente/full-width1.tpl');
+  $smarty->display('docente/full-width.lista.observacion.tpl');
 
 
 ?>

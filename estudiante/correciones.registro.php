@@ -37,21 +37,23 @@ try {
   //CREAR UN ESTUDIANTE
   leerClase('Usuario');
   leerClase('Estudiante');
-  leerClase('Revision');
+  leerClase('Proyecto');
 
   $id     = '';
   if (isEstudianteSession())
   {
-    $estudiante = getSessionEstudiante();
-    $editar = TRUE;
-    $id     = $estudiante->id;
+    $estudiante_session = getSessionEstudiante();
+    $id         = $estudiante_session->estudiante_id;
   }
-  
   $estudiante = new Estudiante($id);
+  
+  
+  $proyecto = $estudiante->getProyecto(); 
 
   if ( isset($_POST['tarea']) && $_POST['tarea'] == 'registrar_correcion' && isset($_SESSION['registrar_correcion']) && isset($_POST['token']) && $_SESSION['registrar_correcion'] == $_POST['token']  )
   {
-    $estudiante->grabarCorrecion();
+    if ($proyecto->id)
+      $estudiante->grabarCorrecion();
   }
 
   $estudiante = new Estudiante($id);
