@@ -27,8 +27,8 @@ try {
   leerClase("Filtro");
   leerClase("Proyecto_tribunal");
   leerClase("Proyecto_estudiante");
-  leerClase("Notifiacion_tribunal");
-  leerClase("Notificacion");
+ // leerClase("Notifiacion_tribunal");
+  //leerClase("Notificacion");
   
   
  $filtro     = new Filtro('g_docente',__FILE__);
@@ -62,8 +62,8 @@ $usuario = new Usuario();
    $rows=$row;
  }
 // $smarty->assign('filas'  , $rows);
-$smarty->assign('usuario_id'  , $usuario_id);
-$smarty->assign('usuario_nombre', $usuario_nombre);
+$smarty->assign('usuario_id'     , $usuario_id);
+$smarty->assign('usuario_nombre' , $usuario_nombre);
 
 
 
@@ -81,8 +81,8 @@ while ($proyecto_sql && $rows = mysql_fetch_array($proyecto_sql[0]))
  }
 
 
-$smarty->assign('proyecto_id',$proyecto_id);
-$smarty->assign('proyecto_nombre',$proyecto_nombre);
+$smarty->assign('proyecto_id'     ,$proyecto_id);
+$smarty->assign('proyecto_nombre' ,$proyecto_nombre);
   
 
 
@@ -93,8 +93,8 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
   if(isset($_POST['buscar']))
   {
    echo   $_POST['codigosis'];
-    $estudiante = new Estudiante(false,$_POST['codigosis']);
-    $proyecto   = new Proyecto();
+    $estudiante   = new Estudiante(false,$_POST['codigosis']);
+    $proyecto     = new Proyecto();
     $proyecto_aux = $estudiante->getProyecto();
     if ($proyecto_aux)
       $proyecto = $proyecto_aux;
@@ -104,33 +104,21 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
       
     }
   
-    $usuariobuscado= new Usuario($estudiante->usuario_id);
-  //echo  $estudiante->i;
-    var_dump( $proyecto->getArea());
-   // echo $estudiante->codigo_sis;
-     $smarty->assign('usuariobuscado',  $usuariobuscado);
-    $smarty->assign('estudiantebuscado', $estudiante);
-     $smarty->assign('proyectobuscado', $proyecto);
-      $smarty->assign('proyectoarea', $proyecto->getArea());
-    
-    
-   // return $proyecto;
-    
-    //$proyecto->getProyectoAprobados();
-    
-  //  var_dump($proyecto->getProyectoAprobados());
-   // $
-   
+   $usuariobuscado= new Usuario($estudiante->usuario_id);
+   $smarty->assign('usuariobuscado',  $usuariobuscado);
+   $smarty->assign('estudiantebuscado', $estudiante);
+   $smarty->assign('proyectobuscado', $proyecto);
+   $smarty->assign('proyectoarea', $proyecto->getArea());
     
   }
   
-  $proyecto_tribunal= new Proyecto_tribunal();
-  //$varfdf=$_POST['proyecto_id'];
- // $proyecto_tribunal->proyecto_id=$varfdf;
-  //if(isset($_POST['proyecto_id']))
- // echo $_POST['proyecto_id'];
-   
   
+ 
+   if ( isset($_POST['group1']))
+   {
+     echo "hola mundo eli";
+   }
+  $proyecto_tribunal= new Proyecto_tribunal();
   
    if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
   {
@@ -139,8 +127,8 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
       $proyecto_tribunal->objBuidFromPost();
       $proyecto_tribunal->estado = Objectbase::STATUS_AC;
       $proyecto_tribunal->save();
-      $notificaciones= new Notificacion();
-      $notificaciones->
+     // $notificaciones= new Notificacion();
+    //  $notificaciones->
       
     
      if (isset($_POST['ids']))
@@ -156,18 +144,11 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
                 $tribunal->objBuidFromPost();
                $tribunal->save();
                
-               $tribunal->id;
+             //  $tribunal->id;
                
                
      }
-     
-     
-     
-     
-     
-     
-     
-   }
+     }
 
   
   

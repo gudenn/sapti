@@ -42,11 +42,19 @@
          <label for="nombre">Area del Proyecto:   {$proyectoarea->nombre}</label><br />
        
  </form>
-  
-  
-</div>   
+ </div>   
        
        
+<div style="width: 100%;float: left;" class="tbl_filtro"></div>
+<hr>
+<form name="" action="" method="POST">
+<div align="center"><br>
+  <h1> Tipo de Asignacion de Tribunales</h1>
+<input type="radio" name="group1" id="group1" value="Butter" checked> Manual
+<input type="radio" name="group1" id="group1" value="Cheese" > Automático<br>
+</div>
+</form>
+
 <div style="width: 100%;float: left;" class="tbl_filtro"></div>
    
       
@@ -62,19 +70,24 @@
     <th><a href='?order=id'                class="tajax"   title='Ordenar por Id'               >Id            </a></th>
     <th><a href='?order=codigo_box'        class="tajax"   title='Ordenar por Codigo'           >Nombre       </a></th>
     <th><a href='?order=proveedor'         class="tajax"   title='Ordenar por Proveedor'        >Apellidos     </a></th>
-      </tr>
+       <th><a href='?order=proveedor'         class="tajax"   title='Ordenar por Proveedor'        >Asignar  </a></th>
+  
+  </tr>
   </thead>
   <tbody>
   {section name=ic loop=$objs}
+   
     <tr  class="selectable">
       <td>{$objs[ic]['id']}
         <input type="hidden" name="ids[]" value="{$objs[ic]['id']}">
       </td>
       <td>{$objs[ic]['usuario_nombre']}</td>
       <td>{$objs[ic]['usuario_apellidos']}</td>
+      <td><input type="button" value="Asignar"></td>
      
      
     </tr>
+    
   {/section}
     </tbody> 
 </table>
@@ -97,10 +110,12 @@
             <th>Id            </th>
             <th>Nombre       </th>
             <th>Apellidos    </th>
+            <th>Asignar    </th>
            
           </tr>
         </thead>
         <tbody>
+  
         </tbody>
       </table>
           
