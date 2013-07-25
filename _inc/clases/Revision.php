@@ -16,12 +16,28 @@ class Revision extends Objectbase
   * @var INT(11)
   */
   var $revisor;
+  
+  var $revisor_tipo;
   /**
   * Fecha de la revicion
   * @var INT(11)
   */
-  var $fecha_observacion;
-  
+  var $fecha_revision;
+    /**
+  * Fecha de la correccion de revicion
+  * @var INT(11)
+  */
+  var $fecha_correccion;
+    /**
+  * Fecha de la correccion de revicion
+  * @var INT(11)
+  */
+  var $fecha_aprobacion;
+    /**
+  * Fecha de la revicion
+  * @var INT(11)
+  */
+  var $estado_revision;
     /**
    * Validamos la revicion ya sea para actualizar o para crear una nueva
    * @param type $revision
@@ -41,7 +57,7 @@ class Revision extends Objectbase
     $filtro->nombres[] = 'revisor';
     $filtro->valores[] = array ('input' ,'revisor',$filtro->filtro('revisor'));
     $filtro->nombres[] = 'fecha_observacion';
-    $filtro->valores[] = array ('input' ,'fecha_observacion',$filtro->filtro('fecha_observacion'));
+    $filtro->valores[] = array ('input' ,'fecha_revision',$filtro->filtro('fecha_revision'));
 
   }
     function getOrderString(&$filtro) 
@@ -50,7 +66,7 @@ class Revision extends Objectbase
     $order_array['id']                  = " {$this->getTableName ()}.id ";
     $order_array['proyecto_id']         = " {$this->getTableName ()}.proyecto_id ";
     $order_array['revisor']             = " {$this->getTableName ()}.revisor";
-    $order_array['fecha_observacion']        = " {$this->getTableName ()}.fecha_observacion ";
+    $order_array['fecha_revision']        = " {$this->getTableName ()}.fecha_revision ";
     $order_array['estado']              = " {$this->getTableName ()}.estado ";
     return $filtro->getOrderString($order_array);
   }

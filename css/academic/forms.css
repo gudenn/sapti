@@ -67,7 +67,7 @@ input, textarea, select{
 	width:100%;
 	}
 
-#container #respond input{
+#container #respond input , #container #respond select{
 	width:170px;
 	padding:2px;
 	border:1px solid #CCCCCC;

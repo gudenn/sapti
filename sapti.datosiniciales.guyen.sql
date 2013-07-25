@@ -1,7 +1,7 @@
 INSERT INTO `usuario` (`id`, `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`, `clave`, `ci`, `sexo`, `estado`) VALUES
 (1, 'Super Administrador', 'Super', 'guyencu@gmail.com', '1989-01-17', 'admin', '123123', '123123', 'M', 'AC');
 INSERT INTO `administrador` (`id`, `usuario_id`, `estado`) VALUES (NULL, '1', 'AC');
--------------------------------Docente--------------------------------
+-- -----------------------------Docente--------------------------------
 INSERT INTO `usuario` ( `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`, `clave`, `ci`, `sexo`, `estado`) VALUES
 ( 'Ing. Jose Richard', ' Ayoroa Cardozo', 'jose@gmail.com', '1989-01-17', 'jose', 'jose', '78875', 'M', 'AC');
 
@@ -17,14 +17,15 @@ INSERT INTO `usuario` ( `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`,
 INSERT INTO `usuario` ( `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`, `clave`, `ci`, `sexo`, `estado`) VALUES
 ( 'Lic.  Raul', 'Catari Rios', 'raul@gmail.com', '1989-01-17', 'raul', 'raul', '877657', 'M', 'AC');
 
-INSERT INTO `docente` (`usuario_id`, `estado`) VALUES (1, 'AC');
+-- iniciamos en 2 porque el primer usuario es el Super admin
 INSERT INTO `docente` (`usuario_id`, `estado`) VALUES (2, 'AC');
 INSERT INTO `docente` (`usuario_id`, `estado`) VALUES (3, 'AC');
 INSERT INTO `docente` (`usuario_id`, `estado`) VALUES (4, 'AC');
 INSERT INTO `docente` (`usuario_id`, `estado`) VALUES (5, 'AC');
+INSERT INTO `docente` (`usuario_id`, `estado`) VALUES (6, 'AC');
 
 
--------------------------------Estudiante-------------------------------
+-- -----------------------------Estudiante-------------------------------
 INSERT INTO `usuario` ( `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`, `clave`, `ci`, `sexo`, `estado`) VALUES
 ( 'APAZA MONTES', ' ALEJANDRO ARIEL', 'ariel@gmail.com', '1989-01-17', 'alejandro', 'alejandro', '78875', 'M', 'AC');
 
@@ -64,16 +65,29 @@ INSERT INTO `proyecto` (`nombre`, `estado`) VALUES ('SISTEMA DE ADMINISTRACION Y
 INSERT INTO `proyecto` (`nombre`, `estado`) VALUES ('SISTEMA DE GESTION DE INVENTARIO QUE PERMITA EL CONTROL DE EXISTENCIAS PARA EMPRESA DE PLASTICO', 'AC');
 
 INSERT INTO `proyecto_estudiante` (`id`, `proyecto_id`, `estudiante_id`, `estado`) VALUES (NULL, '1', '1', 'AC');
-INSERT INTO `proyecto_estudiante` (`id`, `proyecto_id`, `estudiante_id`, `estado`) VALUES (NULL, '1', '1', 'AC');
-INSERT INTO `proyecto_estudiante` (`id`, `proyecto_id`, `estudiante_id`, `estado`) VALUES (NULL, '1', '1', 'AC');
+INSERT INTO `proyecto_estudiante` (`id`, `proyecto_id`, `estudiante_id`, `estado`) VALUES (NULL, '2', '2', 'AC');
+INSERT INTO `proyecto_estudiante` (`id`, `proyecto_id`, `estudiante_id`, `estado`) VALUES (NULL, '3', '3', 'AC');
 
 
 
 INSERT INTO `materia` (`id`, `nombre`, `estado`) VALUES (NULL, 'Proyecto Final', 'AC');
+INSERT INTO `materia` (`id`, `nombre`, `estado`) VALUES (NULL, 'Perfil', 'AC');
 INSERT INTO `semestre` (`id`, `codigo`, `estado`) VALUES (NULL, 'I-2013', 'AC'), (NULL, 'II-2013', 'AC');
+-- agrego docentes a las materias
 INSERT INTO `dicta` (`id`, `docente_id`, `materia_id`, `semestre_id`, `estado`) VALUES (NULL, '1', '1', '1', 'AC');
+INSERT INTO `dicta` (`id`, `docente_id`, `materia_id`, `semestre_id`, `estado`) VALUES (NULL, '2', '1', '1', 'AC');
+INSERT INTO `dicta` (`id`, `docente_id`, `materia_id`, `semestre_id`, `estado`) VALUES (NULL, '4', '2', '1', 'AC');
+INSERT INTO `dicta` (`id`, `docente_id`, `materia_id`, `semestre_id`, `estado`) VALUES (NULL, '5', '2', '1', 'AC');
+
+
 INSERT INTO `inscrito` (`id`, `evaluacion_id`, `dicta_id`, `estudiante_id`, `semestre_id`, `estado`) VALUES (NULL, NULL, '1', '1', '1', 'AC');
 INSERT INTO `proyecto_docente` (`id`, `proyecto_id`, `dicta_id`, `estado`) VALUES (NULL, '1', '1', 'AC');
 INSERT INTO `proyecto_tutor` (`id`, `proyecto_id`, `tutor_id`, `estado`) VALUES (NULL, '1', '1', 'AC');
 
 
+INSERT INTO `grupo` (`id`, `codigo`, `descripcion`, `estado`) VALUES
+(NULL, 'SUPER-ADMIN' , 'grupo para el super administrador del sistema', 'AC'),
+(NULL, 'ESTUDIANTES' , 'estudiantes', 'AC'),
+(NULL, 'DOCENTES'    , 'docentes', 'AC'),
+(NULL, 'TUTORES'     , 'tutores', 'AC'),
+(NULL, 'TRIBUNALES'  , 'tribunales', 'AC');

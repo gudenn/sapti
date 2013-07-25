@@ -5,6 +5,22 @@
         <div id="respond">
           <form action="#" method="post" id="registro" name="registro" >
             <p>
+              <select name="semestre_id" id="semestre_id" >
+              {html_options values=$semestre_values selected=$semestre_selected output=$semestre_output}
+              </select>
+              <label for="semestre_id"><small>Semestre (*)</small></label>
+            </p>
+            <p>
+              <select name="materia_id" id="materia_id" >
+              {html_options values=$materia_values selected=$materia_selected output=$materia_output}
+              </select>
+              <label for="materia_id"><small>Materia (*)</small></label>
+            </p>
+            <p>
+              <select name="dicta_id" id="dicta_id" ></select>
+              <label for="dicta_id"><small>Docente (*)</small></label>
+            </p>
+            <p>
               <input type="text" name="codigo_sis" id="codigo_sis" value="{$estudiante->codigo_sis}" size="100"  data-validation-engine="validate[required]">
               <label for="codigo_sis"><small>C&oacute;digo SIS (*)</small></label>
             </p>
@@ -74,6 +90,20 @@
             jQuery('textarea').data('promptPosition',wo);
             jQuery('select').attr('data-prompt-position',wo);
             jQuery('select').data('promptPosition',wo);
+          });
+          jQuery(function(){
+            jQuery("select#materia_id").change(function(){
+              if (jQuery('#semestre_id').val() == '')
+                return jQuery('#semestre_id').validationEngine('showPrompt', 'Seleccione un semestre', 'error', true);;
+                
+              jQuery.getJSON("ajax.estudiante.registro.php",{'materia': jQuery(this).val(),'semestre': jQuery('#semestre_id').val(),  ajax: 'true'}, function(j){
+                var options = '';
+                for (var i = 0; i < j.length; i++) {
+                  options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
+                }
+                jQuery("select#dicta_id").html(options);
+              })
+            })
           });
         {/literal} 
         </script>

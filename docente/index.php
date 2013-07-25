@@ -22,11 +22,9 @@ try {
   leerClase('Docente');
   
   $docente = new Docente(1);
-
   $docente->estado = "AC";
   $docente->save();
-  
-  
+
   $smarty->assign("docente", $docente);
   $smarty->assign("ERROR", $ERROR);
   

@@ -2,7 +2,7 @@
         <div class="holder">
           <h2 class="title">Menu Docente</h2>
           <ul class="nostart">
-            <li><a href="correciones.registro.php">Alumnos Inscritos</a></li>
+            <li><a href="estudiante.lista.php">Alumnos Inscritos</a></li>
             <li><a href="observacion.lista.php">Lista de Observaciones</a></li>
             <li><a href="observacion.registro.php">Registro de Observaciones</a></li>
           </ul>
