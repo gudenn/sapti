@@ -1,5 +1,5 @@
 <?php
-//include './upload.lib.php';
+include './upload.lib.php';
 try {
   require('_start.php');
   global $PAISBOX;
@@ -26,6 +26,8 @@ try {
  leerClase("Institucion");
  leerClase("Usuario");
  leerClase("Estudiante");
+ leerClase("Docente");
+ leerClase("Tutor");
  
   
  $perfilregistro = new Perfilregistro();
@@ -122,14 +124,68 @@ try {
      $usuario_id[] = $rows['id'];
      $usuario_nombre[] = $rows['nombre'];
      $usuario_apellidos[] = $rows['apellidos'];
-  }
+ }
 
   $smarty->assign('usuario_id', $usuario_id);
   $smarty->assign('usuario_nombre', $usuario_nombre); 
   $smarty->assign('usuario_apellidos', $usuario_apellidos); 
+
+/**
+  $perfilregistro->numero=9;
   
-        
-   
+  $perfilregistro->telefono=09;
+  $perfilregistro->trabajoconjunto='si';
+  $perfilregistro->gestionaprobacion="10uu";
+  $perfilregistro->cambiotema='SI';
+  $perfilregistro->titulo="KJFDL";
+  $perfilregistro->objetivogeneral="DF";
+  $perfilregistro->objetivoespecifico="FADSFAS";
+  $perfilregistro->descripcionperfil="SDAFS";
+  $perfilregistro->registradopor="JJJJ";
+  $perfilregistro->estado="AC";
+  $perfilregistro->verificaperfil_id=1;
+  $perfilregistro->usuario_id=1;
+  $perfilregistro->carrera_id=1;
+  $perfilregistro->modalidad_id=1;
+  $perfilregistro->institucion_id=1;
+  $perfilregistro->area_id=1;
+  $perfilregistro->sub_area_id=1;
+  $perfilregistro->docente_id=1;
+//$dirigido->verificaperfil_id=1;
+ // $perfilregistro->objBuidFromPost();
+  //$perfilregistro->save();
+  */
+
+  
+  
+/**  
+$upload = new upload;    // upload
+$upload ->SetDirectory("archivos");
+//$file = $_FILES['formularioaprobacion']['name'];
+//$arreglo['url_documento']= "";
+//if ($_FILES[$perfilregistro->formularioaprobacion]['name'] != "")
+//  {
+ // $tipo_archivo = $_FILES[$perfilregistro->formularioaprobacion]['type'];
+ // if (!(strpos($tipo_archivo, "pdf")))
+  //  {
+   // $todoOK = false;
+  // echo "<script>alert('solo archivos pdf. Por favor verifique e intente de nuevo, tipo: ".$tipo_archivo."');</script>";
+    //} else 
+      //{
+//       $tamanio = $_FILES[$perfilregistro->formularioaprobacion]['size'];
+	 $name = "doc_".time();
+	 $upload -> SetFile("formularioaprobacion");
+	 if ($upload -> UploadFile( $name ))
+	  {
+	   $urldocumento = "archivos".$name.".".$upload->ext;
+	  }
+       //}
+    // }
+ // }         
+  
+  */         
+          
+          
           
  //GUARDA ALA BASE DE DATOS 
 if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )

@@ -9,20 +9,21 @@
     <tr bgcolor="#F1F5F8">
         <td bgcolor="#F7F7F7">
         <table width="100%" cellpadding="2" cellspacing="2" bordercolor="#999999" border="1">
-   <!--  <td width="2%" class="label" style="text-align:center"><strong>No</strong></td>-->
-               <td width="2%" class="label" style="text-align:center"><strong> NUMERO </strong></td>  
-	  		  	<td width="17%" class="label" style="text-align:center"><strong> GESTION APROBACION </strong></td>
-	  		  	<td width="15%" class="field" style="text-align:center"><strong> TITULO </strong></td>
+                <td width="2%" class="label" style="text-align:center"><strong>No</strong></td> 
+                <td width="2%" class="label" style="text-align:center"><strong> NUMERO </strong></td>
+	        <td width="17%" class="label" style="text-align:center"><strong> GESTION APROBACION </strong></td>
+	  	<td width="15%" class="field" style="text-align:center"><strong> TITULO </strong></td>
                 <td width="7%" class="label" style="text-align:center"><strong>FECHA DE REGISTRO</strong></td>
-	  		         <td width="12%" class="field" style="text-align:center"><strong>ACTUALIZAR</strong></td>
+	  	<td width="12%" class="field" style="text-align:center"><strong>ACTUALIZAR</strong></td> 
           {foreach key=key name=outer item=dato from=$datos}
-      <tr class="">
+        <tr class="perfilregistro.php">
 	  <td width="15%" align="center">1</td>     
          {foreach key=key item=item from=$dato}
-	      <td width="15%" align="center">{$item}</td>
+           <td width="15%" align="center">{$item}</td>
          {/foreach} 
-         <td width="15%" align="center"><a href="perfilregistro.php">modificar</a></td>
-      </tr>
+         <td width="15%" align="center"><a href="perfilregistro.php">Editar</a></td>
+      
+     </tr>
    {/foreach} 
    </td>
 </tr>

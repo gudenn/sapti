@@ -61,16 +61,17 @@ class Perfilregistro extends Objectbase
      */
     var $registradopor;
     var $fecharegistro;
-    var $vigencia_perfil_id;
-    var $usuario_id;
+    var $proyecto_id;
+    var $sub_area_id;
     var $carrera_id;
     var $modalidad_id;
     var $institucion_id;
-    var $area_id;
-    var $sub_area_id;
+    var $usuario_id;
     var $docente_id;
-    var $verificaperfil_id;
-     
+    var $tutor_id;
+    var $estudiante_id;
+    var $area_id;
+      
 }
 
 ?>

@@ -61,5 +61,16 @@ class Perfiltesis extends Objectbase
      * @VARCHAR(45)
      */
     var $registradopor;
+    var $fecharegistrado;
+    
+    var $vigencia_perfil_id;
+    var $usuario_id;
+    var $carrera_id;
+    var $modalidad_id;
+    var $institucion_id;
+    var $area_id;
+    var $sub_area_id;
+    var $docente_id;
+    var $verificaperfil_id;
 }
 ?>
