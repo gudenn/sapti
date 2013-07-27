@@ -85,9 +85,16 @@ INSERT INTO `proyecto_docente` (`id`, `proyecto_id`, `dicta_id`, `estado`) VALUE
 INSERT INTO `proyecto_tutor` (`id`, `proyecto_id`, `tutor_id`, `estado`) VALUES (NULL, '1', '1', 'AC');
 
 
-INSERT INTO `grupo` (`id`, `codigo`, `descripcion`, `estado`) VALUES
-(NULL, 'SUPER-ADMIN' , 'grupo para el super administrador del sistema', 'AC'),
-(NULL, 'ESTUDIANTES' , 'estudiantes', 'AC'),
-(NULL, 'DOCENTES'    , 'docentes', 'AC'),
-(NULL, 'TUTORES'     , 'tutores', 'AC'),
-(NULL, 'TRIBUNALES'  , 'tribunales', 'AC');
+INSERT INTO `grupo` ( `codigo`, `descripcion`, `estado`) VALUES
+( 'SUPER-ADMIN' , 'grupo para el super administrador del sistema', 'AC'),
+('ESTUDIANTES' , 'estudiantes', 'AC'),
+('DOCENTES'    , 'docentes', 'AC'),
+('TUTORES'     , 'tutores', 'AC'),
+('TRIBUNALES'  , 'tribunales', 'AC');
+
+INSERT INTO `carrera` (`id`, `nombre`, `descripcion`, `estado`) VALUES
+(1, 'Licenciatura en Ingeniería de Sistemas', NULL, 'AC'),
+(2, 'Licenciatura en Ingeniería de Informática ', NULL, 'AC');
+
+INSERT INTO `modalidad` (`id`, `nombre`, `descripcion`, `estado`) VALUES
+(1, 'Tesis', NULL, 'AC');

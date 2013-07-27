@@ -190,6 +190,18 @@ $upload ->SetDirectory("archivos");
  //GUARDA ALA BASE DE DATOS 
 if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
   {
+  
+  
+    if(isset($_POST['trabajoconjunto']))
+    {
+      if($_POST['trabajoconjunto']=="Si")
+      {
+        echo $_POST['trabajoconjunto'];
+      }else
+      {
+        echo $_POST['trabajoconjunto'];
+      }
+    }
     $perfilregistro->objBuidFromPost();
     $perfilregistro->save();
   }

@@ -62,12 +62,11 @@
       </select>
    <a class="active"  href="{$URL}carrera/registro.php">Nueva Carrera</a></p></td>
     <td colspan="4" valign="top"><p align="left"><strong>Trabajo Conjunto</strong>:
-      <label>
-<input name="trabajoconjunto" type="checkbox" value="checkbox" checked="checked" />        
-SI</label>
-   <label>
-    <input type="checkbox" name="trabajoconjunto" value="checkbox" />
-    NO</label>
+        
+    <INPUT type="radio" name="trabajoconjunto" value="Si" > Si
+    <INPUT type="radio" name="trabajoconjunto" value="No"> No<BR>
+
+  
     </p>      </td>
   </tr>
   <tr>
