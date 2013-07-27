@@ -50,8 +50,8 @@
 <form name="" action="" method="POST">
 <div align="center"><br>
   <h1> Tipo de Asignacion de Tribunales</h1>
-<input type="radio" name="group1" id="group1" value="Butter" checked> Manual
-<input type="radio" name="group1" id="group1" value="Cheese" > Automático<br>
+<input type="submit" name="group1" id="group1" value="Butter" checked> Manual
+<input type="submit" name="group1" id="group1" value="Cheese" > Automático<br>
 </div>
 </form>
 

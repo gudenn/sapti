@@ -9,16 +9,30 @@ try {
   $smarty->assign('keywords','Proyecto Final');
 
   //CSS
-  $CSS[]  = "css/style.css";
-  $smarty->assign('CSS','');
+  $CSS[]  = URL_CSS . "academic/3_column.css";
+  $smarty->assign('CSS',$CSS);
 
   //JS
   $JS[]  = "js/jquery.js";
   $smarty->assign('JS','');
 
 
+  //CREAR UN ESTUDIANTE
+  leerClase('Estudiante');
+  
+  $estudiante = new Estudiante(1);
+  /*
+  $estudiante->nombre = "Juan Carlos";
+  $estudiante->apellido_paterno = "Campos";
+  $estudiante->apellido_materno = "Flores";
+  $estudiante->codigo_sis = "2005605654";
+   * 
+   */
+  $estudiante->estado = "AC";
+  $estudiante->save();
   
   
+  $smarty->assign("estudiante", $estudiante);
   $smarty->assign("ERROR", $ERROR);
   
 
@@ -31,7 +45,7 @@ catch(Exception $e)
   $smarty->assign("ERROR", handleError($e));
 }
 
-$TEMPLATE_TOSHOW = 'index.academic.tpl';
+$TEMPLATE_TOSHOW = 'perfil/3columnas.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>

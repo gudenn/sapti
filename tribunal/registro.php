@@ -116,6 +116,7 @@ $smarty->assign('proyecto_nombre' ,$proyecto_nombre);
  
    if ( isset($_POST['group1']))
    {
+     
      echo "hola mundo eli";
    }
   $proyecto_tribunal= new Proyecto_tribunal();
