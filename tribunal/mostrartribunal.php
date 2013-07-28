@@ -89,7 +89,7 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
   {
      $sql="SELECT u.nombre , u.apellidos
 FROM  usuario u, tribunal t, proyecto_tribunal pt
-WHERE   u.id=t.usuario_id  and  t.proyecto_tribunal_id=pt.id  and  pt.id=".$_GET['tribunal_id'];;
+WHERE   u.id=t.usuario_id  and  t.proyecto_tribunal_id=pt.id  and  pt.id=".$_GET['tribunal_id'];
  $resultado = mysql_query($sql);
  $arraytribunal= array();
  

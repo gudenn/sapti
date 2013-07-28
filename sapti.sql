@@ -6,11 +6,11 @@ CREATE SCHEMA IF NOT EXISTS `sapti` DEFAULT CHARACTER SET utf8 COLLATE utf8_gene
 USE `sapti` ;
 
 -- -----------------------------------------------------
--- Table `sapti`.`usuario`
+-- Table `usuario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`usuario` ;
+DROP TABLE IF EXISTS `usuario` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`usuario` (
+CREATE  TABLE IF NOT EXISTS `usuario` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(100) NULL ,
   `apellidos` VARCHAR(100) NULL ,
@@ -26,11 +26,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`estudiante`
+-- Table `estudiante`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`estudiante` ;
+DROP TABLE IF EXISTS `estudiante` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`estudiante` (
+CREATE  TABLE IF NOT EXISTS `estudiante` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `usuario_id` INT NOT NULL ,
   `codigo_sis` VARCHAR(20) NULL ,
@@ -40,11 +40,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`proyecto`
+-- Table `proyecto`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`proyecto` ;
+DROP TABLE IF EXISTS `proyecto` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`proyecto` (
+CREATE  TABLE IF NOT EXISTS `proyecto` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(300) NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
@@ -53,11 +53,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`tipo_defensa`
+-- Table `tipo_defensa`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`tipo_defensa` ;
+DROP TABLE IF EXISTS `tipo_defensa` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`tipo_defensa` (
+CREATE  TABLE IF NOT EXISTS `tipo_defensa` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre_tipodefensa` VARCHAR(45) NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
@@ -66,11 +66,24 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`defensa`
+-- Table `proyecto_tribunal`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`defensa` ;
+DROP TABLE IF EXISTS `proyecto_tribunal` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`defensa` (
+CREATE  TABLE IF NOT EXISTS `proyecto_tribunal` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `proyecto_id` INT NULL ,
+  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `defensa`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `defensa` ;
+
+CREATE  TABLE IF NOT EXISTS `defensa` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `proyecto_id` INT NOT NULL ,
   `tipo_defensa_id` INT NULL ,
@@ -79,16 +92,17 @@ CREATE  TABLE IF NOT EXISTS `sapti`.`defensa` (
   `fecha_defensa` DATE NULL ,
   `hora_defensa` TIME NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  `proyecto_tribunal_id` INT NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`docente`
+-- Table `docente`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`docente` ;
+DROP TABLE IF EXISTS `docente` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`docente` (
+CREATE  TABLE IF NOT EXISTS `docente` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `usuario_id` INT NOT NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
@@ -97,11 +111,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`tutor`
+-- Table `tutor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`tutor` ;
+DROP TABLE IF EXISTS `tutor` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`tutor` (
+CREATE  TABLE IF NOT EXISTS `tutor` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `usuario_id` INT NOT NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
@@ -110,25 +124,25 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`tribunal`
+-- Table `tribunal`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`tribunal` ;
+DROP TABLE IF EXISTS `tribunal` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`tribunal` (
+CREATE  TABLE IF NOT EXISTS `tribunal` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `defensa_id` INT NULL ,
   `usuario_id` INT NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  `proyecto_tribunal_id` INT NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`proyecto_estudiante`
+-- Table `proyecto_estudiante`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`proyecto_estudiante` ;
+DROP TABLE IF EXISTS `proyecto_estudiante` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`proyecto_estudiante` (
+CREATE  TABLE IF NOT EXISTS `proyecto_estudiante` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `proyecto_id` INT NULL ,
   `estudiante_id` INT NULL ,
@@ -138,11 +152,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`materia`
+-- Table `materia`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`materia` ;
+DROP TABLE IF EXISTS `materia` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`materia` (
+CREATE  TABLE IF NOT EXISTS `materia` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(200) NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
@@ -151,11 +165,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`semestre`
+-- Table `semestre`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`semestre` ;
+DROP TABLE IF EXISTS `semestre` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`semestre` (
+CREATE  TABLE IF NOT EXISTS `semestre` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `codigo` VARCHAR(45) NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
@@ -164,11 +178,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`dicta`
+-- Table `dicta`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`dicta` ;
+DROP TABLE IF EXISTS `dicta` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`dicta` (
+CREATE  TABLE IF NOT EXISTS `dicta` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `docente_id` INT NULL ,
   `materia_id` INT NULL ,
@@ -179,11 +193,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`proyecto_docente`
+-- Table `proyecto_docente`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`proyecto_docente` ;
+DROP TABLE IF EXISTS `proyecto_docente` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`proyecto_docente` (
+CREATE  TABLE IF NOT EXISTS `proyecto_docente` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `proyecto_id` INT NULL ,
   `dicta_id` INT NULL ,
@@ -193,11 +207,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`proyecto_tutor`
+-- Table `proyecto_tutor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`proyecto_tutor` ;
+DROP TABLE IF EXISTS `proyecto_tutor` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`proyecto_tutor` (
+CREATE  TABLE IF NOT EXISTS `proyecto_tutor` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `proyecto_id` INT NULL ,
   `tutor_id` INT NULL ,
@@ -207,11 +221,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`grupo`
+-- Table `grupo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`grupo` ;
+DROP TABLE IF EXISTS `grupo` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`grupo` (
+CREATE  TABLE IF NOT EXISTS `grupo` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `codigo` VARCHAR(40) NULL ,
   `descripcion` VARCHAR(300) NULL ,
@@ -221,11 +235,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`pertenece`
+-- Table `pertenece`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`pertenece` ;
+DROP TABLE IF EXISTS `pertenece` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`pertenece` (
+CREATE  TABLE IF NOT EXISTS `pertenece` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `usuario_id` INT NOT NULL ,
   `grupo_id` INT NOT NULL ,
@@ -235,11 +249,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`evaluacion`
+-- Table `evaluacion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`evaluacion` ;
+DROP TABLE IF EXISTS `evaluacion` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`evaluacion` (
+CREATE  TABLE IF NOT EXISTS `evaluacion` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `evaluacion_1` INT NULL ,
   `evaluacion_2` INT NULL ,
@@ -252,11 +266,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`inscrito`
+-- Table `inscrito`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`inscrito` ;
+DROP TABLE IF EXISTS `inscrito` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`inscrito` (
+CREATE  TABLE IF NOT EXISTS `inscrito` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `evaluacion_id` INT NULL ,
   `dicta_id` INT NULL ,
@@ -268,11 +282,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`area`
+-- Table `area`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`area` ;
+DROP TABLE IF EXISTS `area` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`area` (
+CREATE  TABLE IF NOT EXISTS `area` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
   `descripcion` VARCHAR(45) NULL ,
@@ -282,11 +296,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`sub_area`
+-- Table `sub_area`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`sub_area` ;
+DROP TABLE IF EXISTS `sub_area` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`sub_area` (
+CREATE  TABLE IF NOT EXISTS `sub_area` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
   `descripcion` VARCHAR(45) NULL ,
@@ -296,11 +310,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`area_sub_area`
+-- Table `area_sub_area`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`area_sub_area` ;
+DROP TABLE IF EXISTS `area_sub_area` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`area_sub_area` (
+CREATE  TABLE IF NOT EXISTS `area_sub_area` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
   `sub_area_id` INT NOT NULL ,
@@ -310,11 +324,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`proyecto_sub_area`
+-- Table `proyecto_sub_area`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`proyecto_sub_area` ;
+DROP TABLE IF EXISTS `proyecto_sub_area` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`proyecto_sub_area` (
+CREATE  TABLE IF NOT EXISTS `proyecto_sub_area` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
   `sub_area_id` INT NOT NULL ,
@@ -324,11 +338,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`especialidad`
+-- Table `especialidad`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`especialidad` ;
+DROP TABLE IF EXISTS `especialidad` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`especialidad` (
+CREATE  TABLE IF NOT EXISTS `especialidad` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
   `sub_area_id` INT NOT NULL ,
@@ -338,25 +352,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`proyecto_tribunal`
+-- Table `proyecto_area`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`proyecto_tribunal` ;
+DROP TABLE IF EXISTS `proyecto_area` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`proyecto_tribunal` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `proyecto_id` INT NULL ,
-  `tribunal_id` INT NULL ,
-  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `sapti`.`proyecto_area`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`proyecto_area` ;
-
-CREATE  TABLE IF NOT EXISTS `sapti`.`proyecto_area` (
+CREATE  TABLE IF NOT EXISTS `proyecto_area` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `area_id` INT NULL ,
   `proyecto_id` INT NULL ,
@@ -366,11 +366,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`administrador`
+-- Table `administrador`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`administrador` ;
+DROP TABLE IF EXISTS `administrador` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`administrador` (
+CREATE  TABLE IF NOT EXISTS `administrador` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `usuario_id` INT NULL ,
   `estado` VARCHAR(2) NULL ,
@@ -379,11 +379,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`revision`
+-- Table `revision`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`revision` ;
+DROP TABLE IF EXISTS `revision` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`revision` (
+CREATE  TABLE IF NOT EXISTS `revision` (
   `id` INT NOT NULL ,
   `observacion` VARCHAR(150) NULL ,
   `fecha` DATE NULL ,
@@ -394,11 +394,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`observacion`
+-- Table `observacion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`observacion` ;
+DROP TABLE IF EXISTS `observacion` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`observacion` (
+CREATE  TABLE IF NOT EXISTS `observacion` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `revision_id` INT NOT NULL ,
   `observacion` VARCHAR(1500) NULL ,
@@ -409,11 +409,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`notificacion`
+-- Table `notificacion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`notificacion` ;
+DROP TABLE IF EXISTS `notificacion` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`notificacion` (
+CREATE  TABLE IF NOT EXISTS `notificacion` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `proyecto_id` INT NOT NULL ,
   `tipo` VARCHAR(45) NULL COMMENT 'Mensaje normal, Mensaje de tiempo se acaba, y otros ' ,
@@ -426,11 +426,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`notificacion_tribunal`
+-- Table `notificacion_tribunal`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`notificacion_tribunal` ;
+DROP TABLE IF EXISTS `notificacion_tribunal` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`notificacion_tribunal` (
+CREATE  TABLE IF NOT EXISTS `notificacion_tribunal` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `notificacion_id` INT NOT NULL ,
   `tribunal_id` INT NOT NULL ,
@@ -440,11 +440,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`notificacion_estudiante`
+-- Table `notificacion_estudiante`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`notificacion_estudiante` ;
+DROP TABLE IF EXISTS `notificacion_estudiante` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`notificacion_estudiante` (
+CREATE  TABLE IF NOT EXISTS `notificacion_estudiante` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `notificacion_id` INT NOT NULL ,
   `estudiante_id` INT NOT NULL ,
@@ -454,11 +454,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`notificacion_docente`
+-- Table `notificacion_docente`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`notificacion_docente` ;
+DROP TABLE IF EXISTS `notificacion_docente` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`notificacion_docente` (
+CREATE  TABLE IF NOT EXISTS `notificacion_docente` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `notificacion_id` INT NOT NULL ,
   `docente_id` INT NOT NULL ,
@@ -468,11 +468,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`notificacion_tutor`
+-- Table `notificacion_tutor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`notificacion_tutor` ;
+DROP TABLE IF EXISTS `notificacion_tutor` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`notificacion_tutor` (
+CREATE  TABLE IF NOT EXISTS `notificacion_tutor` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `notificacion_id` INT NOT NULL ,
   `tutor_id` INT NOT NULL ,
@@ -482,11 +482,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`modulo`
+-- Table `modulo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`modulo` ;
+DROP TABLE IF EXISTS `modulo` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`modulo` (
+CREATE  TABLE IF NOT EXISTS `modulo` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `codigo` VARCHAR(40) NULL ,
   `descripcion` VARCHAR(300) NULL ,
@@ -496,11 +496,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`permiso`
+-- Table `permiso`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`permiso` ;
+DROP TABLE IF EXISTS `permiso` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`permiso` (
+CREATE  TABLE IF NOT EXISTS `permiso` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `grupo_id` INT NULL ,
   `modulo_id` INT NULL ,
@@ -514,11 +514,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`carrera`
+-- Table `carrera`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`carrera` ;
+DROP TABLE IF EXISTS `carrera` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`carrera` (
+CREATE  TABLE IF NOT EXISTS `carrera` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
   `descripcion` VARCHAR(45) NULL ,
@@ -528,11 +528,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`modalidad`
+-- Table `modalidad`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`modalidad` ;
+DROP TABLE IF EXISTS `modalidad` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`modalidad` (
+CREATE  TABLE IF NOT EXISTS `modalidad` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
   `descripcion` VARCHAR(45) NULL ,
@@ -542,11 +542,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`institucion`
+-- Table `institucion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`institucion` ;
+DROP TABLE IF EXISTS `institucion` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`institucion` (
+CREATE  TABLE IF NOT EXISTS `institucion` (
   `id` INT NOT NULL ,
   `nombre` VARCHAR(45) NULL ,
   `descripcion` VARCHAR(45) NULL ,
@@ -556,11 +556,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`perfilregistro`
+-- Table `perfilregistro`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`perfilregistro` ;
+DROP TABLE IF EXISTS `perfilregistro` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`perfilregistro` (
+CREATE  TABLE IF NOT EXISTS `perfilregistro` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `numero` INT NULL ,
   `telefono` INT NULL ,
@@ -590,11 +590,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`perfilvigencia`
+-- Table `perfilvigencia`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`perfilvigencia` ;
+DROP TABLE IF EXISTS `perfilvigencia` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`perfilvigencia` (
+CREATE  TABLE IF NOT EXISTS `perfilvigencia` (
   `id` INT NOT NULL ,
   `fechainicio` DATE NULL ,
   `fechafin` DATE NULL ,
@@ -605,11 +605,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`revision`
+-- Table `revision`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`revision` ;
+DROP TABLE IF EXISTS `revision` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`revision` (
+CREATE  TABLE IF NOT EXISTS `revision` (
   `id` INT NOT NULL ,
   `observacion` VARCHAR(150) NULL ,
   `fecha` DATE NULL ,
@@ -620,11 +620,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`horario`
+-- Table `horario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`horario` ;
+DROP TABLE IF EXISTS `horario` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`horario` (
+CREATE  TABLE IF NOT EXISTS `horario` (
   `id` INT NOT NULL ,
   `nombre` VARCHAR(45) NULL ,
   `descripcion` VARCHAR(45) NULL ,
@@ -634,11 +634,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`horario_doc`
+-- Table `horario_doc`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`horario_doc` ;
+DROP TABLE IF EXISTS `horario_doc` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`horario_doc` (
+CREATE  TABLE IF NOT EXISTS `horario_doc` (
   `id` INT NOT NULL ,
   `nombre` VARCHAR(45) NULL ,
   `descripcion` VARCHAR(45) NULL ,
@@ -650,11 +650,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`dias`
+-- Table `dias`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`dias` ;
+DROP TABLE IF EXISTS `dias` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`dias` (
+CREATE  TABLE IF NOT EXISTS `dias` (
   `id` INT NOT NULL ,
   `nombre` VARCHAR(45) NULL ,
   `descripcion` VARCHAR(45) NULL ,
@@ -665,11 +665,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sapti`.`horas`
+-- Table `horas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sapti`.`horas` ;
+DROP TABLE IF EXISTS `horas` ;
 
-CREATE  TABLE IF NOT EXISTS `sapti`.`horas` (
+CREATE  TABLE IF NOT EXISTS `horas` (
   `id` INT NOT NULL ,
   `nombre` VARCHAR(45) NULL ,
   `descripcion` VARCHAR(45) NULL ,

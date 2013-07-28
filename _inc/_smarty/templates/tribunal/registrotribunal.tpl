@@ -1,5 +1,6 @@
 {include file="header.tpl"}
 
+
 <div class="wrapper row3">
   <div class="rnd">
     <div id="container" class="clear">
@@ -78,6 +79,7 @@
   {section name=ic loop=$objs}
    
     <tr  class="selectable">
+      
       <td>{$objs[ic]['id']}
         <input type="hidden" name="ids[]" value="{$objs[ic]['id']}">
       </td>
