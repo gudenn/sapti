@@ -115,20 +115,15 @@ class Estudiante extends Objectbase {
   }
 
   /**
-   * 
+   * Get usuario de un estudiante
+   * @TODO hay que arreglar esta funcion
    * @return boolean|\Usuario
    * retorna los datos de un usuario asociado a un estudiante
    */
-  function getDatos() {
-    $activo = Objectbase::STATUS_AC;
-    $sql = "select u.* from " . $this->getTableName('Estudiante') . " as es , " . $this->getTableName('Usuario') . " as u   where es.usuario_id= '$this->id' and es.estado = '$activo' and u.estado = '$activo'  ";
-
-//echo $sql;
-    $resultado = mysql_query($sql);
-    if (!$resultado)
+  function getUsuario() {
+    if (!isset($this->usuario_id) || !$this->usuario_id)
       return false;
-    $usuario = mysql_fetch_array($resultado);
-    $usuario = new Usuario($usuario);
+    $usuario = new Usuario($this->usuario_id);
     return $usuario;
   }
 

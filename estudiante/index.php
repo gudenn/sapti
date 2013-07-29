@@ -17,23 +17,18 @@ try {
   $JS[]  = "js/jquery.js";
   $smarty->assign('JS','');
 
-
-  //CREAR UN ESTUDIANTE
+  // Escritorio del estuddinate
+  leerClase('Usuario');
   leerClase('Estudiante');
   
-  $estudiante = new Estudiante(1);
-  /*
-  $estudiante->nombre = "Juan Carlos";
-  $estudiante->apellido_paterno = "Campos";
-  $estudiante->apellido_materno = "Flores";
-  $estudiante->codigo_sis = "2005605654";
-   * 
-   */
-  $estudiante->estado = "AC";
-  $estudiante->save();
-  
+  $estudiante_aux = getSessionEstudiante();
+  $estudiante     = new Estudiante($estudiante_aux->estudiante_id);
+  $usuario        = $estudiante->getUsuario();
+  $proyecto       = $estudiante->getProyecto();
   
   $smarty->assign("estudiante", $estudiante);
+  $smarty->assign("usuario", $usuario);
+  $smarty->assign("proyecto", $proyecto);
   $smarty->assign("ERROR", $ERROR);
   
 
@@ -46,7 +41,7 @@ catch(Exception $e)
   $smarty->assign("ERROR", handleError($e));
 }
 
-$TEMPLATE_TOSHOW = 'estudiante/3columnas.tpl';
+$TEMPLATE_TOSHOW = 'estudiante/estudiante.3columnas.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>
