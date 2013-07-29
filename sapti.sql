@@ -344,9 +344,9 @@ DROP TABLE IF EXISTS `especialidad` ;
 
 CREATE  TABLE IF NOT EXISTS `especialidad` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
-  `sub_area_id` INT NOT NULL ,
   `docente_id` INT NOT NULL ,
+  `area_id` INT NOT NULL ,
+  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
