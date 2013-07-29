@@ -54,6 +54,7 @@ try {
  $usuario_mysql  = $usuario->getAll();
  $usuario_id     = array();
  $usuario_nombre = array();
+ 
  $sql="SELECT pt.`id` , u.`nombre` ,u.`apellidos`, es.`codigo_sis` , p.`nombre` as nombreproyecto
 FROM `proyecto` p , `proyecto_tribunal`  pt , `usuario` u, `estudiante` es , `proyecto_estudiante` pe
 WHERE   u.`id`=es.`usuario_id` and  es.`id`=pe.`estudiante_id` and  pe.`proyecto_id`=p.`id` and p.`id`=pt.`proyecto_id`;";

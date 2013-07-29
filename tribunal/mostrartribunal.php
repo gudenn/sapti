@@ -98,12 +98,6 @@ WHERE   u.id=t.usuario_id  and  t.proyecto_tribunal_id=pt.id  and  pt.id=".$_GET
  }
 $smarty->assign('arraytribunal'  , $arraytribunal);
     
-    
-  echo  $_GET['tribunal_id'];
-  
-  
-  
-  
   
   $sqllt=  "SELECT u.nombre , u.apellidos , e.codigo_sis , p.nombre as nombreproyecto
 FROM  usuario u , estudiante e , proyecto_estudiante pe , proyecto p, proyecto_tribunal pt
@@ -118,12 +112,6 @@ $resultados = mysql_query($sqllt);
  }
       
       $smarty->assign('arraytribunaldatos'  , $arraytribunaldatos);
-  
-
-  
-  
-  
-    
   }
 
   

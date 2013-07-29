@@ -16,6 +16,8 @@ INSERT INTO `usuario` ( `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`,
 
 INSERT INTO `usuario` ( `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`, `clave`, `ci`, `sexo`, `estado`) VALUES
 ( 'Lic.  Raul', 'Catari Rios', 'raul@gmail.com', '1989-01-17', 'raul', 'raul', '877657', 'M', 'AC');
+INSERT INTO `usuario` ( `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`, `clave`, `ci`, `sexo`, `estado`) VALUES
+( 'Lic. Grover', 'Cussi Nicolas', 'cussi@gmail.com', '1989-01-17', 'cussi', 'cussi', '877657', 'M', 'AC');
 
 -- iniciamos en 2 porque el primer usuario es el Super admin
 INSERT INTO `docente` (`usuario_id`, `estado`) VALUES (2, 'AC');
@@ -23,6 +25,7 @@ INSERT INTO `docente` (`usuario_id`, `estado`) VALUES (3, 'AC');
 INSERT INTO `docente` (`usuario_id`, `estado`) VALUES (4, 'AC');
 INSERT INTO `docente` (`usuario_id`, `estado`) VALUES (5, 'AC');
 INSERT INTO `docente` (`usuario_id`, `estado`) VALUES (6, 'AC');
+INSERT INTO `docente` (`usuario_id`, `estado`) VALUES (7, 'AC');
 
 
 -- -----------------------------Estudiante-------------------------------
@@ -96,5 +99,18 @@ INSERT INTO `carrera` (`id`, `nombre`, `descripcion`, `estado`) VALUES
 (1, 'Licenciatura en Ingeniería de Sistemas', NULL, 'AC'),
 (2, 'Licenciatura en Ingeniería de Informática ', NULL, 'AC');
 
+
+
+
 INSERT INTO `modalidad` (`id`, `nombre`, `descripcion`, `estado`) VALUES
 (1, 'Tesis', NULL, 'AC');
+INSERT INTO `area` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'Sistemas Expertos', NULL, 'AC');
+INSERT INTO `area` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'Ingeniería de Software', NULL, 'AC');
+
+
+INSERT INTO `especialidad` (`id`, `docente_id`, `area_id`, `estado`) VALUES (NULL, '1', '1', 'AC');
+INSERT INTO `especialidad` (`id`, `docente_id`, `area_id`, `estado`) VALUES (NULL, '2', '1', 'AC'), (NULL, '3', '1', 'AC');
+INSERT INTO `especialidad` (`id`, `docente_id`, `area_id`, `estado`) VALUES (NULL, '4', '2', 'AC'), (NULL, '5', '2', 'AC');
+INSERT INTO `especialidad` (`id`, `docente_id`, `area_id`, `estado`) VALUES (NULL, '6', '2', 'AC');
+
+INSERT INTO `proyecto_area` (`id`, `area_id`, `proyecto_id`, `estado`) VALUES (NULL, '1', '1', 'AC');
