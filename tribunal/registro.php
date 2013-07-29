@@ -27,8 +27,9 @@ try {
   leerClase("Filtro");
   leerClase("Proyecto_tribunal");
   leerClase("Proyecto_estudiante");
- // leerClase("Notifiacion_tribunal");
-  //leerClase("Notificacion");
+  leerClase("Notificacion");
+ leerClase("Notificacion_tribunal");
+ 
   
   
  $filtro     = new Filtro('g_docente',__FILE__);
@@ -47,7 +48,25 @@ try {
   $smarty->assign("pages"    ,$objs_pg->p_pages);
  
   
+  $sqlr="SELECT  d.`id`, u.`nombre`,u.`apellidos`, a.`nombre` as nombrearea
+FROM  `usuario` u ,`docente` d , `especialidad`  es, `area`  a
+WHERE  u.`id`=d.`usuario_id` and u.`estado`='AC' and   es.`docente_id` =d.`id`and d.`estado`='AC' and a.`id`=es.`area_id`;
+  ;";
+ $resultado = mysql_query($sqlr);
+ $arraytribunal= array();
+ 
+ while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) 
+ {
+  // $arraytribunal=$fila;
+   
+   //array('name' => $fila["id"], 'home' => $fila["nombre"],'cell' => $fila["apellidos"], 'email' => 'john@myexample.com');
+   
+   $arraytribunal[]=$fila;
+ }
+ $smarty->assign('listadocentes'  , $arraytribunal);
   
+  
+   
  
  $rows = array();
 $usuario = new Usuario();
@@ -101,6 +120,7 @@ $smarty->assign('proyecto_nombre' ,$proyecto_nombre);
     else
     {
       //@todo no tiene proyecto 
+       echo "<script>alert('El Estudiante no Tiene Proyecto');</script>";
       
     }
   
@@ -114,42 +134,89 @@ $smarty->assign('proyecto_nombre' ,$proyecto_nombre);
   
   
  
-   if ( isset($_POST['group1']))
+   if ( isset($_POST['manual']))
    {
+     echo "Hola eli";
+     echo   $_POST['estudiante_id'];
      
-     echo "hola mundo eli";
+    $estudiante   = new Estudiante(false,$_POST['estudiante_id']);
+    $proyecto     = new Proyecto();
+    $proyecto_aux = $estudiante->getProyecto();
+    if ($proyecto_aux)
+      $proyecto = $proyecto_aux;
+    else
+    {
+      //@todo no tiene proyecto 
+       echo "<script>alert('El Estudiante no Tiene Proyecto');</script>";
+      
+    }
+  
+   $usuariobuscado= new Usuario($estudiante->usuario_id);
+   $smarty->assign('usuariobuscado',  $usuariobuscado);
+   $smarty->assign('estudiantebuscado', $estudiante);
+   $smarty->assign('proyectobuscado', $proyecto);
+   $smarty->assign('proyectoarea', $proyecto->getArea());
+    
    }
   $proyecto_tribunal= new Proyecto_tribunal();
   
+
+ 
+   
+  
+
+  
    if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
   {
-     
+if (isset($_POST['proyecto_id']) && $_POST['proyecto_id']!="")
+ {
      
       $proyecto_tribunal->objBuidFromPost();
       $proyecto_tribunal->estado = Objectbase::STATUS_AC;
       $proyecto_tribunal->save();
-     // $notificaciones= new Notificacion();
-    //  $notificaciones->
       
+     $notificaciones= new Notificacion();
+     $notificaciones->objBuidFromPost();
+     $notificaciones->proyecto_id=$_POST['proyecto_id'];
+     $notificaciones->tipo="";
+     $notificaciones->detalle=$_POST['detalle'];
+      $notificaciones->prioridad="Baja";
+      $notificaciones->estado_notificacion="Baja";
+     $notificaciones->estado = Objectbase::STATUS_AC;
+     $notificaciones->save();
+    // $notificaciones->
+  
     
      if (isset($_POST['ids']))
      foreach ($_POST['ids'] as $id)
      {
-       echo $id;
+      echo $id;
                $tribunal= new Tribunal();
+              
           //     $smarty->assign("tribunal",$tribunal);
              
-               $tribunal->usuario_id =$id;
+                $tribunal->usuario_id =$id;
                 $tribunal->estado = Objectbase::STATUS_AC;
-               $tribunal->proyecto_tribunal_id=$proyecto_tribunal->id;;
+                $tribunal->proyecto_tribunal_id=$proyecto_tribunal->id;;
                 $tribunal->objBuidFromPost();
-               $tribunal->save();
+           
+                $tribunal->save();
                
-             //  $tribunal->id;
+                 $notificaciontribunal= new Notificacion_tribunal();
+                  $notificaciontribunal->notificacion_id=$notificaciones->id;
+                 $notificaciontribunal->tribunal_id=$tribunal->id;
+                 $notificaciontribunal->estado = Objectbase::STATUS_AC;
+                 $notificaciontribunal->save();
+              
                
                
      }
-     }
+     }else
+ {
+   
+   echo "<script>alert('No Existe elProyecto Para Asignar Tribunales');</script>";
+ }
+ }
 
   
   

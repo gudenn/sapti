@@ -9,10 +9,10 @@ INSERT INTO `usuario` ( `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`,
 ( 'Msc. Vladimir', 'Costas Jáuregui', 'costas@gmail.com', '1989-01-17', 'costas', 'costas', '78889', 'M', 'AC');
 
 INSERT INTO `usuario` ( `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`, `clave`, `ci`, `sexo`, `estado`) VALUES
-( 'Msc. Ing. Americo', 'Fiorilo Lozada', 'americo@gmail.com', '1989-01-17', 'americo', 'americo', '788898', 'M', 'AC');
+( 'Ing.  Samuel Roberto', 'Achá Perez', 'samuel@gmail.com', '1989-01-17', 'samuel', 'samuel', '767734', 'M', 'AC');
 
 INSERT INTO `usuario` ( `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`, `clave`, `ci`, `sexo`, `estado`) VALUES
-( 'Ing.  Samuel Roberto', 'Achá Perez', 'samuel@gmail.com', '1989-01-17', 'samuel', 'samuel', '767734', 'M', 'AC');
+( 'Msc. Ing. Americo', 'Fiorilo Lozada', 'americo@gmail.com', '1989-01-17', 'americo', 'americo', '788898', 'M', 'AC');
 
 INSERT INTO `usuario` ( `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`, `clave`, `ci`, `sexo`, `estado`) VALUES
 ( 'Lic.  Raul', 'Catari Rios', 'raul@gmail.com', '1989-01-17', 'raul', 'raul', '877657', 'M', 'AC');
@@ -67,7 +67,12 @@ INSERT INTO `proyecto` (`nombre`, `estado`) VALUES ('SISTEMA DE GESTION DE INVEN
 INSERT INTO `proyecto_estudiante` (`id`, `proyecto_id`, `estudiante_id`, `estado`) VALUES (NULL, '1', '1', 'AC');
 INSERT INTO `proyecto_estudiante` (`id`, `proyecto_id`, `estudiante_id`, `estado`) VALUES (NULL, '2', '2', 'AC');
 INSERT INTO `proyecto_estudiante` (`id`, `proyecto_id`, `estudiante_id`, `estado`) VALUES (NULL, '3', '3', 'AC');
+INSERT INTO `proyecto_estudiante` (`id`, `proyecto_id`, `estudiante_id`, `estado`) VALUES (NULL, '4', '4', 'AC');
 
+INSERT INTO `proyecto_docente` (`id`, `proyecto_id`, `dicta_id`, `estado`) VALUES (NULL, '1', '4', 'AC');
+INSERT INTO `proyecto_docente` (`id`, `proyecto_id`, `dicta_id`, `estado`) VALUES (NULL, '2', '4', 'AC');
+INSERT INTO `proyecto_docente` (`id`, `proyecto_id`, `dicta_id`, `estado`) VALUES (NULL, '3', '4', 'AC');
+INSERT INTO `proyecto_docente` (`id`, `proyecto_id`, `dicta_id`, `estado`) VALUES (NULL, '4', '4', 'AC');
 
 
 INSERT INTO `materia` (`id`, `nombre`, `estado`) VALUES (NULL, 'Proyecto Final', 'AC');
@@ -77,24 +82,20 @@ INSERT INTO `semestre` (`id`, `codigo`, `estado`) VALUES (NULL, 'I-2013', 'AC'),
 INSERT INTO `dicta` (`id`, `docente_id`, `materia_id`, `semestre_id`, `estado`) VALUES (NULL, '1', '1', '1', 'AC');
 INSERT INTO `dicta` (`id`, `docente_id`, `materia_id`, `semestre_id`, `estado`) VALUES (NULL, '2', '1', '1', 'AC');
 INSERT INTO `dicta` (`id`, `docente_id`, `materia_id`, `semestre_id`, `estado`) VALUES (NULL, '4', '2', '1', 'AC');
-INSERT INTO `dicta` (`id`, `docente_id`, `materia_id`, `semestre_id`, `estado`) VALUES (NULL, '5', '2', '1', 'AC');
+INSERT INTO `dicta` (`id`, `docente_id`, `materia_id`, `semestre_id`, `estado`) VALUES (NULL, '5', '1', '1', 'AC');
 
 
-INSERT INTO `inscrito` (`id`, `evaluacion_id`, `dicta_id`, `estudiante_id`, `semestre_id`, `estado`) VALUES (NULL, NULL, '1', '1', '1', 'AC');
+INSERT INTO `inscrito` (`id`, `evaluacion_id`, `dicta_id`, `estudiante_id`, `semestre_id`, `estado`) VALUES (NULL, NULL, '4', '1', '1', 'AC');
+INSERT INTO `inscrito` (`id`, `evaluacion_id`, `dicta_id`, `estudiante_id`, `semestre_id`, `estado`) VALUES (NULL, NULL, '4', '2', '2', 'AC');
+INSERT INTO `inscrito` (`id`, `evaluacion_id`, `dicta_id`, `estudiante_id`, `semestre_id`, `estado`) VALUES (NULL, NULL, '4', '3', '3', 'AC');
+INSERT INTO `inscrito` (`id`, `evaluacion_id`, `dicta_id`, `estudiante_id`, `semestre_id`, `estado`) VALUES (NULL, NULL, '4', '4', '4', 'AC');
 INSERT INTO `proyecto_docente` (`id`, `proyecto_id`, `dicta_id`, `estado`) VALUES (NULL, '1', '1', 'AC');
 INSERT INTO `proyecto_tutor` (`id`, `proyecto_id`, `tutor_id`, `estado`) VALUES (NULL, '1', '1', 'AC');
 
 
-INSERT INTO `grupo` ( `codigo`, `descripcion`, `estado`) VALUES
-( 'SUPER-ADMIN' , 'grupo para el super administrador del sistema', 'AC'),
-('ESTUDIANTES' , 'estudiantes', 'AC'),
-('DOCENTES'    , 'docentes', 'AC'),
-('TUTORES'     , 'tutores', 'AC'),
-('TRIBUNALES'  , 'tribunales', 'AC');
-
-INSERT INTO `carrera` (`id`, `nombre`, `descripcion`, `estado`) VALUES
-(1, 'Licenciatura en Ingeniería de Sistemas', NULL, 'AC'),
-(2, 'Licenciatura en Ingeniería de Informática ', NULL, 'AC');
-
-INSERT INTO `modalidad` (`id`, `nombre`, `descripcion`, `estado`) VALUES
-(1, 'Tesis', NULL, 'AC');
+INSERT INTO `grupo` (`id`, `codigo`, `descripcion`, `estado`) VALUES
+(NULL, 'SUPER-ADMIN' , 'grupo para el super administrador del sistema', 'AC'),
+(NULL, 'ESTUDIANTES' , 'estudiantes', 'AC'),
+(NULL, 'DOCENTES'    , 'docentes', 'AC'),
+(NULL, 'TUTORES'     , 'tutores', 'AC'),
+(NULL, 'TRIBUNALES'  , 'tribunales', 'AC');

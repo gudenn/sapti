@@ -112,7 +112,7 @@
         <input type="hidden" name="id" value="" />
         <input type="hidden" name="salida_id" value="25" />
         <input type="submit" value="Guardar" name="tarea" class="sendme"  />
-        <a href="listatribuanleditar.php" ><span class="t">Cancelar</span></a>
+        <a href="listatribunaleditar.php" ><span class="t">Cancelar</span></a>
          
  
       </div>

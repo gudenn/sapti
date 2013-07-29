@@ -189,7 +189,7 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
    
     $sqlss= "DELETE FROM tribunal WHERE proyecto_tribunal_id=$proyectotribunals->id";
     mysql_query( $sqlss);
-    echo "<script>window.location.href='listartribunal.php'</script>";
+    echo "<script>window.location.href='listatribunal.php'</script>";
   }
   
   

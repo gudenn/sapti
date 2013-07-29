@@ -1,5 +1,6 @@
 {include file="header.tpl"}
 
+
 <div class="wrapper row3">
   <div class="rnd">
     <div id="container" class="clear">
@@ -47,13 +48,7 @@
        
 <div style="width: 100%;float: left;" class="tbl_filtro"></div>
 <hr>
-<form name="" action="" method="POST">
-<div align="center"><br>
-  <h1> Tipo de Asignacion de Tribunales</h1>
-<input type="submit" name="group1" id="group1" value="Butter" checked> Manual
-<input type="submit" name="group1" id="group1" value="Cheese" > Automático<br>
-</div>
-</form>
+
 
 <div style="width: 100%;float: left;" class="tbl_filtro"></div>
    
@@ -70,20 +65,21 @@
     <th><a href='?order=id'                class="tajax"   title='Ordenar por Id'               >Id            </a></th>
     <th><a href='?order=codigo_box'        class="tajax"   title='Ordenar por Codigo'           >Nombre       </a></th>
     <th><a href='?order=proveedor'         class="tajax"   title='Ordenar por Proveedor'        >Apellidos     </a></th>
-       <th><a href='?order=proveedor'         class="tajax"   title='Ordenar por Proveedor'        >Asignar  </a></th>
-  
-  </tr>
+    <th><a href='?order=especialidad'         class="tajax"   title='Ordenar por Especialidad'        >Especialidad</a></th>
+     </tr>
   </thead>
   <tbody>
-  {section name=ic loop=$objs}
+  {section name=ic loop=$listadocentes}
    
     <tr  class="selectable">
-      <td>{$objs[ic]['id']}
-        <input type="hidden" name="ids[]" value="{$objs[ic]['id']}">
+      
+      <td>{$listadocentes[ic]['id']}
+        <input type="hidden" name="ids[]" value="{$listadocentes[ic]['id']}">
       </td>
-      <td>{$objs[ic]['usuario_nombre']}</td>
-      <td>{$objs[ic]['usuario_apellidos']}</td>
-      <td><input type="button" value="Asignar"></td>
+      <td>{$listadocentes[ic]['nombre']}</td>
+      <td>{$listadocentes[ic]['apellidos']}</td>
+        <td>{$listadocentes[ic]['nombrearea']}</td>
+     
      
      
     </tr>
@@ -110,7 +106,7 @@
             <th>Id            </th>
             <th>Nombre       </th>
             <th>Apellidos    </th>
-            <th>Asignar    </th>
+             <th>Especialidad</th>
            
           </tr>
         </thead>
@@ -126,11 +122,12 @@
       </table>
 
       <input type="hidden" id="proyecto_id" name="proyecto_id" value="{$proyectobuscado->id}" /><br />
+       <input type="hidden" id="proyecto_id" name="estudiante_id" value="{$estudiantebuscado->codigo_sis}" /><br />
       
       
       <div>
         Mensaje<br/>
-        <textarea name="comentario" rows="5" style="width: 90%"></textarea>
+        <textarea name="detalle" rows="5" style="width: 90%"></textarea>
       </div>
       <div>
         Observaci&oacute;n<br/>
