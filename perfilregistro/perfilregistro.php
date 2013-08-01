@@ -202,6 +202,7 @@ if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
         echo $_POST['trabajoconjunto'];
       }
     }
+    // $smarty->assign("objetoperfil",$perfilregistro);
     $perfilregistro->objBuidFromPost();
     $perfilregistro->save();
   }
