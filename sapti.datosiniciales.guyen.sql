@@ -103,10 +103,3 @@ INSERT INTO `grupo` (`id`, `codigo`, `descripcion`, `estado`) VALUES
 
 INSERT INTO `sapti`.`area` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'Ingeniería de Software', NULL, 'AC');
 INSERT INTO `sapti`.`area` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'Sistemas Expertos', NULL, 'AC');
-INSERT INTO `especialidad` (`id`, `docente_id`, `area_id`, `estado`) VALUES
-(1, 1, 1, 'AC'),
-(2, 2, 1, 'AC'),
-(3, 3, 1, 'AC'),
-(4, 4, 2, 'AC'),
-(5, 5, 2, 'AC'),
-(7, 6, 2, 'AC');

@@ -48,10 +48,9 @@ try {
   $smarty->assign("pages"    ,$objs_pg->p_pages);
  
   
-  $sqlr="SELECT  d.`id`, u.`nombre`,u.`apellidos`, a.`nombre` as nombrearea
-FROM  `usuario` u ,`docente` d , `especialidad`  es, `area`  a
-WHERE  u.`id`=d.`usuario_id` and u.`estado`='AC' and   es.`docente_id` =d.`id`and d.`estado`='AC' and a.`id`=es.`area_id`;
-  ;";
+  $sqlr="SELECT  d.`id`, u.`nombre`,u.`apellidos`
+FROM  `usuario` u ,`docente` d 
+WHERE  u.`id`=d.`usuario_id` and u.`estado`='AC';";
  $resultado = mysql_query($sqlr);
  $arraytribunal= array();
  
@@ -194,7 +193,7 @@ if (isset($_POST['proyecto_id']) && $_POST['proyecto_id']!="")
                $tribunal= new Tribunal();
               
           //     $smarty->assign("tribunal",$tribunal);
-             
+                
                 $tribunal->usuario_id =$id;
                 $tribunal->estado = Objectbase::STATUS_AC;
                 $tribunal->proyecto_tribunal_id=$proyecto_tribunal->id;;

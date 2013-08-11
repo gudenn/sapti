@@ -30,8 +30,8 @@ catch(Exception $e)
 {
   $smarty->assign("ERROR", handleError($e));
 }
-
-$TEMPLATE_TOSHOW = 'index.academic.tpl';
+$TEMPLATE_TOSHOW = 'tribunal/tribunal.3columnas.tpl';
+//$TEMPLATE_TOSHOW = $TEMPLATE_TOSHOW = 'estudiante/estudiante.3columnas.tpl';;
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>

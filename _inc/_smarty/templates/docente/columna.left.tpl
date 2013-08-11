@@ -5,6 +5,8 @@
             <li><a href="estudiante.lista.php">Alumnos Inscritos</a></li>
             <li><a href="observacion.lista.php">Lista de Observaciones</a></li>
             <li><a href="observacion.registro.php">Registro de Observaciones</a></li>
+            <li><a href="horario.php">Registrar Horario</a></li>
+            <li><a href="especialidad.php">Areas Tribunales</a></li>
           </ul>
         </div>
         <div class="holder">

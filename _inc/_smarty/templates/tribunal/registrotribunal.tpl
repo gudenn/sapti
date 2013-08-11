@@ -57,7 +57,7 @@
 <div >
   
   
-   <div style="width: 100%;float: left;" class="tbl_filtro">
+   <div style="width: 45%;float: left;" class="tbl_filtro">
      <Hi> Lista de Docentes </Hi>
     <table class="tbl_lista" id="docentes"  mane="docentes">
   <thead>
@@ -88,7 +88,7 @@
     </tbody> 
 </table>
    </div>          
-    <div style="width: 100%;float: left;" class="tbl_filtro">
+    <div style="width: 45%;float: left; padding-left:10px" class="tbl_filtro">
       
        <form action="" method="post" id="pedido_form" >
  
@@ -124,7 +124,8 @@
       <input type="hidden" id="proyecto_id" name="proyecto_id" value="{$proyectobuscado->id}" /><br />
        <input type="hidden" id="proyecto_id" name="estudiante_id" value="{$estudiantebuscado->codigo_sis}" /><br />
       
-      
+        </div>
+       <div style ="clear:both;"></div>
       <div>
         Mensaje<br/>
         <textarea name="detalle" rows="5" style="width: 90%"></textarea>
@@ -142,7 +143,7 @@
          
  
       </div>
-   </div>
+ 
  </form>
     </div>
    

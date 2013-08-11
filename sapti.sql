@@ -48,6 +48,8 @@ CREATE  TABLE IF NOT EXISTS `proyecto` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(300) NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  `asignacion_tribunal` VARCHAR(45) NULL ,
+  `asignacion_defensa` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -79,20 +81,34 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `lugar`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `lugar` ;
+
+CREATE  TABLE IF NOT EXISTS `lugar` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `nombre` VARCHAR(100) NULL ,
+  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `defensa`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `defensa` ;
 
 CREATE  TABLE IF NOT EXISTS `defensa` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `proyecto_id` INT NOT NULL ,
-  `tipo_defensa_id` INT NULL ,
   `fecha_asignacion` DATE NULL ,
   `hora_asignacion` TIME NULL ,
   `fecha_defensa` DATE NULL ,
-  `hora_defensa` TIME NULL ,
-  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  `hora_inicio` VARCHAR(50) NULL ,
+  `hora_final` VARCHAR(50) NULL ,
+  `tipo_defensa_id` INT NULL ,
   `proyecto_tribunal_id` INT NOT NULL ,
+  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  `lugar_id` INT NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -130,9 +146,9 @@ DROP TABLE IF EXISTS `tribunal` ;
 
 CREATE  TABLE IF NOT EXISTS `tribunal` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `usuario_id` INT NULL ,
   `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
   `proyecto_tribunal_id` INT NOT NULL ,
+  `docente_id` INT NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -338,11 +354,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `especialidad`
+-- Table `colaborar`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `especialidad` ;
+DROP TABLE IF EXISTS `colaborar` ;
 
-CREATE  TABLE IF NOT EXISTS `especialidad` (
+CREATE  TABLE IF NOT EXISTS `colaborar` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `docente_id` INT NOT NULL ,
   `area_id` INT NOT NULL ,
@@ -438,6 +454,7 @@ CREATE  TABLE IF NOT EXISTS `notificacion_tribunal` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `notificacion_id` INT NOT NULL ,
   `tribunal_id` INT NOT NULL ,
+  `accion` VARCHAR(45) NULL COMMENT 'Aceptar , rechazar ' ,
   `estado` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
@@ -624,11 +641,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `horario`
+-- Table `dia`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `horario` ;
+DROP TABLE IF EXISTS `dia` ;
 
-CREATE  TABLE IF NOT EXISTS `horario` (
+CREATE  TABLE IF NOT EXISTS `dia` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
   `descripcion` VARCHAR(45) NULL ,
@@ -644,9 +661,39 @@ DROP TABLE IF EXISTS `horario_doc` ;
 
 CREATE  TABLE IF NOT EXISTS `horario_doc` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `horario_id` INT NOT NULL ,
   `docente_id` INT NOT NULL ,
   `estado` VARCHAR(2) NULL ,
+  `dia_id` INT NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `turno`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `turno` ;
+
+CREATE  TABLE IF NOT EXISTS `turno` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `nombre` VARCHAR(45) NULL ,
+  `descripcion` VARCHAR(45) NULL ,
+  `estado` VARCHAR(2) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `horario`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `horario` ;
+
+CREATE  TABLE IF NOT EXISTS `horario` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `nombre` VARCHAR(45) NULL ,
+  `descripcion` VARCHAR(45) NULL ,
+  `estado` VARCHAR(2) NULL ,
+  `dia_id` INT NOT NULL ,
+  `turno_id` INT NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -661,6 +708,63 @@ CREATE  TABLE IF NOT EXISTS `apoyo` (
   `area_id` INT NOT NULL ,
   `docente_id` INT NOT NULL ,
   `estado` VARCHAR(2) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `configuracion_doc`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `configuracion_doc` ;
+
+CREATE  TABLE IF NOT EXISTS `configuracion_doc` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `cantidadmaxima_tribunal` INT NULL ,
+  `cantidadmaxima_tutor` INT NULL ,
+  `descripcion` VARCHAR(45) NULL ,
+  `estado` VARCHAR(2) NULL ,
+  `docente_id` INT NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `consejo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `consejo` ;
+
+CREATE  TABLE IF NOT EXISTS `consejo` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `actual` VARCHAR(100) NULL ,
+  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `consejo_estudiante`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `consejo_estudiante` ;
+
+CREATE  TABLE IF NOT EXISTS `consejo_estudiante` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `codigo` VARCHAR(100) NULL ,
+  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  `consejo_id` INT NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `consejo_docente`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `consejo_docente` ;
+
+CREATE  TABLE IF NOT EXISTS `consejo_docente` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `codigo` VARCHAR(100) NULL ,
+  `estado` VARCHAR(2) NULL COMMENT 'Activo sera AC, No activo NC, Eliminado DE' ,
+  `consejo_id` INT NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 

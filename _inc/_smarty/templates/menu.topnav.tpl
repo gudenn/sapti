@@ -6,7 +6,7 @@
         <li><a href="{$URL}estudiante">Ingreso Estudiante</a></li>
         <li><a href="{$URL}tutor">Ingreso Tutores</a></li>
         <li><a href="{$URL}docente">Ingreso Docentes</a></li>
-         <li><a href="{$URL}tribunal/registro.php">Tribunal</a></li>
+         <li><a href="{$URL}tribunal/registro.php">Consejo</a></li>
         <li class="last"><a href="{$URL}contacto">contacto</a></li>
       </ul>
     </div>
