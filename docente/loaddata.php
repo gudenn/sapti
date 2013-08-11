@@ -37,8 +37,9 @@ $grid = new EditableGrid();
 *  The second argument is the label that will be displayed in the header
 */
 $grid->addColumn('id', 'ID', 'integer', NULL, false); 
-$grid->addColumn('revision_id', 'Proyecto_id', 'integer');  
-$grid->addColumn('observacion', 'Revisor', 'string'); 
+$grid->addColumn('revision_id', 'Proyecto', 'integer');  
+$grid->addColumn('observacion', 'Observacion', 'string');
+$grid->addColumn('action', '', 'html', NULL, false);
 
 $result = $mysqli->query('SELECT * FROM observacion WHERE revision_id="'.$obser2.'"');
 $mysqli->close();

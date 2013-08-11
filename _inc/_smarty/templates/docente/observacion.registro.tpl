@@ -27,8 +27,6 @@
               <input type="text" name="fecha_revision" id="fecha_revision" value="{$revision->fecha_revision}" size="22">
               <label for="fecha_revision"><small>Fecha de Revison</small></label>
             </p>
-            <p>
-
             
                         <p>
               <input type="text" name="fech" id="fecha" value="{$revision->id}" size="22">

@@ -47,32 +47,114 @@ function updateCellValue(editableGrid, rowIndex, columnIndex, oldValue, newValue
    
 
 
-function DatabaseGrid() 
+function DatabaseGrid(ac) 
 { 
-	this.editableGrid = new EditableGrid("observacion", {
+	if(ac==0){
+        this.editableGrid = new EditableGrid("observacion", {
 		enableSort: true,
    	    tableLoaded: function() { datagrid.initializeGrid(this); },
 		modelChanged: function(rowIndex, columnIndex, oldValue, newValue, row) {
    	    	updateCellValue(this, rowIndex, columnIndex, oldValue, newValue, row);
        	}
  	});
-	this.fetchGrid(); 
+        }else{
+        this.editableGrid = new EditableGrid("observacion", {
+		enableSort: true,
+   	    tableLoaded: function() { datagrid.initializeGrid1(this); },
+		modelChanged: function(rowIndex, columnIndex, oldValue, newValue, row) {
+   	    	updateCellValue(this, rowIndex, columnIndex, oldValue, newValue, row);
+       	}
+ 	});    
+        };
+	this.fetchGrid(ac); 
 	
 }
-DatabaseGrid.prototype.fetchGrid = function()  {
+DatabaseGrid.prototype.fetchGrid = function(d)  {
 	// call a PHP script to get the data
-        this.editableGrid.loadXML("loaddata.php");
+        if(d==0) {
+           this.editableGrid.loadXML("loaddata.php");
+        }else{if(d==1){
+           this.editableGrid.loadXML("loaddata.estudiante.proyecto.php");     
+        }else{
+            
+        };
+            
+        };
+        
 };
 
 DatabaseGrid.prototype.initializeGrid = function(grid) {
-	grid.renderGrid("tablecontent", "testgrid");
-};    
-   
+             grid.setCellRenderer("action", new CellRenderer({render: function(cell, value) {
+             valu = grid.getRowId(cell.rowIndex);
 
+		cell.innerHTML = "<a onclick=\"if (confirm('Esta seguro de eliminar esta Observacion ? ')) {deletete(" + valu + ");} \" style=\"cursor:pointer\">" +
+						 "<img src=\"" + image("delete.png") + "\" border=\"0\" alt=\"delete\" title=\"Delete row\"/></a>";
+			
+		}}));
+             grid.renderGrid("tablecontent", "testgrid");
+};
+DatabaseGrid.prototype.initializeGrid1 = function(grid) {
+             grid.renderGrid("tablecontent", "testgrid");
+};
 
+function image(relativePath) {
+	return "js/images/" + relativePath;
+}
+function deletete(obser){
+   ajax=objetoAjax();
+   ajax.open("POST", "eliminar.php?ob="+obser);
+   ajax.send(null);
+   datagrid = new DatabaseGrid('0');
+};
+function objetoAjax(){
+	var xmlhttp=false;
+	try {
+		xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+	} catch (e) {
+	try {
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	} catch (E) {
+		xmlhttp = false;
+	}
+}
+if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+	  xmlhttp = new XMLHttpRequest();
+	}
+	return xmlhttp;
+};
+function enviarDatosObservacion(){
+  //div donde se mostrará lo resultados
+  //divResultado = document.getElementById('tablecontent');
+  //recogemos los valores de los inputs
+  observacion=document.nueva_observacion.observacion.value;
+  //instanciamos el objetoAjax
+  ajax=objetoAjax();
+ 
+  //uso del medotod POST
+  //archivo que realizará la operacion
+  //registro.php
+  //ajax.open("POST", "registro_obser.php",true);
+  ajax.open("POST", "registro_obser.php?obser="+observacion,true);
 
-
-  
-
-
-
+    //cuando el objeto XMLHttpRequest cambia de estado, la función se inicia
+  ajax.onreadystatechange=function() {
+	  //la función responseText tiene todos los datos pedidos al servidor
+  	if (ajax.readyState==4) {
+  		//mostrar resultados en esta capa
+                datagrid = new DatabaseGrid('0');
+		//divResultado.innerHTML = ajax.responseText
+  		//llamar a funcion para limpiar los inputs
+		LimpiarCampos();
+	}
+ }
+	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	//enviando los valores a registro.php para que inserte los datos
+	ajax.send(null);
+          //window.location.href="registro_obser.php?obser="+observacion;  
+};
+ 
+//función para limpiar los campos
+function LimpiarCampos(){
+  document.nueva_observacion.observacion.value="";
+  document.nueva_observacion.observacion.focus();
+};
