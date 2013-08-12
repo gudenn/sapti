@@ -194,9 +194,10 @@ if (isset($_POST['proyecto_id']) && $_POST['proyecto_id']!="")
               
           //     $smarty->assign("tribunal",$tribunal);
                 
-                $tribunal->usuario_id =$id;
+               
                 $tribunal->estado = Objectbase::STATUS_AC;
-                $tribunal->proyecto_tribunal_id=$proyecto_tribunal->id;;
+                $tribunal->proyecto_tribunal_id=$proyecto_tribunal->id;
+                 $tribunal->docente_id =$id;
                 $tribunal->objBuidFromPost();
            
                 $tribunal->save();

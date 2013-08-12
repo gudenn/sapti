@@ -8,13 +8,13 @@ class Horario_doc extends Objectbase
   * Id del tribunal
   * @var INT(11)
   */
-  var $horario_id;
+  var $docente_id;
   
  /**
   * Id del docente
   * @var INT(11)
   */
-  var $docente_id;
+  var $dia_id;
 
 }
 

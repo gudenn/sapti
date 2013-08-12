@@ -2,9 +2,9 @@
 
 class Horario extends Objectbase 
 {
-    var $nombre;
+    var $dia_id;
     
-    var $descripcion; 
+    var $turno_id; 
 }
 
 

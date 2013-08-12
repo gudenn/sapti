@@ -43,15 +43,6 @@ try {
   $smarty->assign("filtros"  ,$filtro);
   $smarty->assign("objs"     ,$objs_pg->objs);
   $smarty->assign("pages"    ,$objs_pg->p_pages);
-  
- $proyectostribunales= array();
- $proyec= new Proyecto();
- $usuario = new Usuario();
- $usuario_mysql  = $usuario->getAll();
- $usuario_id     = array();
- $usuario_nombre = array();
- 
- 
 
   
  $rows = array();
@@ -87,13 +78,17 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
   
   if(isset($_GET['tribunal_id']))
   {
-     $sql="SELECT u.nombre , u.apellidos
-FROM  usuario u, tribunal t, proyecto_tribunal pt
-WHERE   u.id=t.usuario_id  and  t.proyecto_tribunal_id=pt.id  and  pt.id=".$_GET['tribunal_id'];
+    
+    echo $_GET['tribunal_id'];
+     $sql="
+SELECT u.nombre , u.apellidos
+FROM  usuario u, docente d, tribunal t, proyecto_tribunal pt
+WHERE  u.`id`=d.`usuario_id` and d.`id`=t.`docente_id` and  t.`proyecto_tribunal_id`=pt.`id` and pt.`id`=".$_GET['tribunal_id'];
  $resultado = mysql_query($sql);
  $arraytribunal= array();
  
- while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
+ while ($fila = mysql_fetch_array($resultado)) 
+                {
     $arraytribunal[]=$fila;
  }
 $smarty->assign('arraytribunal'  , $arraytribunal);

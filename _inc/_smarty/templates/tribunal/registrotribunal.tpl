@@ -72,18 +72,27 @@
   {section name=ic loop=$listadocentes}
    
     <tr  class="selectable">
-      
+   
       <td>{$listadocentes[ic]['id']}
         <input type="hidden" name="ids[]" value="{$listadocentes[ic]['id']}">
       </td>
-      <td>{$listadocentes[ic]['nombre']}</td>
+      <td>
+        {$listadocentes[ic]['nombre']}
+      </td>
       <td>{$listadocentes[ic]['apellidos']}</td>
-        <td>{$listadocentes[ic]['nombrearea']}</td>
-     
-     
+          <td>     <a  class="tooltip"> sdf
+  <span>
+  <b>
+ </b>
+{$listadocentes[ic]['id']}
+ 
+ </span> 
+        
+       </a>
+</td>
+
      
     </tr>
-    
   {/section}
     </tbody> 
 </table>

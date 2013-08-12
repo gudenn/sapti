@@ -4,6 +4,7 @@
             <ul>
               <li><a href="{$URL}tribunal/">INICIO</a></li>
               <li><a href="registro.php">ASIGNACION</a></li>
+               <li><a href="listatribunal.php">LISTA</a></li>
                <li><a href="editar.cuenta.php">Modificar Cuenta</a></li>
               {if ($proyecto)}
               <li><a href="{$URL}estudiante/">Proyecto Final</a>

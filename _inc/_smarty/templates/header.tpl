@@ -17,6 +17,7 @@
     {/section}
 
 <link rel="stylesheet" href="{$URL_CSS}academic/layout.css" type="text/css" />
+<link rel="stylesheet" href="{$URL_CSS}spams.css" type="text/css" />
 
 
 <!-- Homepage Specific Elements -->
