@@ -1,16 +1,16 @@
 <?php
-require_once('class.ezpdf.php');
-
-$pdf =& new Cezpdf('LETTER');
+require('_start.php');
+  global $PAISBOX;
+  require_once('class.ezpdf.php');
+  $pdf =& new Cezpdf('LETTER');
 $pdf->selectFont('../fonts/courier.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
-$conexion = mysql_connect("localhost", "root","");
-mysql_select_db("sapti", $conexion);
-$queEmp = "SELECT p.id,u.nombre, p.titulo ,p.gestionaprobacion,u.apellidos
+  $sqlr="SELECT p.id,u.nombre, p.titulo ,p.gestionaprobacion,u.apellidos
 FROM  estudiante e, perfilregistro p, usuario u
 WHERE p.estudiante_id = e.id
-AND e.usuario_id = u.id AND p.estado='AC';;";
-$resEmp = mysql_query($queEmp, $conexion) or die(mysql_error());
+AND e.usuario_id = u.id AND p.cambiotema='si'; 
+  ;";
+$resEmp = mysql_query($sqlr) or die(mysql_error());
 $totEmp = mysql_num_rows($resEmp);
 
 $ixx = 0;
@@ -32,7 +32,7 @@ $options = array(
 				'width'=>500
 			);
 //$txttit = "<b>Instituto Tecnol�gico de Los Mochis</b>\n";
-//$txttit.= "Reporte general de prestamos de edificios\n";
+$txttit.= "Lista de Perfiles que Realizaron Cambios\n";
 
 $pdf->ezimage("umms4.JPG",0,500,'none','left');
 $pdf->ezText($txttit, 12);
@@ -45,5 +45,8 @@ $pdf->ezStream();
 //$pdf->ezText("<b>Hora:</b> ".date("H:i:s"),10);
 //$pdf->ezText('<b>Fuente:</b> <c:alink:http://blog.unijimpe.net/>blog.unijimpe.net</c:alink>');
 $pdf->ezStream();
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 ?>

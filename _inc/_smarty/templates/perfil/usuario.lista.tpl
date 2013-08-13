@@ -18,8 +18,8 @@
       <td>{$objs[ic]['apellidos']}</td>
       <td>{$objs[ic]['ci']}</td>
 	  <td>
-	  <a href="estudiante.editar.php?estudiante_id={$objs[ic]['id']}" target="_blank">{icono('editar.png','Editar')}</a>
-        <a href="estudiante.gestion.php?eliminar=1&estudiante_id={$objs[ic]['id']}" onclick="return confirm('Eliminar este Estudiante?');"  >{icono('borrar.png','Eliminar')}</a>
+	  <a href="estudiante.editar.php?docente_id={$objs[ic]['id']}" target="_blank">{icono('editar.png','Editar')}</a>
+        <a href="estudiante.gestion.php?eliminar=1&docente_id={$objs[ic]['id']}" onclick="return confirm('Eliminar este Estudiante?');"  >{icono('borrar.png','Eliminar')}</a>
       </td>
     </tr>
   </tbody>

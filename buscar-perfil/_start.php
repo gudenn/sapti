@@ -1,5 +1,5 @@
 <?php
-  require_once("../../_inc/_sistema.php");
+  require_once("../_inc/_sistema.php");
   
   /** Smarty */
   require(DIR_LIB.'/smarty/Smarty.class.php');

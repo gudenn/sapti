@@ -110,7 +110,7 @@
        </tr>
        <tr bgcolor="#F1F5F8">
       <td bgcolor="#F7F7F7"><center>
-          <em><strong><a href="usuario.gestion.php" class="botonlink">VER LISTA</a></strong></em>
+          <em><strong><a href="docente.gestion.php" class="botonlink">VER LISTA</a></strong></em>
       </center></td>
     </tr>
       </table>

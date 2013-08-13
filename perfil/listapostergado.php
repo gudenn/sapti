@@ -3,81 +3,65 @@ try {
   require('_start.php');
   global $PAISBOX;
 
-//  if(!isAdminSession())
-//    header("Location: login.php");
-  
-  //MODULO -> REGISTRO DE MERCADERIA
-  //ACCION -> GESTION
-  
-
-  leerClase("Postergado");
-  leerClase("Formulario");
-  leerClase("Pagination");
-  leerClase("Filtro");
-
-
-  $ERROR = '';
-
   /** HEADER */
-  $smarty->assign('title','Gestion de Usuarios');
-  $smarty->assign('description','Pagina de gestion de Usuarios');
-  $smarty->assign('keywords','Gestion,Usuarios');
+  $smarty->assign('title','Proyecto Final');
+  $smarty->assign('description','Proyecto Final');
+  $smarty->assign('keywords','Proyecto Final');
 
   //CSS
-  $CSS[]  = URL_CSS . "pg.css";
-  $smarty->assign('CSS',$CSS);
+  $CSS[]  = "css/style.css";
+  $smarty->assign('CSS','');
 
   //JS
-  $JS[]  = URL_JS . "jquery.js";
-  $smarty->assign('JS',$JS);
+  $JS[]  = "js/jquery.js";
+  $smarty->assign('JS','');
+
+  //CREAR UN TIPO   DE DEF
+ 
+  
+  
+ 
+ 
+  
+  $sqlr="SELECT p.id,u.nombre, p.titulo ,p.gestionaprobacion,u.apellidos
+FROM  estudiante e, perfilregistro p, usuario u
+WHERE p.estudiante_id = e.id
+AND e.usuario_id = u.id AND p.estado='DC';;";
+ $resultado = mysql_query($sqlr);
+ $arraytribunal= array();
+ 
+ while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) 
+ {
+  // $arraytribunal=$fila;
+   
+   //array('name' => $fila["id"], 'home' => $fila["nombre"],'cell' => $fila["apellidos"], 'email' => 'john@myexample.com');
+   
+   $arraytribunal[]=$fila;
+ }
+ 
+ $obj_mysql  = $arraytribunal;
+ // $objs_pg    = new Pagination($obj_mysql, 'g_cambios','',false,10);
+ $smarty->assign('listadocentes'  , $arraytribunal);
+ //$smarty->assign("objs"     ,$objs_pg->objs);
+ //$smarty->assign("pages"    ,$objs_pg->p_pages);
+  
+ 
 
   
-  //////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////
-
-
-  $smarty->assign('mascara'     ,'perfilpost/listas.mascara.tpl');
-  $smarty->assign('lista'       ,'perfilpost/usuario.lista.tpl');
-
-  //Filtro
-  $filtro     = new Filtro('perfil',__FILE__);
-  $usuario = new Postergado();
-  $usuario->iniciarFiltro($filtro);
-  $filtro_sql = $usuario->filtrar($filtro);
-
-  /*
-  $usuario->pais_id         = '%';
-  $usuario->departamento_id = '%';
-  $usuario->ciudad_id       = '%';
-*/
   
-  $o_string   = $usuario->getOrderString($filtro);
-  $obj_mysql  = $usuario->getAll('',$o_string,$filtro_sql,TRUE,TRUE);
-  $objs_pg    = new Pagination($obj_mysql, 'perfil','',false,10);
-
-
-  $smarty->assign("filtros"  ,$filtro);
-  $smarty->assign("objs"     ,$objs_pg->objs);
-  $smarty->assign("pages"    ,$objs_pg->p_pages);
-
-
-
+  $smarty->assign("ERROR", $ERROR);
+  
 
   //No hay ERROR
   $smarty->assign("ERROR",'');
-  $smarty->assign("URL",URL);  
-
-}
+  
+} 
 catch(Exception $e) 
 {
   $smarty->assign("ERROR", handleError($e));
 }
 
-if (isset($_GET['tlista']) && $_GET['tlista']) //recargamos la tabla central
-  $smarty->display('perfilpost/listas.lista.tpl'); 
-else
-  $smarty->display('perfilpost/full-width.tpl');
-
+$TEMPLATE_TOSHOW = 'perfil/lista-postergados.tpl';
+$smarty->display($TEMPLATE_TOSHOW);
 
 ?>

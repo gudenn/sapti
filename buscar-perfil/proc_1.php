@@ -17,18 +17,23 @@ try {
   $smarty->assign('JS','');
 
   //CREAR UN TIPO   DE DEF
- 
+  
+  
   
  
- 
+ $q=$_POST[q];
   
-  $sqlr="SELECT p.id,u.nombre, p.titulo ,p.gestionaprobacion,u.apellidos
-FROM  estudiante e, perfilregistro p, usuario u
+  $sqlr="SELECT p.numero, p.id, u.nombre, p.titulo, p.gestionaprobacion, u.apellidos
+FROM estudiante e, perfilregistro p, usuario u
 WHERE p.estudiante_id = e.id
-AND e.usuario_id = u.id AND p.estado='AC';;";
+AND e.usuario_id = u.id
+AND (
+p.titulo LIKE  '%$q%'
+OR u.nombre LIKE  '%$q%' OR u.apellidos LIKE  '%$q%' OR p.numero LIKE  '%$q%' OR p.gestionaprobacion LIKE  '%$q%'
+);";
  $resultado = mysql_query($sqlr);
  $arraytribunal= array();
- 
+  
  while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) 
  {
   // $arraytribunal=$fila;
@@ -60,7 +65,7 @@ catch(Exception $e)
   $smarty->assign("ERROR", handleError($e));
 }
 
-$TEMPLATE_TOSHOW = 'perfil/lista-proceso.tpl';
+$TEMPLATE_TOSHOW = 'buscarperfil/listabusqueda.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>

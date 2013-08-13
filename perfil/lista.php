@@ -17,7 +17,8 @@ try {
   $smarty->assign('JS','');
 
   //CREAR UN TIPO   DE DEF
- 
+
+  
   
  
  
@@ -25,10 +26,10 @@ try {
   $sqlr="SELECT p.id,u.nombre, p.titulo ,p.gestionaprobacion,u.apellidos
 FROM  estudiante e, perfilregistro p, usuario u
 WHERE p.estudiante_id = e.id
-AND e.usuario_id = u.id AND p.estado='AC';;";
+AND e.usuario_id = u.id AND p.cambiotema='si';;";
  $resultado = mysql_query($sqlr);
  $arraytribunal= array();
- 
+   echo "asdasdasdas";
  while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) 
  {
   // $arraytribunal=$fila;
@@ -60,7 +61,7 @@ catch(Exception $e)
   $smarty->assign("ERROR", handleError($e));
 }
 
-$TEMPLATE_TOSHOW = 'perfil/lista-proceso.tpl';
+$TEMPLATE_TOSHOW = 'perfil/listacambios.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>

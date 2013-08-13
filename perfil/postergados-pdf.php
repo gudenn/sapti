@@ -6,7 +6,10 @@ $pdf->selectFont('../fonts/courier.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 $conexion = mysql_connect("localhost", "root","");
 mysql_select_db("sapti", $conexion);
-$queEmp = "SELECT * FROM postergado ORDER BY id ASC";
+$queEmp = "SELECT p.id,u.nombre, p.titulo ,p.gestionaprobacion,u.apellidos
+FROM  estudiante e, perfilregistro p, usuario u
+WHERE p.estudiante_id = e.id
+AND e.usuario_id = u.id AND p.estado='DC'";
 $resEmp = mysql_query($queEmp, $conexion) or die(mysql_error());
 $totEmp = mysql_num_rows($resEmp);
 
@@ -16,11 +19,11 @@ while($datatmp = mysql_fetch_assoc($resEmp)){
 	$data[] = array_merge($datatmp, array('num'=>$ixx));
 }
 $titles = array(
-				'id'=>'<b>numero</b>',
+				'id'=>'<b>Numero</b>',
+				'nombre'=>'<b>Nombres</b>',
+				'apellidos'=>'<b>Apellidos</b>',
 				'titulo'=>'<b>Titulo</b>',
-				'autor'=>'<b>Autor</b>',
-				'tutor'=>'<b>Tutor</b>',
-				'gestion'=>'<b>Gestion</b>',
+				'gestionaprobacion'=>'<b>Gestion</b>',
 				
 			);
 $options = array(
@@ -28,7 +31,7 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-//$txttit = "<b>Instituto Tecnológico de Los Mochis</b>\n";
+//$txttit = "<b>Instituto Tecnolï¿½gico de Los Mochis</b>\n";
 //$txttit.= "Reporte general de prestamos de edificios\n";
 
 $pdf->ezimage("umms4.JPG",0,500,'none','left');
