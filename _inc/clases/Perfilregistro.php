@@ -12,8 +12,14 @@ class Perfilregistro extends Objectbase
      * telefono
      * @INT(10) 
      */
+    var $apellidos;
+    var $nombres;
     var $telefono;
-    
+    var $email;
+    var $primertutor;
+    var $segundotutor;
+    var $tercertutor;
+    var $carrera;
     /*
      * Trabajo En conjunto
      * @VARCHAR(45)
@@ -34,7 +40,10 @@ class Perfilregistro extends Objectbase
      * @VARCHAR(45)
      */
     var $titulo; 
-   
+    var $area;
+    var $subarea;
+    var $modalidad;
+    var $institucion; 
     /*
      * Objetivo General del perfil
      * @VARCHAR(45)
@@ -54,6 +63,11 @@ class Perfilregistro extends Objectbase
      * Formulario de Aprobacion del proyecto
      * @TEXT(10000)
      */
+    var $directorcarrera;
+    var $docentemateria;
+    var $tutor;
+    var $revisor;
+    var $estudiante;
     var $formularioaprobacion;
     /*
      * Nombre del encargado de registro del proyecto
@@ -66,12 +80,11 @@ class Perfilregistro extends Objectbase
     var $carrera_id;
     var $modalidad_id;
     var $institucion_id;
-    var $usuario_id;
     var $docente_id;
     var $tutor_id;
     var $estudiante_id;
     var $area_id;
-      
+    var $estado;
 }
 
 ?>
