@@ -5,6 +5,8 @@
             <li><a href="inscripcion.estudiante-cvs.php">Inscribir Estudiantes</a></li>
             <li><a href="estudiante.lista.php">Alumnos Inscritos</a></li>
             <li><a href="estudiante.evaluacion-editar.php">Evaluaciones</a></li>
+             <li><a href="configuracion.php">Datos</a></li>
+              <li><a href="estudiante.evaluacion-editar.php">Evaluaciones</a></li>
           </ul>
         </div>
         <div class="holder">

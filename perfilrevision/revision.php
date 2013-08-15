@@ -9,6 +9,7 @@ try {
   $smarty->assign('description','Proyecto Final');
   $smarty->assign('keywords','Proyecto Final');
 
+
   //CSS
   $CSS[]  = URL_CSS . "academic/tables.css";
   $CSS[]  = URL_JS  . "/validate/validationEngine.jquery.css";
@@ -31,56 +32,87 @@ try {
   
   $smarty->assign('JS',$JS);
 
-
   $smarty->assign("ERROR", '');
 
 
-   //CREAR UN ESTUDIANTE
+   //CREAR LAS CLASES
 
   leerClase("perfilregistro");
   leerClase("Usuario");
   leerClase("Estudiante");
   leerClase("Docente");
+  leerClase("Revision_perfil");
+  leerClase("Filtro");
+ /////////////////////////////////////////
   
-  $doce=new Docente(1);
-  $smarty->assign('doce', $doce); 
   
   
   
-  // creamos estudiante
-  //$estudiante= new Estudiante();
-  $user=new Usuario(1);   ///mandar su "Id"
-  $smarty->assign('user', $user);
-  
-  /// nos creamos  un registro perfil
-   $perfilregistro = new Perfilregistro();
-   $perfi=new Perfilregistro(1);   ///mandar su "Id"
-         
-   ////////////////////////////// 
-
-    date_default_timezone_set('UTC');
-  
-  if (isset($_POST['tarea']) && $_POST['tarea'] == 'registrar' && isset($_POST['token']) && $_SESSION['register'] == $_POST['token'])
-  {
-   
-    $perfi->estado = Objectbase::STATUS_AC;
-    $perfi->save();
-    foreach ($perfi as $obser_array){
-    $perfi->estado = Objectbase::STATUS_AC;
-    $perfi->observacion=$obser_array;
-    $perfi->save();
-    }
+///// crear un estudiante////////////////
+  $estudiante = new Estudiante();
+  $estudiante_sql = $estudiante->getAll();
+  $estudiante_id = array();
+  $estudiante_nombre = array();
+  $estudiante_apellidos = array();
+  while ($estudiante_sql && $rows = mysql_fetch_array($estudiante_sql[0])) 
+ {
+     $estudiante_id[] = $rows['id'];
+     $estudiante_nombre[] = $rows['nombre'];
+     $estudiante_apellidos[] = $rows['apellidos'];
   }
+  $smarty->assign('estudiante_id', $estudiante_id);
+  $smarty->assign('estudiante_nombre', $estudiante_nombre);
+  $smarty->assign('estudiante_apellidos', $estudiante_apellidos);
+     
+ /////////////////////////////////////////////////////////
 
+$activo = Objectbase::STATUS_AC;
+$sql=  "SELECT e.nombre , e.apellidos , e.codigo_sis 
+FROM  usuario u , estudiante e 
+WHERE u.id= e.usuario_id and" ;
+$resultado=mysql_query($sql); // ejecutamos la consulta
+
+
+  ///// crear un revision perfil////////////////
+  $revision_perfil = new revision_perfil();
+  $revision_perfil_sql = $revision_perfil->getAll();
+  $revision_perfil_id = array();
+  $revision_perfil_nombre = array();
+  while ($revision_perfil_sql && $rows = mysql_fetch_array($revision_perfil_sql[0])) 
+  {
+     $revision_perfil_id[] = $rows['id'];
+     $revision_perfil_nombre[] = $rows['titulo'];
+  }
+  $smarty->assign('revision_perfil_id', $revision_perfil_id);
+  $smarty->assign('revision_perfil_titulo', $revision_perfil_titulo);
   
-  $token = sha1(URL . time());
-  $_SESSION['register'] = $token;
-  $smarty->assign('token',$token);
+  /////////////////GUARADR REVISION PERFIL //////////////////////////////
   
-    //No hay ERROR
+     if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
+  {
+      $revision_perfil->objBuidFromPost();
+      $revision_perfil->estado = Objectbase::STATUS_AC;
+      $revision_perfil->save();
+    
+     if (isset($_POST['ids']))
+     foreach ($_POST['ids'] as $id)
+     {
+       echo $id;
+               $revision_perfil= new revision_perfil();        
+               $revision_perfil->usuario_id =$id;
+                $revision_perfil->estado = Objectbase::STATUS_AC;
+               $revision_perfil->proyecto_tribunal_id=$revision_perfil->id;;
+                $revision_perfil->objBuidFromPost();
+               $revision_perfil->save();
+     }
+   }
+   
+$smarty->assign("ERROR", $ERROR);
+  //No hay ERROR
   $smarty->assign("ERROR",'');
+  $smarty->assign("URL",URL); 
   
-} 
+}    
 catch(Exception $e) 
 {
   $smarty->assign("ERROR", handleError($e));

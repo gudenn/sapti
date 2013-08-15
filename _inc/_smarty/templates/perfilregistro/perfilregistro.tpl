@@ -5,6 +5,7 @@
   <div id="container" class="clear">  
 <!-- ####################################################################################################### -->   
  <form action="" method="post">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
  <center><h2 align="center"> <strong>FORMULARIO REGISTRÓ DE PERFIL </strong> </h2></center>
  <table width="78%" height="911" border="1" cellpadding="0" cellspacing="0">
   <tr>
@@ -15,14 +16,14 @@
   </strong></p></td>
   </tr>
   <tr>
-    <td colspan="3" valign="top" nowrap="nowrap"><p align="center"><strong>Ap.Paterno</strong>:
-        <input name="appaterno" value="{$user->apellidos}" type="text" size="20" /></p></td>
-    
+    <td colspan="6" valign="top" nowrap="nowrap"><p align="center"><strong>Apellidos </strong>&nbsp;:&nbsp;
+        <input name="apellidos" value="{$user->apellidos}" type="text" size="20" /></p></td>
+    <!--
     <td colspan="4" valign="top" nowrap="nowrap"><p align="center"><strong>Ap.Materno</strong>:
-      <input name="apmaterno" value="{$user->apellidos}" type="text" size="20" />
-    </p></td>
-    <td colspan="2" valign="top"><p align="center"><strong> Nombres</strong>: 
-      <input name="nombre" value="{$user->nombre}" type="text" size="20" />
+      <input name="materno" value="{$user->apellidos}" type="text" size="20" />
+    </p></td> -->
+    <td colspan="6" valign="top"><p align="center"><strong> Nombres </strong>&nbsp;:&nbsp; 
+      <input name="nombres" value="{$user->nombre}" type="text" size="20" />
     </p></td>
   </tr>
   <tr>
@@ -35,19 +36,19 @@
   </tr>
   <tr>
     <td colspan="10" align="left" valign="top"><p><strong>Primer Tutor</strong>: 
-      <select name=usuario_id> 
+            <select name=primertutor> 
        <option>-----Seleccione-----</option>
-    {html_options values=$usuario_id output=$usuario_nombre}
+    {html_options  values=$usuario_id output=$usuario_nombre} 
       </select>
       </p>
       <p><strong>Segundo Tutor</strong>:
-       <select name=usuario_id>
+       <select name=segundotutor>
            <option>-----Seleccione-----</option>
    {html_options values=$usuario_id output=$usuario_nombre}
       </select>
       </p>
       <p><strong>Tercer  Tutor</strong>:      
-       <select name=usuario_id>
+       <select name=tercertutor>
            <option>-----Seleccione-----</option>
    {html_options values=$usuario_id output=$usuario_nombre}
       </select>
@@ -56,11 +57,11 @@
   <tr>
     <td colspan="6" valign="top">
         <p><strong>Carrera</strong>:
-      <select name=carrera_id>
+      <select name=carrera>
           <option>-----Seleccione-----</option>
    {html_options values=$carrera_id output=$carrera_nombre}
       </select>
-   <a class="active"  href="{$URL}carrera/registro.php">Nueva Carrera</a></p></td>
+  <!-- <a class="active"  href="{$URL}carrera/registro.php">Nueva Carrera</a></p></td> -->
     <td colspan="4" valign="top"><p align="left"><strong>Trabajo Conjunto</strong>:
         
     <INPUT type="radio" name="trabajoconjunto" value="Si" > Si
@@ -74,12 +75,8 @@
         <input name="gestionaprobacion" type="text" size="15" />
     </p>      </td>
     <td colspan="4" valign="top"><p align="left"><strong>Cambio de Tema</strong>:
-       <label>
-        <input type="checkbox" name="cambiotema" value="checkbox" />
-        SI</label>
-        <label>
-        <input name="cambiotema" type="checkbox" value="checkbox" checked="checked" />
-        NO</label>
+        <INPUT type="radio" name="cambiotema" value="Si" > Si
+    <INPUT type="radio" name="cambiotema" value="No"> No<BR>
     </p>      </td>
   </tr>
   <tr>
@@ -90,14 +87,14 @@
   </tr>
   <tr>
     <td colspan="6" valign="top"><p><strong>&Aacute;rea</strong>:
-     <select name=area_id>
+     <select name=area>
          <option>-----Seleccione-----</option>
    {html_options values=$area_id output=$area_nombre}
       </select>
      <a href="{$URL}area/registro.php">Nueva &Aacute;rea</a></td>
     </p>  
     <td colspan="4" valign="top"><p><strong>Sub &aacute;rea</strong>:
-      <select name=sub_area_id>
+      <select name=subarea>
           <option>-----Seleccione-----</option>
    {html_options values=$sub_area_id output=$sub_area_nombre}
       </select>
@@ -105,14 +102,14 @@
   </tr>
   <tr>
     <td colspan="6" valign="top"><p><strong>Modalidad</strong>:
-      <select name=modalidad_id>
+      <select name=modalidad>
           <option>-----Seleccione-----</option>
    {html_options values=$modalidad_id output=$modalidad_nombre}
       </select>
-      <a href="{$URL}modalidad/registro.php">Nueva Modalidad</a></p></td>
-    </p>      
+   <!--   <a href="{$URL}modalidad/registro.php">Nueva Modalidad</a></p></td>  -->
+         
     <td colspan="4" valign="top"><p><strong>Institución</strong>:
-        <select name=institucion_id>
+        <select name=institucion>
             <option>-----Seleccione-----</option>
    {html_options values=$institucion_id output=$institucion_nombre}
       </select>
@@ -139,28 +136,28 @@
   </tr>
   <tr>
     <td colspan="2" align="left" valign="bottom"><p align="center">
-      <select name=usuario_id> 
+      <select name=directorcarrera> 
           <option>-----Seleccione-----</option>
     {html_options values=$usuario_id output=$usuario_nombre}
       </select>
     </p> 
     </td>
     <td colspan="3" valign="top"><p align="center">
-      <select name=usuario_id> 
+      <select name=docentemateria> 
           <option>-----Seleccione-----</option>
     {html_options values=$usuario_id output=$usuario_nombre}
       </select>
      </p>
     </td>
     <td colspan="2" valign="top"><p align="center">
-      <select name=usuario_id> 
+      <select name=tutor> 
           <option>-----Seleccione-----</option>
     {html_options values=$usuario_id output=$usuario_nombre}
       </select>
      </p>
     </td>
     <td colspan="2" valign="top"><p align="center">
-      <select name=usuario_id> 
+      <select name=revisor> 
           <option>-----Seleccione-----</option>
     {html_options values=$usuario_id output=$usuario_nombre}
       </select>
@@ -175,22 +172,22 @@
     <td colspan="2" valign="top"><p align="center"><strong>Director Carrera</strong></p></td>
     <td colspan="3" valign="top"><p align="center"><strong>Docente Materia</strong></p></td>
     <td colspan="2" valign="top"><p align="center"><strong>Tutor</strong></p></td>
-    <td colspan="2" valign="top"><p align="center"><strong>Responsable</strong></p></td>
+    <td colspan="2" valign="top"><p align="center"><strong>Revisor</strong></p></td>
     <td valign="top"><p align="center"><strong> Estudiante</strong></p></td>
   </tr>
   <tr>
     <td colspan="7" valign="top"><p><strong>Formulario  Aprobaci&oacute;n</strong>:
-        <input name="formularioaprobacion"  type="file"  size="25" />
-      <br/>
-        <strong>Registrado Por</strong>:
-        <input name="registradopor" type="text" size="35" />
+            
+     <a href= "formularioaprobacion" ><input name="formularioaprobacion"  type="file"/></a>  
+        <strong>Registrado Por: </strong>
+        <input name="registradopor" value="{$user->nombre} {$user->apellidos}"  type="text"  size="26" />    
+     <!--  <input name="registradopor" type="text" size="35" />  -->
     </p>      </td>
     <td colspan="2" valign="top"><p><strong>Firma</strong>:</p></td>
     <td valign="top" nowrap="nowrap"><p align="left"><strong>
       <label for="nombre">Fecha:<br/>
       </label>
-           <input type="date" size="25" id="fecha" name="fecharegistro" value="{$perfil->fecharegistro}" />
-             
+        <input type="date" size="25" id="fecha" name="fecharegistro" value="{$smarty.now|date_format:"%D"}" />   
         </strong> 
       </p>     
     </td>

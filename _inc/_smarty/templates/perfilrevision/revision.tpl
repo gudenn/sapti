@@ -7,51 +7,44 @@
      
 <!-- ####################################################################################################### -->   
  <form action="" method="post">
-     <center> <h2>REGISTRO DE REVISION DE PERFIL</h2></center>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <center> <h2>REGISTRO DE REVISION DE PERFIL</h2></center>
 <p>Estudiante:
-  <input name="usuario_id" value="{$user->nombre} {$user->apellidos}" type="text" size="35" />
+  <input name="estudiante" value="{$usuario->nombre}" type="text" size="35" />
 </p>
-<p>Titulo Perfil :
-  <input name="registroperfil_id" value="{$perfilregistro->titulo}" type="text"  size="160" />
-</p>
-
 
 <p>
-  <object data="proyecto.doc" type="application/pdf" width="900" height="300">
+    <object data="Perfil-hernan.pdf" type="application/pdf" width="900" height="600">
     <p> Al parecer usted no tiene un plugin PDF para este navegador.
-      No hay problema ... puedes <a href="proyecto.pdf"> clic aquí para descargar el archivo PDF. </ a> </ p>
-  </object>
+        No hay problema ... puedes <a href="Perfil-hernan.pdf"> Descargar el archivo PDF. </ a> </ p>
+    </object>
 </p>
 
 <div id="div_1">
-            <label  accesskey="">Observacion:
-            </label>   
-            <input  type="text"  name="materiales[]" id="materiales[]" style="width:900px;" /> 
-            <input class="bt_plus" id="1" type="button" value="Añadir Observacion" />
-            <div class="error_form"></div>
+            <label  accesskey="">Observaciones:
+            </label>            
+      <p align="center">
+        <textarea name="observacion" cols="175" rows="13,5"></textarea>
+    </p>
             </div>
         <p>Docente Revisor:
-            <input name="usuario_id" value="{$user->nombre} {$user->apellidos}  "  type="text" size="35" />
+            <input name="docenterevisor" value="{$usuario->nombre} {$usuario->apellidos}"  type="text" size="35" />
         </p>
 	    <p>
-              <label for="fecha_cumple"><small>Fecha de Revison:</small></label>
-              <input type="date" size="25" id="fecha" name="fecharegistro" value="{$perfil->fecharegistro}" /> 
+              <label for="fecha">Fecha de Revison:</label>
+              <input type="date" size="25" id="fecha" name="fecha" value="{$revision->fecha}" /> 
               
             </p>
             
             <p>
-              <input type="hidden" name="id" value="{$revision->id}">
-              <input type="hidden" name="id" value="{$observacion->id}">
-              <input type="hidden" name="tarea" value="registrar">
-              <input type="hidden" name="token" value="{$token}">
+            <td height="26" colspan="10" valign="middle"><p align="center"><strong>&nbsp;</strong> 
+           <input type="hidden" id="tarea" name="tarea" value="grabar" />
+        <input type="submit" value="registro" />
+          <input name="reset" type="reset" id="reset" tabindex="5" value="Resetear">
 
             </p>
-            <p>
-	     <center>
-                 <input name="submit" type="submit" id="submit" value="Grabar">
-              &nbsp;
-              <input name="reset" type="reset" id="reset" tabindex="5" value="Resetear"></center>
-	   </p>
+                
+    </p>
 			
 </div>
 </form>

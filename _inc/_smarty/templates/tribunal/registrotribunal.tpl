@@ -73,19 +73,23 @@
    
     <tr  class="selectable">
    
-      <td>{$listadocentes[ic]['id']}
-        <input type="hidden" name="ids[]" value="{$listadocentes[ic]['id']}">
+      <td>{$listadocentes[ic][0]}
+        <input type="hidden" name="ids[]" value="{$listadocentes[ic][0]}">
       </td>
       <td>
-        {$listadocentes[ic]['nombre']}
+        {$listadocentes[ic][1]}
       </td>
-      <td>{$listadocentes[ic]['apellidos']}</td>
-          <td>     <a  class="tooltip"> sdf
+      <td>{$listadocentes[ic][2]}</td>
+          <td>     <a  class="tooltip"> VER
   <span>
   <b>
  </b>
-{$listadocentes[ic]['id']}
- 
+{foreach name=outer item=contact from=$listadocentes[ic][3]}
+  <hr />
+  {foreach key=key item=item from=$contact}
+  {$item}<br />
+  {/foreach}
+{/foreach}
  </span> 
         
        </a>

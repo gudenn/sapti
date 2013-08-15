@@ -53,14 +53,38 @@ FROM  `usuario` u ,`docente` d
 WHERE  u.`id`=d.`usuario_id` and u.`estado`='AC';";
  $resultado = mysql_query($sqlr);
  $arraytribunal= array();
+  $smarty->assign('contacts', array(
+                             array('phone' => '1',
+                                   'fax' => '2',
+                                   'cell' => '3'),
+                             array('phone' => '555-4444',
+                                   'fax' => '555-3333',
+                                   'cell' => '760-1234')
+                             ));
  
  while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) 
- {
-  // $arraytribunal=$fila;
+         { 
    
-   //array('name' => $fila["id"], 'home' => $fila["nombre"],'cell' => $fila["apellidos"], 'email' => 'john@myexample.com');
    
-   $arraytribunal[]=$fila;
+   
+        $listaareas=array();
+        $lista_areas=array();
+        $lista_areas[] = $fila["id"];
+        $lista_areas[] =  $fila["nombre"];
+        $lista_areas[] =  $fila["apellidos"];
+ 
+ 
+$sqla="select  a.`nombre`
+from `docente` d , `apoyo` ap , `area` a
+where  d.`id`=ap.`docente_id` and a.`id`=ap.`area_id` and d.`estado`='AC' and ap.`estado`='AC' and a.`estado`='AC'and d.`id`=".$fila["id"];
+ $resultadoa = mysql_query($sqla);
+ 
+  while ($filas = mysql_fetch_array($resultadoa, MYSQL_ASSOC)) 
+  {
+     $listaareas[]=$filas;
+  }
+  $lista_areas[]=$listaareas;
+  $arraytribunal[]= $lista_areas;
  }
  $smarty->assign('listadocentes'  , $arraytribunal);
   
@@ -101,6 +125,7 @@ while ($proyecto_sql && $rows = mysql_fetch_array($proyecto_sql[0]))
 
 $smarty->assign('proyecto_id'     ,$proyecto_id);
 $smarty->assign('proyecto_nombre' ,$proyecto_nombre);
+$smarty->assign('nombrearea' ,"Redes");
   
 
 

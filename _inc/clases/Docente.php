@@ -64,6 +64,13 @@ class Docente extends Objectbase
     return $filtro_sql;
   }
   
+   function getUsuario() 
+  {
+    if (!isset($this->usuario_id) || !$this->usuario_id)
+      return false;
+    $usuario = new Usuario($this->usuario_id);
+    return $usuario;
+  }
   
   
 }

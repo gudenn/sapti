@@ -28,6 +28,7 @@ try {
  leerClase("Estudiante");
  leerClase("Docente");
  leerClase("Tutor");
+ leerClase("Proyecto");
  
   
  $perfilregistro = new Perfilregistro();
@@ -52,7 +53,7 @@ try {
   $modalidad_sql = $modalidad->getAll();
   $modalidad_id = array();
   $modalidad_nombre = array();
-  while ($carrera_sql && $rows = mysql_fetch_array($modalidad_sql[0])) 
+  while ($modalidad_sql && $rows = mysql_fetch_array($modalidad_sql[0])) 
  {
      $modalidad_id[] = $rows['id'];
      $modalidad_nombre[] = $rows['nombre'];
@@ -111,6 +112,19 @@ try {
   
   //$smarty->assign();
   
+  /////////////////////// Creamos estudiante ////////////////////////
+  $estud = new Estudiante();
+  $estud_sql = $estud->getAll();
+  $estud_sql_id = array();
+  $estud_nombre = array();
+  while ($estud_sql && $rows = mysql_fetch_array($estud_sql[0])) 
+ {
+     $estud_id[] = $rows['id'];
+     $estud_nombre[] = $rows['nombre'];
+  }
+
+  $smarty->assign('estudiante_id', $estud_id);
+  $smarty->assign('estudiante_nombre', $estud_nombre); 
 ////////////////////////////////////////////////////////////
 
 // AKI CREAMOS LOS ID Del TuTOr = Usuario  PARA CARGAR AL FORMULARIO
@@ -158,40 +172,48 @@ try {
 
   
   
-/**  
+ /*
 $upload = new upload;    // upload
-$upload ->SetDirectory("archivos");
-//$file = $_FILES['formularioaprobacion']['name'];
-//$arreglo['url_documento']= "";
-//if ($_FILES[$perfilregistro->formularioaprobacion]['name'] != "")
-//  {
- // $tipo_archivo = $_FILES[$perfilregistro->formularioaprobacion]['type'];
- // if (!(strpos($tipo_archivo, "pdf")))
-  //  {
-   // $todoOK = false;
-  // echo "<script>alert('solo archivos pdf. Por favor verifique e intente de nuevo, tipo: ".$tipo_archivo."');</script>";
-    //} else 
-      //{
-//       $tamanio = $_FILES[$perfilregistro->formularioaprobacion]['size'];
-	 $name = "doc_".time();
+$upload ->SetDirectory($dir);
+$file = $_FILES['formularioaprobacion']['dir'];
+$arreglo['url_documento']= " ";
+if ($_FILES[$perfilregistro->formularioaprobacion]['dir'] != " ")
+  {
+  $tipo_archivo = $_FILES[$perfilregistro->formularioaprobacion]['type'];
+  if (!(strpos($tipo_archivo, "pdf")))
+   {
+    $todoOK = false;
+   echo "<script>alert('solo archivos pdf. Por favor verifique e intente de nuevo, tipo: ".$tipo_archivo."');</script>";
+  } else 
+  {
+       $tamanio = $_FILES[$perfilregistro->formularioaprobacion]['size'];
+	 $dir = "pdf_".time();
 	 $upload -> SetFile("formularioaprobacion");
-	 if ($upload -> UploadFile( $name ))
+	 if ($upload -> UploadFile( $dir ))
 	  {
-	   $urldocumento = "archivos".$name.".".$upload->ext;
+	   $urldocumento = "$dir".$dir.".".$upload->ext;
 	  }
-       //}
-    // }
- // }         
-  
-  */         
-          
+      }
+   }
+// }         
+   */    
+///// crear un perfilregistro////////////////
+  $perfilregistro = new Perfilregistro();
+  $perfilregistro_sql = $perfilregistro->getAll();
+  $perfilregistro_id = array();
+  $perfilregistro_nombre = array();
+  while ($perfilregistro_sql && $rows = mysql_fetch_array($perfilregistro_sql[0])) 
+ {
+     $perfilregistro_id[] = $rows['id'];
+     $perfilregistro_nombre[] = $rows['titulo'];
+  }
+  $smarty->assign('perfilregistro_id', $perfilregistro_id);
+  $smarty->assign('perfilregistro_titulo', $perfilregistro_titulo);          
           
           
  //GUARDA ALA BASE DE DATOS 
 if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
-  {
-  
-  
+  {  
     if(isset($_POST['trabajoconjunto']))
     {
       if($_POST['trabajoconjunto']=="Si")
@@ -202,12 +224,23 @@ if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
         echo $_POST['trabajoconjunto'];
       }
     }
-    // $smarty->assign("objetoperfil",$perfilregistro);
-    $perfilregistro->objBuidFromPost();
-    $perfilregistro->save();
   }
+      $perfilregistro->objBuidFromPost();
+      $perfilregistro->estado = Objectbase::STATUS_AC;
+      $perfilregistro->save();
+    
+     if (isset($_POST['ids']))
+     foreach ($_POST['ids'] as $id)
+     {
+       echo $id;
+        $perfilregistro= new Perfilregistro();         
+        $perfilregistro->usuario_id =$id;
+        $perfilregistro->estado = Objectbase::STATUS_AC;
+        $perfilregistro->proyecto_tribunal_id=$perfilregistro->id;;
+        $perfilregistro->objBuidFromPost();
+        $perfilregistro->save();
+     }
   $smarty->assign("ERROR", $ERROR);
-  
   //No hay ERROR
   $smarty->assign("ERROR",'');
 } 
