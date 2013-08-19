@@ -1,6 +1,5 @@
 {include file="header.tpl"}
 <div class="wrapper row3">
-    
      <div class="rnd">
          <div id="container" class="clear">
 <table width="85%" border="1"  align="center" cellpadding="3" cellspacing="3" bordercolor="999999" class="Estilo2">
