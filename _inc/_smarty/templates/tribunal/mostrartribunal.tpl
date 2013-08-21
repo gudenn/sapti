@@ -31,6 +31,7 @@
       <th><a href='?order=id'                    accesskey="" class="tajax"  title='Ordenar por Id'           >Id           {$filtros->iconOrder('id')}</a></th>
       <th><a href='?order=proyecto_id'                        class="tajax"  title='Ordenar por Proyecto'     >Nombre     {$filtros->iconOrder('proyecto_id')}</a></th>
       <th><a href='?order=fecha_observacion'                  class="tajax"  title='Ordenar por Fecha'        >Apellidos     {$filtros->iconOrder('fecha_observacion')}</a></th>
+      <th><a href='?order=fecha_observacion'                  class="tajax"  title='Ordenar por Fecha'        >Carta  {$filtros->iconOrder('fecha_observacion')}</a></th>
        </tr>
   </thead>
   
@@ -41,6 +42,8 @@
      <td>{$arraytribunal[ic]['id']} </td>
       <td>{$arraytribunal[ic]['nombre']} </td>
        <td>{$arraytribunal[ic]['apellidos']}</td>
+      <td> <a href="carta.php?tribunal_id={$arraytribunal[ic]['id']}" target="_blank" >{icono('detalle.png','PDF')}</a>
+    
         </td>
       
         

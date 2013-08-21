@@ -79,9 +79,9 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
   if(isset($_GET['tribunal_id']))
   {
     
-    echo $_GET['tribunal_id'];
+   // echo $_GET['tribunal_id'];
      $sql="
-SELECT u.nombre , u.apellidos
+SELECT d.id, u.nombre , u.apellidos
 FROM  usuario u, docente d, tribunal t, proyecto_tribunal pt
 WHERE  u.`id`=d.`usuario_id` and d.`id`=t.`docente_id` and  t.`proyecto_tribunal_id`=pt.`id` and pt.`id`=".$_GET['tribunal_id'];
  $resultado = mysql_query($sql);

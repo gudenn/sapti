@@ -83,13 +83,15 @@ where u.`id`= d.`usuario_id` and u.`estado`='AC' and d.`estado`='AC' and u.`id`=
       
    if (isset($_POST['area_id']))
    {
+     
+     
      $tamanio=0;
-     $tamanio= 0+ (sizeof($_POST['area_id']));
-  echo $tamanio;
+     $tamanio= (sizeof($_POST['area_id']));
+   // $tamanio=  sizeof($smarty.section.$_POST['area_id'].total);
+   echo $tamanio;
    if($tamanio!=0)
      {
-      echo "hola eli dentro";
-    
+     
      foreach ($_POST['area_id'] as $id)
      {
            
