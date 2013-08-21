@@ -38,11 +38,12 @@ try {
    //CREAR LAS CLASES
 
   leerClase("perfilregistro");
-  leerClase("Usuario");
   leerClase("Estudiante");
+  leerClase("Tutor");
   leerClase("Docente");
   leerClase("Revision_perfil");
   leerClase("Filtro");
+  
  /////////////////////////////////////////
   
   

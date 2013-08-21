@@ -17,13 +17,10 @@
   </tr>
   <tr>
     <td colspan="6" valign="top" nowrap="nowrap"><p align="center"><strong>Apellidos </strong>&nbsp;:&nbsp;
-        <input name="apellidos" value="{$user->apellidos}" type="text" size="20" /></p></td>
-    <!--
-    <td colspan="4" valign="top" nowrap="nowrap"><p align="center"><strong>Ap.Materno</strong>:
-      <input name="materno" value="{$user->apellidos}" type="text" size="20" />
-    </p></td> -->
+        <input name="apellidos" value="{$usuario->apellidos}" type="text" size="20" /></p></td>
+
     <td colspan="6" valign="top"><p align="center"><strong> Nombres </strong>&nbsp;:&nbsp; 
-      <input name="nombres" value="{$user->nombre}" type="text" size="20" />
+      <input name="nombres" value="{$usuario->nombre}" type="text" size="20" />
     </p></td>
   </tr>
   <tr>
@@ -31,14 +28,15 @@
             <input name="telefono" type="text" value="" size="20" />
   </p> </td>
     <td colspan="7" valign="top"><p><strong>Email</strong>:
-            <input name="email" value="{$user->email}" type="email" size="30" />
+            <input name="email" value="{$usuario->email}" type="email" size="30" />
   </p> </td>
   </tr>
   <tr>
     <td colspan="10" align="left" valign="top"><p><strong>Primer Tutor</strong>: 
-            <select name=primertutor> 
+            
+        <select name=primertutor> 
        <option>-----Seleccione-----</option>
-    {html_options  values=$usuario_id output=$usuario_nombre} 
+    {html_options  values=$docente_id output=$docente_nombre} 
       </select>
       </p>
       <p><strong>Segundo Tutor</strong>:
@@ -64,8 +62,8 @@
   <!-- <a class="active"  href="{$URL}carrera/registro.php">Nueva Carrera</a></p></td> -->
     <td colspan="4" valign="top"><p align="left"><strong>Trabajo Conjunto</strong>:
         
-    <INPUT type="radio" name="trabajoconjunto" value="Si" > Si
-    <INPUT type="radio" name="trabajoconjunto" value="No"> No<BR>
+    <INPUT type="radio" name="trabajoconjunto" value="Si" ><strong>Si</strong>
+    <INPUT type="radio" name="trabajoconjunto" value="No"> <strong>No</strong>
 
   
     </p>      </td>
@@ -75,8 +73,8 @@
         <input name="gestionaprobacion" type="text" size="15" />
     </p>      </td>
     <td colspan="4" valign="top"><p align="left"><strong>Cambio de Tema</strong>:
-        <INPUT type="radio" name="cambiotema" value="Si" > Si
-    <INPUT type="radio" name="cambiotema" value="No"> No<BR>
+        <INPUT type="radio" name="cambiotema" value="Si" > <strong>Si</strong>
+    <INPUT type="radio" name="cambiotema" value="No"> <strong>No</strong>
     </p>      </td>
   </tr>
   <tr>
@@ -194,11 +192,16 @@
   </tr>
  </table>
  <td height="26" colspan="10" valign="middle"><p align="center"><strong>&nbsp;</strong> 
-           <input type="hidden" id="tarea" name="tarea" value="grabar" />
-        <input type="submit" value="registro" />
+        
+       <input type="hidden" id="tarea" name="tarea" value="grabar" />
+        <input type="submit" value="registrar" />
+       
           <!--  <input type="reset" value="Restear" name="Resetear" /> -->
           <input name="reset" type="reset" id="reset" tabindex="5" value="Resetear">     
     </p>
+   </p>
+			
+  </div>
 </form>
 <!-- ####################################################################################################### -->
   </div> 

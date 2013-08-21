@@ -10,11 +10,13 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <center> <h2>REGISTRO DE REVISION DE PERFIL</h2></center>
 <p>Estudiante:
-  <input name="estudiante" value="{$usuario->nombre}" type="text" size="35" />
+  <input name="estudiante" value="{$user->nombre}" type="text" size="35" />
 </p>
-
+<p>Titulo Perfil:
+  <input name="titulo"  type="text" size="150" />
+</p>
 <p>
-    <object data="Perfil-hernan.pdf" type="application/pdf" width="900" height="600">
+    <object data="Perfil.pdf" type="application/pdf" width="900" height="500">
     <p> Al parecer usted no tiene un plugin PDF para este navegador.
         No hay problema ... puedes <a href="Perfil-hernan.pdf"> Descargar el archivo PDF. </ a> </ p>
     </object>
@@ -28,7 +30,7 @@
     </p>
             </div>
         <p>Docente Revisor:
-            <input name="docenterevisor" value="{$usuario->nombre} {$usuario->apellidos}"  type="text" size="35" />
+            <input name="docenterevisor" value="{$user->nombre} {$user->apellidos}"  type="text" size="35" />
         </p>
 	    <p>
               <label for="fecha">Fecha de Revison:</label>
@@ -46,7 +48,7 @@
                 
     </p>
 			
-</div>
+    </div>
 </form>
 <!-- ####################################################################################################### -->
   </div> 

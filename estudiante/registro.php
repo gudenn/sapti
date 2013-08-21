@@ -58,7 +58,7 @@ try {
     $columnacentro = 'admin/columna.centro.estudiante-registro-editar.tpl';
   $smarty->assign('columnacentro',$columnacentro);
   
-  if (isset($_POST['tarea']) && $_POST['tarea'] == 'registrar' && isset($_POST['token']) && $_SESSION['register'] == $_POST['token'])
+  if (isset($_POST['tarea']) && $_POST['tarea'] == 'registra' && isset($_POST['token']) && $_SESSION['register'] == $_POST['token'])
   {
     $usuario->objBuidFromPost();
     $usuario->estado = Objectbase::STATUS_AC;
