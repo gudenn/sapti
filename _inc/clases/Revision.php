@@ -11,38 +11,82 @@ class Revision extends Objectbase
   * @var INT(11)
   */
   var $proyecto_id;
+
    /**
   * Codigo identificador del Objeto Revisor
   * @var INT(11)
   */
   var $revisor;
   
-  var $revisor_tipo;
   /**
+   * docente (DO), tutor (TU), tribunal (TR)'
+   * @var VARCHAR(2)
+   */
+  var $revisor_tipo;
+
+ /**
   * Fecha de la revicion
-  * @var INT(11)
+  * @var DATE
   */
   var $fecha_revision;
-    /**
+
+ /**
   * Fecha de la correccion de revicion
-  * @var INT(11)
+  * @var DATE
   */
   var $fecha_correccion;
-    /**
+
+ /**
   * Fecha de la correccion de revicion
-  * @var INT(11)
+  * @var DATE
   */
   var $fecha_aprobacion;
-    /**
-  * Fecha de la revicion
-  * @var INT(11)
-  */
-  var $estado_revision;
-    /**
-   * Validamos la revicion ya sea para actualizar o para crear una nueva
-   * @param type $revision
+
+
+  /**
+   * estado 1 creado (CR), estado 2 visto (VI), estado 3 respondido  (RE), estado 4 aprobado (AP)
+   * @var VARCHAR(2)
    */
-    function iniciarFiltro(&$filtro) 
+  var $estado_revision;
+
+  
+ /**
+  * (Arreglo de objetos) Observaciones que pertenecen a una revision
+  * @var object|null 
+  */
+  var $observacion_objs;
+
+ 
+  function getRevisor($revisor_id,$tipo='DO',$gettipo = false) 
+  {
+    if ($tipo == '')
+      return 'Desconocido';
+    switch ($tipo) {
+      case 'TU':
+        $clase = 'Tutor';
+        break;
+      case 'DO':
+        $clase = 'Docente';
+        break;
+      case 'TR':
+        $clase = 'Tribunal';
+        break;
+      default:
+        return 'Desconocido';
+        return;
+        break;
+    }
+    if ($gettipo)
+    {
+      return $clase;
+    }
+    leerClase($clase);
+    $obj = new $clase($revisor_id);
+    return $obj->getNombreCompleto();
+
+  }
+
+  function iniciarFiltro(&$filtro) 
   {
     
     if (isset($_GET['order']))

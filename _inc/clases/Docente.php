@@ -12,7 +12,21 @@ class Docente extends Objectbase
   */
   var $usuario_id;
   
-    public function issetDocente($login, $clave) {
+  /**
+   * Retorna el nombre completo del usuario
+   * @param boolean $echo si muestra o solo devuelve
+   * @return boolean
+   */
+  function getNombreCompleto($echo = false) 
+  {
+    leerClase('Usuario');
+    if (!$this->usuario_id)
+      return false;
+    $usuario = new Usuario($this->usuario_id);
+    return $usuario->getNombreCompleto($echo);
+  }
+  
+  public function issetDocente($login, $clave) {
     if ($login == "" || $clave == "")
       return false;
     $activo = Objectbase::STATUS_AC;

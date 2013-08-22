@@ -12,11 +12,25 @@ class Observacion extends Objectbase
   */
   var $revision_id;
 
-   /**
+ /**
   * Texto de observacin de la revision
-  * @var VARCHAR(500)
+  * @var VARCHAR(1500)
   */
   var $observacion;
+
+ /**
+  * Respuesta que dara el estudiante a una observacion
+  * @var VARCHAR(1500)
+  */
+  var $respuesta;
+
+ /**
+  * estado 1 creado (CR), etado 2 corregido (CO), estado 3  aprobado (AP)' ,
+  * @var VARCHAR(2)
+  */
+  var $estado_observacion;
+
+
   function iniciarFiltro(&$filtro) 
   {
     

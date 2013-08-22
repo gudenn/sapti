@@ -81,6 +81,16 @@ class Usuario  extends Objectbase
   */
   var $estudiante_objs;
 
+  function getNombreCompleto($echo = false) 
+  {
+    $nombreCompleto = strtoupper("{$this->nombre} {$this->apellidos} ");
+    if ($echo)
+    {
+      echo $nombreCompleto;
+      return true;
+    }
+    return $nombreCompleto;
+  }
 
   
   /**
