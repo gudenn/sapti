@@ -26,7 +26,6 @@ try {
 
   //CSS
   $CSS[]  = URL_CSS . "academic/tables.css";
-  //$CSS[]  = URL_CSS . "pg.css";
   $smarty->assign('CSS',$CSS);
 
   //JS
@@ -53,23 +52,10 @@ AND pe.proyecto_id=pr.id";
   $smarty->assign('arraylista'  , $arraylista);
   $smarty->assign('mascara'     ,'docente/listas.mascara.tpl');
   $smarty->assign('lista'       ,'docente/estudiante.lista.tpl');
-
-//Filtro
-  $filtro     = new Filtro('g_docente',__FILE__);
-  $estudiante = new Estudiante();
-  $estudiante->iniciarFiltro($filtro);
-  $filtro_sql = $estudiante->filtrar($filtro);
-
-  $estudiante->usuario_id = '%';
   
-  $o_string   = $estudiante->getOrderString($filtro);
-  $obj_mysql  = $estudiante->getAll('',$o_string,$filtro_sql,TRUE,TRUE);
-  //$objs_pg    = new Pagination($obj_mysql, 'g_docente','',false,10);
-
-  $smarty->assign("filtros"  ,$filtro);
-  //$smarty->assign("objs"     ,$objs_pg->objs);
+  $objs_pg    = new Pagination($resultado, 'g_docente','',false,100);
   $smarty->assign("objs"     ,$arraylista);
-  //$smarty->assign("pages"    ,$objs_pg->p_pages);
+  $smarty->assign("pages"    ,$objs_pg->p_pages);
 
 
 

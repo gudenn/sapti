@@ -1,4 +1,4 @@
-{include file="admin/header-sjq.tpl"}
+{include file="docente/header-sjq.tpl"}
 
 <div class="wrapper row3">
   <div class="rnd">

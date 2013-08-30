@@ -2,10 +2,11 @@
 <div class="wrapper row3">
   <div class="rnd">
     <div id="container">
+        <h1 class="title">REGISTRO DE EVALUACIONES</h1>
             <p>
-               <label for="nombre de proyecto"><small>Nombre de Proyecto:</small></label>
+               <label for="nombre de proyecto"><small>NOMBRE DE PROYECTO:</small></label>
                <span>{$nombre_pr}</span><br/>
-               <label for="nombre de estudiante"><small>Nombre de Estudiante:</small></label>
+               <label for="nombre de estudiante"><small>NOMBRE DE ESTUDIANTE:</small></label>
                <span>{$nombre_es}</span>
             </p>
       {include file='docente/filtro.tpl'}
@@ -14,31 +15,20 @@
       {else}
         {include file=$mascara}
       {/if}
-      <div id="respond">
-        <form action="#" method="post" id="registro" name="registro" >
-        <h1 class="title">Registro de Evaluaciones</h1>
-         <p>
-           <input type="text" name="evaluacion" id="evaluacion" value="{$evaluacion->evaluacion_1}" size="22">
-           <label for="evaluacion"><small>Evaluacion</small></label>
-         </p>
-         <h2 class="title">Grabar Evaluacion</h2>
-            <p>
-              <input type="hidden" name="id" value="{$evaluacion->id}">
-              <input type="hidden" name="tarea" value="registrar">
-              <input type="hidden" name="token" value="{$token}">
-
-              <input name="submit" type="submit" id="submit" value="Grabar">
-              &nbsp;
-              <input name="reset" type="reset" id="reset" tabindex="5" value="Resetear">
-            </p>
-          </form>
+        <h2 class="title">EVALUACIONES</h2>
+        <div id="wrap">
+		<div id="tablecontent"></div>
         </div>
         <p>{$ERROR}</p>
-        <p>Todos los campos con (*) son obligatorios.</p>
-       </div>
-    </div>
+     </div>
     {$ERROR}
     </div>
-  </div>
 </div>
 {include file="footer.tpl"}
+        <script src="js/editablegrid-2.0.1.js"></script>   
+		<!-- I use jQuery for the Ajax methods -->
+	<script src="js/jquery-1.7.2.min.js" ></script>
+	<script src="js/demo.js" ></script>
+        <script type="text/javascript">
+                    datagrid = new DatabaseGrid('eva',{$evaluacion_ids});
+        </script>

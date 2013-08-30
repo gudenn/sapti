@@ -4,8 +4,7 @@ try {
   if(!isDocenteSession())
     header("Location: login.php"); 
   global $PAISBOX;
-  
-  /** HEADER */
+    /** HEADER */
   $smarty->assign('title','Modificacion de Observaciones');
   $smarty->assign('description','Formulario de Modificacion de Observaciones');
   $smarty->assign('keywords','SAPTI,Observaciones,Registro');
@@ -20,7 +19,10 @@ try {
 
   //JS
   $JS[]  = URL_JS . "jquery.1.9.1.js";
-
+    //Validation
+  $JS[]  = URL_JS . "validate/idiomas/jquery.validationEngine-es.js";
+  $JS[]  = URL_JS . "validate/jquery.validationEngine.js";
+  
   //Datepicker UI
   $JS[]  = URL_JS . "ui/jquery-ui-1.10.2.custom.min.js";
   $JS[]  = URL_JS . "ui/i18n/jquery.ui.datepicker-es.js";
@@ -28,32 +30,59 @@ try {
 
   $smarty->assign('JS',$JS);
   $smarty->assign("ERROR", '');
-  $_SESSION['obser'] = (isset($_SESSION['obser']))?$_SESSION['obser']:'';
-  if ( isset($_GET['revisiones_id']) && is_numeric($_GET['revisiones_id']) )
-  $_SESSION['obser'] = $_GET['revisiones_id'];
   
-  leerClase('Observacion');
-  if (isset($_POST['observaciones'])) 
-  $observaciones=$_POST['observaciones'];
-  $proyecto_ids = $_GET['proyecto_id'];
+  function array_envia($url_array) 
+   {
+   $tmp = serialize($url_array);
+   $tmp = urlencode($tmp);
+       return $tmp;
+   };
+  function array_recibe($url_array) { 
+  $tmp = stripslashes($url_array); 
+  $tmp = urldecode($tmp); 
+  $tmp = unserialize($tmp); 
+    return $tmp; 
+  };
+  if ( isset($_GET['revisiones_id']) && is_numeric($_GET['revisiones_id']) )
+  $revisionesid = $_GET['revisiones_id'];
+
   $docente=  getSessionDocente();
   $docente_ids=$docente->id;
+
+  $smarty->assign("revisionesid", $revisionesid);
   
-  $observacion = new Observacion();
-  $smarty->assign("observacion", $observacion);
-      if (isset($_POST['tarea']) && $_POST['tarea'] == 'registrar' && isset($_POST['token']) && $_SESSION['register'] == $_POST['token'])
-    {
-    foreach ($observaciones as $obser_array){
-    $observacion->objBuidFromPost();
-    $observacion->estado = Objectbase::STATUS_AC;
-    $observacion->observacion=$obser_array;
-    $observacion->revision_id = $_SESSION['obser'];
-    $observacion->save();
-    }
-  }
-   
   $columnacentro = 'docente/columna.centro.observacion-editar.tpl';
   $smarty->assign('columnacentro',$columnacentro);
+  
+  $array1=$_GET['array']; 
+  $array1=array_recibe($array1);
+  
+  $smarty->assign("array1", $array1);
+  
+  $array=array_envia($array1);
+  leerClase("Revision");
+  leerClase("Observacion");
+  if(isset($_POST['borrar'])){
+      
+    $revision    = new Revision($revisionesid);
+    $resul = "select id from observacion where revision_id =".$revisionesid." ";
+    $sql=mysql_query($resul);
+    $a=0;
+    $sql1=array();
+  while($res=mysql_fetch_row($sql)) {
+      $sql1[$a]=$res[0];
+      $a=$a+1;
+    }
+    foreach ($sql1 as $array2){
+    $observacion = new Observacion($array2);
+    $observacion->delete();
+    }
+    $revision->delete();
+    
+      $url="revision.lista.php?array=$array";
+      $ir = "Location: $url";
+      header($ir);
+  };
 
   //No hay ERROR
   $smarty->assign("ERROR",'');
@@ -63,12 +92,7 @@ catch(Exception $e)
 {
   $smarty->assign("ERROR", handleError($e));
 }
-
-$token                = sha1(URL . time());
-$_SESSION['register'] = $token;
-$smarty->assign('token',$token);
-
-$TEMPLATE_TOSHOW = 'docente/3columnas.tpl';
+$TEMPLATE_TOSHOW = 'docente/docente.3columnas.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>

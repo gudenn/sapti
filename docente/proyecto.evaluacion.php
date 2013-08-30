@@ -41,39 +41,33 @@ try {
   $JS[]  = URL_JS . "validate/jquery.validationEngine.js";
 
   $smarty->assign('JS',$JS);
-
-
   $smarty->assign("ERROR", '');
-
   
-  $proyecto_ids = $_GET['proyecto_id'];
-  $evaluacion_ids = $_GET['evaluacion_id'];
+  function array_recibe($url_array) { 
+     $tmp = stripslashes($url_array); 
+     $tmp = urldecode($tmp); 
+     $tmp = unserialize($tmp); 
+    return $tmp; 
+  };
+    $array=$_GET['array']; 
+    $array=array_recibe($array);
+    
+  $proyecto_ids = $array['id_pr'];
+  $evaluacion_ids = $array['eva'];
   $docente=  getSessionDocente();
   $docente_ids=$docente->id;
   
-    $sql="SELECT es.id as 'id', us.nombre as 'nombre', us.apellidos as 'apellidos', pr.nombre as 'nombrep', pr.id as 'id_pr'
-FROM docente dt, dicta di, materia ma, estudiante es, usuario us, inscrito it, proyecto pr, proyecto_estudiante pe
-WHERE dt.id='".$docente_ids."'
-AND pr.id='".$proyecto_ids."'
-AND di.docente_id=dt.id 
-AND es.usuario_id=us.id
-AND it.dicta_id=di.id
-AND it.estudiante_id=es.id
-AND es.id=pe.estudiante_id
-AND pe.proyecto_id=pr.id;";
- $resultado = mysql_query($sql);
- $arraylista= array();
- while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
-   $arraylista[]=$fila;
- }
-    $nombre_n=$arraylista[0]['nombre'];
-    $nombre_a=$arraylista[0]['apellidos'];
+    $nombre_n=$array['nombre'];
+    $nombre_a=$array['apellidos'];
     $es=' ';
     $nombre_es=$nombre_n.$es.$nombre_a;
-    $nombre_pr=$arraylista[0]['nombrep']; 
+    $nombre_pr=$array['nombrep']; 
     
     $smarty->assign("nombre_es", $nombre_es);
     $smarty->assign("nombre_pr", $nombre_pr);
+    
+    $smarty->assign('evaluacion_ids',$evaluacion_ids);
+
   
     $sql1="SELECT re.id as 'id_re', pr.nombre as 'nombrep', pr.id as 'id_pr', re.fecha_revision as 'fecha', COUNT(ob.revision_id) as num
 FROM docente dt, proyecto pr, revision re, observacion ob
@@ -83,34 +77,15 @@ AND re.proyecto_id=pr.id
 AND re.id=ob.revision_id
 GROUP BY ob.revision_id";
  $resultado1 = mysql_query($sql1);
- $arraylista1= array();
- while ($fila1 = mysql_fetch_array($resultado1, MYSQL_ASSOC)) {
+while ($fila1 = mysql_fetch_array($resultado1, MYSQL_ASSOC)) {
    $arraylista1[]=$fila1;
  }
+ 
+  $objs_pg    = new Pagination($resultado1, 'g_estudiante','',false,10);
 
-//Filtro
-  $filtro   = new Filtro('g_revision',__FILE__);
-  $revision = new Revision();
-  $revision->iniciarFiltro($filtro);
-  $filtro_sql = $revision->filtrar($filtro);
-  $revision->id = '%';
-  
-  $o_string   = $revision->getOrderString($filtro);
-  $obj_mysql  = $revision->getAll('',$o_string,$filtro_sql,TRUE,TRUE);
-  $objs_pg    = new Pagination($obj_mysql, 'g_estudiante','',false,10);
-
-  $smarty->assign("filtros"  ,$filtro);
   $smarty->assign("objs"     ,$arraylista1);
   $smarty->assign("pages"    ,$objs_pg->p_pages);
   
-  $evaluacion=new Evaluacion($evaluacion_ids);
-  $smarty->assign('evaluacion',$evaluacion);
-  if (isset($_POST['tarea']) && $_POST['tarea'] == 'registrar' && isset($_POST['token']) && $_SESSION['register'] == $_POST['token'])
-  {
-  $evaluacion->objBuidFromPost();
-  $evaluacion->save();
-  }
-
   $token = sha1(URL . time());
   $_SESSION['register'] = $token;
   $smarty->assign('token',$token);

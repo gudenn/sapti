@@ -27,32 +27,27 @@ try {
 
   $smarty->assign('JS',$JS);
 
-
   $smarty->assign("ERROR", '');
 
+  if ( isset($_GET['revisiones_id']))
+  $revid=$_GET['revisiones_id'];
 
-  //CREAR UN ESTUDIANTE
-  leerClase('Revision');
-  leerClase('Observacion');
-
-  $_SESSION['revisiones_id'] = (isset($_SESSION['revisiones_id']))?$_SESSION['revisiones_id']:'';
-  if ( isset($_GET['revisiones_id']) && is_numeric($_GET['revisiones_id']) )
-    $_SESSION['revisiones_id'] = $_GET['revisiones_id'];
-
-  $revision       = new Revision($_SESSION['revisiones_id']);
-  $observacion    = new Observacion();
-  $obser=$_SESSION['revisiones_id'];
-  $resul = "select observacion from observacion where revision_id ='".$obser."' ";
-  $sql=mysql_query($resul);
-  $a=0;
-  $sql1=array();
-  while($res=mysql_fetch_row($sql)) {
-      $sql1[$a]=$res[0];
-      $a=$a+1;
-    }
-  $smarty->assign("revision"   , $revision);
-  $smarty->assign("observacion", $observacion);
-  $smarty->assign("sql1", $sql1);
+  $resul = "
+      SELECT ob.observacion as obser, pr.nombre as nomp, us.nombre as nom,us.apellidos as ap, re.fecha_revision as fere
+FROM observacion ob, revision re, proyecto pr, docente doc, proyecto_estudiante proe, usuario us
+WHERE ob.revision_id=re.id
+AND re.proyecto_id=pr.id
+AND pr.id=proe.proyecto_id
+AND re.revisor=doc.id
+AND doc.usuario_id=us.id
+AND ob.revision_id='".$revid."' 
+          ";
+   $sql = mysql_query($resul);
+while ($fila1 = mysql_fetch_array($sql, MYSQL_ASSOC)) {
+   $arrayobser[]=$fila1;
+ }
+    
+  $smarty->assign("arrayobser", $arrayobser);
   
   $columnacentro = 'docente/columna.centro.observacion-detalle.tpl';
   $smarty->assign('columnacentro',$columnacentro);
@@ -65,10 +60,6 @@ catch(Exception $e)
 {
   $smarty->assign("ERROR", handleError($e));
 }
-
-$token                = sha1(URL . time());
-$_SESSION['register'] = $token;
-$smarty->assign('token',$token);
 
 $TEMPLATE_TOSHOW = 'docente/3columnas.tpl';
 $smarty->display($TEMPLATE_TOSHOW);

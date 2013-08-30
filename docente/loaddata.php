@@ -2,9 +2,11 @@
 
 require_once('config.php');      
 require_once('EditableGrid.php');
-session_start();
 
-$obser2=$_SESSION['obser'];
+if(isset($_GET['revid'])){
+$obser2=$_GET['revid'];
+};
+
 /**
  * fetch_pairs is a simple method that transforms a mysqli_result object in an array.
  * It will be used to generate possible values for some columns.
@@ -37,11 +39,24 @@ $grid = new EditableGrid();
 *  The second argument is the label that will be displayed in the header
 */
 $grid->addColumn('id', 'ID', 'integer', NULL, false); 
-$grid->addColumn('revision_id', 'Proyecto', 'integer');  
+//$grid->addColumn('nombre', 'Nombre Proyecto', 'string', NULL, false);  
 $grid->addColumn('observacion', 'Observacion', 'string');
-$grid->addColumn('action', '', 'html', NULL, false);
+$grid->addColumn('action', '-', 'html', NULL, false);
 
-$result = $mysqli->query('SELECT * FROM observacion WHERE revision_id="'.$obser2.'"');
+$result = $mysqli->query('
+SELECT ob.id AS id, ob.observacion AS observacion
+FROM observacion ob
+WHERE revision_id="'.$obser2.'"');
+/*
+$result = $mysqli->query('
+SELECT ob.id AS id, pr.nombre AS nombre, ob.observacion AS observacion 
+FROM observacion ob, revision re, proyecto pr
+WHERE revision_id="'.$obser2.'"
+AND ob.revision_id=re.id
+AND re.proyecto_id=pr.id
+');
+ * 
+ */
 $mysqli->close();
 
 // send data to the browser

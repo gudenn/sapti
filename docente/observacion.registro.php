@@ -31,16 +31,25 @@ try {
   $JS[]  = URL_JS . "jquery.addfield.js";
   
   $smarty->assign('JS',$JS);
-
-
   $smarty->assign("ERROR", '');
 
+    function array_recibe($url_array) { 
+     $tmp = stripslashes($url_array); 
+     $tmp = urldecode($tmp); 
+     $tmp = unserialize($tmp); 
+
+    return $tmp; 
+  };
+    $array=$_GET['array']; 
+    $array=array_recibe($array);
+  
   //CREAR UNA REVISION
   leerClase('Revision');
   leerClase('Observacion');
   if (isset($_POST['observaciones'])) 
   $observaciones=$_POST['observaciones'];
-  $proyecto_ids = $_GET['proyecto_id'];
+
+  $proyecto_ids = $array['id_pr'];
   $docente=  getSessionDocente();
   $docente_ids=$docente->id;
   
@@ -49,30 +58,18 @@ try {
 
   $smarty->assign("revision", $revision);
   $smarty->assign("observacion", $observacion);
-  
-  $sql="SELECT es.id as 'id', us.nombre as 'nombre', us.apellidos as 'apellidos', pr.nombre as 'nombrep', pr.id as 'id_pr'
-FROM docente dt, dicta di, materia ma, estudiante es, usuario us, inscrito it, proyecto pr, proyecto_estudiante pe
-WHERE dt.id='".$docente_ids."'
-AND pr.id='".$proyecto_ids."'
-AND di.docente_id=dt.id 
-AND es.usuario_id=us.id
-AND it.dicta_id=di.id
-AND it.estudiante_id=es.id
-AND es.id=pe.estudiante_id
-AND pe.proyecto_id=pr.id;";
- $resultado = mysql_query($sql);
- $arraylista= array();
- while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
-   $arraylista[]=$fila;
- }
-    $nombre_n=$arraylista[0]['nombre'];
-    $nombre_a=$arraylista[0]['apellidos'];
+    
+    $nombre_n=$array['nombre'];
+    $nombre_a=$array['apellidos'];
     $es=' ';
     $nombre_es=$nombre_n.$es.$nombre_a;
-    $nombre_pr=$arraylista[0]['nombrep']; 
+    $nombre_pr=$array['nombrep']; 
     
     $smarty->assign("nombre_es", $nombre_es);
     $smarty->assign("nombre_pr", $nombre_pr);
+    $urlpdf=".../ARCHIVO/proyecto.pdf";
+    $smarty->assign("urlpdf", $urlpdf);
+    
     date_default_timezone_set('UTC');
     $revision->fecha_revision=date("d/m/Y");
 
@@ -90,7 +87,10 @@ AND pe.proyecto_id=pr.id;";
     $observacion->revision_id = $revision->id;
     $observacion->save();
     }
-  }
+    $url="estudiante.lista.php";
+    $ir = "Location: $url";
+        header($ir);
+    }
 
   
   $token = sha1(URL . time());

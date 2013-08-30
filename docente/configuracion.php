@@ -26,7 +26,6 @@ try {
   leerClase("Pagination");
   leerClase("Filtro");
   leerClase("Area");
-  leerClase("Apoyo");
 
   
   
@@ -47,7 +46,6 @@ $smarty->assign('area_nombre' , $area_nombre);
 
 $smarty->assign('areaselect_id',2);
 
-////////////////////////////numero de estudiantes por docente//////
 $smarty->assign('numero', array(
                                 1 => '1',
                                 2 => '2',
@@ -59,57 +57,35 @@ $smarty->assign('seleccionado',2);
     
    if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
   {
-     
-  $usuarios= new Usuario(getSessionDocente()->id);
-  
-    $usuarios= new Usuario(getSessionDocente()->id);
-      
+     $docentes= new Docente();
+     $docentes=getSessionDocente();
+   //  echo $docentes->usuario_id;
     
- $sqldoc="select  d.`id`
-FROM   `usuario` u , `docente`  d
-where u.`id`= d.`usuario_id` and u.`estado`='AC' and d.`estado`='AC' and u.`id`=".$usuarios->id;
- $resultadodoc = mysql_query($sqldoc);
- //$arraytribunal= array();
- $iddoc=0;
- while ($fila = mysql_fetch_array($resultadodoc, MYSQL_ASSOC)) 
- {
-  
-   $iddoc=$fila['id'];
- }
-    
-    ECHO $iddoc;
-   
      
-      
-   if (isset($_POST['area_id']))
-   {
-     
-     
-     $tamanio=0;
-     $tamanio= (sizeof($_POST['area_id']));
-   // $tamanio=  sizeof($smarty.section.$_POST['area_id'].total);
-   echo $tamanio;
-   if($tamanio!=0)
-     {
-     
+     if (isset($_POST['area_id']))
      foreach ($_POST['area_id'] as $id)
      {
+       
+      
+      echo $id;
+               $tribunal= new Tribunal();
+        /**       
+                $tribunal->usuario_id =$id;
+                $tribunal->estado = Objectbase::STATUS_AC;
+                $tribunal->proyecto_tribunal_id=$proyecto_tribunal->id;;
+                $tribunal->objBuidFromPost();
            
-     $apoyo= new Apoyo();
-     $apoyo->area_id=$id;
-     $apoyo->docente_id=$iddoc;
-     $apoyo->estado = Objectbase::STATUS_AC;
-     $apoyo->save();
-
-
-        }
-      }
-      else
-      {
-        echo "hola eli";
-      }
+                $tribunal->save();
+               
+                 $notificaciontribunal= new Notificacion_tribunal();
+                  $notificaciontribunal->notificacion_id=$notificaciones->id;
+                 $notificaciontribunal->tribunal_id=$tribunal->id;
+                 $notificaciontribunal->estado = Objectbase::STATUS_AC;
+                 $notificaciontribunal->save();
+                */
+     }
      
-   }
+ 
  }
 
   
@@ -126,7 +102,7 @@ catch(Exception $e)
   $smarty->assign("ERROR", handleError($e));
 }
 
-$TEMPLATE_TOSHOW = 'docente/configuracion.tpl';
+$TEMPLATE_TOSHOW = 'docente/especialidad.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>

@@ -1,44 +1,30 @@
       <div id="content">
-        <h1 class="title">Registro de Observacion</h1>
-        <p>Formulario de Registro de Observacion</p>
+        <h1 class="title">REGISTRO DE OBSERVACIONES</h1>
         <div id="respond">
           <form action="#" method="post" id="registro" name="registro" >
             <p>
-               <label for="nombre de proyecto"><small>Nombre de Proyecto:</small></label>
+               <label for="nombre de proyecto"><small>NOMBRE DE PROYECTO:</small></label>
                <span>{$nombre_pr}</span><br/>
-               <label for="nombre de estudiante"><small>Nombre de Estudiante:</small></label>
+               <label for="nombre de estudiante"><small>NOMBRE DE ESTUDIANTE:</small></label>
                <span>{$nombre_es}</span>
             </p>
             <br/>
-            <object data="proyecto.pdf" type="application/pdf" width="900" height="300">
+            <object data="/sapti/ARCHIVO/proyecto.pdf" type="application/pdf" width="900" height="300">
             <p> Al parecer usted no tiene un plugin PDF para este navegador.
-            No hay problema ... puedes <a href="proyecto.pdf"> clic aquí para descargar el archivo PDF. </ a> </ p>
+            No hay problema ... puedes <a href="/sapti/ARCHIVO/proyecto.pdf"> clic aquí para descargar el archivo PDF. </ a> </ p>
             </object>
             <div id="div_1">
-            <label  accesskey="">Observacion
+            <label  accesskey="">OBSERVACION(ES):
             </label>
             </p>
-            <input  type="text"  name="observaciones[]" id="observaciones[]" style="width:500px;" /> 
+            <input  type="text"  name="observaciones[]" id="observaciones[]" style="width:500px;" data-validation-engine="validate[required]"/> 
             <input class="bt_plus" id="1" type="button" value="Añadir Observacion" />
             <div class="error_form"></div>
             </div>
 
             <p>
               <input type="text" name="fecha_revision" id="fecha_revision" value="{$revision->fecha_revision}" size="22">
-              <label for="fecha_revision"><small>Fecha de Revison</small></label>
-            </p>
-            
-                        <p>
-              <input type="text" name="fech" id="fecha" value="{$revision->id}" size="22">
-              <label for="fech"><small>id rev</small></label>
-            </p>
-                        <p>
-              <input type="text" name="fecha_" id="fecha_" value="{$revision->proyecto_id}" size="22">
-              <label for="fecha_"><small>id proy</small></label>
-            </p>
-                        <p>
-              <input type="text" name="fecha_re" id="fecha_r" value="{$revision->revisor}" size="22">
-              <label for="fecha_re"><small>Revisor</small></label>
+              <label for="fecha_revision"><small>FECHA DE REVISION</small></label>
             </p>
 
             <h2 class="title">Grabar Revision</h2>

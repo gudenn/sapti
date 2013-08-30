@@ -1,10 +1,10 @@
 <table class="tbl_lista">
   <thead>
     <tr>
-      <th><a href='?order=id'                        accesskey="" class="tajax"  title='Ordenar por Id'           >Id           {$filtros->iconOrder('id')}</a></th>
-      <th><a href='?order=proyecto_id'                            class="tajax"  title='Ordenar por Proyecto'     >Proyecto     {$filtros->iconOrder('proyecto_id')}</a></th>
-      <th><a href='?order=fecha_revision'                      class="tajax"  title='Ordenar por Fecha'        >Fecha        {$filtros->iconOrder('fecha_revision')}</a></th>
-      <th><a href='?order=observacion'                            class="tajax"  title='Ordenar por Observacion'  >Nª Observacion  {$filtros->iconOrder('observacion')}</a></th>
+      <th><a>Id                 </a></th>
+      <th><a>Proyecto           </a></th>
+      <th><a>Fecha              </a></th>
+      <th><a>Nª Observacion     </a></th>
       <th>Opciones</th>
     </tr>
   </thead>
