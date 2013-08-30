@@ -1,8 +1,5 @@
-{include file="header.tpl"}
+ <div id="content">
 
-<div class="wrapper row3">
-  <div class="rnd">
-    <div id="container" class="clear">
       
         <div class="clear"></div>
       <div class="clear"></div>    
@@ -53,13 +50,6 @@
 </table> 
 
  
-  </div>
-
- 
-
-</div>
-</div>
-    
 <script type="text/javascript">
 
   jQuery(function(){
@@ -97,4 +87,4 @@
 
 </script>
               
-{include file="footer.tpl"}
+ </div>

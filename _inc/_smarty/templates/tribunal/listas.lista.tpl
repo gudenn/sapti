@@ -1,9 +1,5 @@
-{include file="header.tpl"}
 
-<div class="wrapper row3">
-  <div class="rnd">
-    <div id="container" class="clear">
-      
+<div id="content">
    <div class="clear"></div>
     <h1 style="text-align: center;margin: 5px 0;">
     Lista de los proyectos Asignados
@@ -41,7 +37,3 @@
 </table> 
       </form>
 </div>
-</div>
- </div>
-              
-{include file="footer.tpl"}

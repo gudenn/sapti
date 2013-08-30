@@ -8,13 +8,25 @@ try {
   $smarty->assign('description','Proyecto Final');
   $smarty->assign('keywords','Proyecto Final');
 
-  //CSS
-  $CSS[]  = "css/style.css";
-  $smarty->assign('CSS','');
+  $CSS[]  = URL_CSS . "academic/3_column.css";
+  $CSS[]  = URL_JS  . "/validate/validationEngine.jquery.css";
+  
+  $CSS[]  = URL_JS . "ui/cafe-theme/jquery-ui-1.10.2.custom.min.css";
+  
+  $smarty->assign('CSS',$CSS);
 
   //JS
-  $JS[]  = "js/jquery.js";
-  $smarty->assign('JS','');
+  $JS[]  = URL_JS . "jquery.1.9.1.js";
+
+  //Datepicker UI
+  $JS[]  = URL_JS . "ui/jquery-ui-1.10.2.custom.min.js";
+  $JS[]  = URL_JS . "ui/i18n/jquery.ui.datepicker-es.js";
+
+  //Validation
+  $JS[]  = URL_JS . "validate/idiomas/jquery.validationEngine-es.js";
+  $JS[]  = URL_JS . "validate/jquery.validationEngine.js";
+
+  $smarty->assign('JS',$JS);
 
   //CREAR UN TIPO   DE DEF
   leerClase('Tribunal');
@@ -132,6 +144,10 @@ $smarty->assign('nombrearea' ,"Redes");
   
   //$tribunal = new Tribunal();
   //$smarty->assign("tribunal", $tribunal);
+
+
+$contenido = 'tribunal/registrotribunal.tpl';
+  $smarty->assign('contenido',$contenido);
   
   if(isset($_POST['buscar']))
   {
@@ -223,6 +239,8 @@ if (isset($_POST['proyecto_id']) && $_POST['proyecto_id']!="")
                 $tribunal->estado = Objectbase::STATUS_AC;
                 $tribunal->proyecto_tribunal_id=$proyecto_tribunal->id;
                  $tribunal->docente_id =$id;
+                 $tribunal->visto="";
+                 $tribunal->descripcion="";
                 $tribunal->objBuidFromPost();
            
                 $tribunal->save();
@@ -257,7 +275,7 @@ catch(Exception $e)
   $smarty->assign("ERROR", handleError($e));
 }
 
-$TEMPLATE_TOSHOW = 'tribunal/registrotribunal.tpl';
+$TEMPLATE_TOSHOW = 'tribunal/tribunal.3columnas.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>

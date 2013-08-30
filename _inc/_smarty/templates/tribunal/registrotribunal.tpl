@@ -1,17 +1,13 @@
-{include file="header.tpl"}
 
 
-<div class="wrapper row3">
-  <div class="rnd">
-    <div id="container" class="clear">
-      
+ <div id="content">
         <div class="clear"></div>
     <center> <td bgcolor="#F7F7F7" style="text-align:center"><strong>FORMULARIO DE REGISTRO DE TRIBUNALES</strong></td></center>
     
     <div class="clear"></div>
     
     
-          <div style="width: 50%;float: left;" class="tbl_filtro">
+    <div style="width: 50%;float: left;" class="tbl_filtro">
     <form action="" method="post" >
              <h1>  Busqueda por Estudiante</h1>
           <table  style="width: 100%;float: left;" class="tbl_filtro">
@@ -159,14 +155,10 @@
  
  </form>
     </div>
-   
  
-  </div>
 
  
 
-</div>
-</div>
     
 <script type="text/javascript">
 
@@ -204,5 +196,4 @@
 
 
 </script>
-              
-{include file="footer.tpl"}
+      </div>        

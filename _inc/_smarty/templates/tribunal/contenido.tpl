@@ -1,14 +1,14 @@
-{include file="estudiante/header-sjq.tpl"}
+{include file="tribunal/header-sjq.tpl"}
 <div class="wrapper row3">
   <div class="rnd">
     <div id="container" class="clear">
       <!-- ############ -->
-      {include file="estudiante/columna.left.tpl"}
+      {include file="tribunal/columna.left.tpl"}
       <!-- ############ -->
-      {if !isset($columnacentro)}
-        {include file="estudiante/index.centro.tpl"}
+      {if !isset($contenido)}
+        {include file="tribunal/index.centro.tpl"}
       {else}
-        {include file=$columnacentro}
+        {include file=$contenido}
       {/if}
     </div>
   </div>

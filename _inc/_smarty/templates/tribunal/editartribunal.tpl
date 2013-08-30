@@ -1,9 +1,5 @@
-{include file="header.tpl"}
+ <div id="content">
 
-<div class="wrapper row3">
-  <div class="rnd">
-    <div id="container" class="clear">
-      
         <div class="clear"></div>
     <center> <td bgcolor="#F7F7F7" style="text-align:center"><strong>EDITANDO</strong></td></center>
     
@@ -119,14 +115,7 @@
    </div>
  </form>
     </div>
-   
- 
-  </div>
-
- 
-
-</div>
-</div>
+  
     
 <script type="text/javascript">
 
@@ -164,5 +153,4 @@
 
 
 </script>
-              
-{include file="footer.tpl"}
+</div>

@@ -9,12 +9,25 @@ try {
   $smarty->assign('keywords','Proyecto Final');
 
   //CSS
-  $CSS[]  = "css/style.css";
-  $smarty->assign('CSS','');
+     $CSS[]  = URL_CSS . "academic/3_column.css";
+  $CSS[]  = URL_JS  . "/validate/validationEngine.jquery.css";
+  
+  $CSS[]  = URL_JS . "ui/cafe-theme/jquery-ui-1.10.2.custom.min.css";
+  
+  $smarty->assign('CSS',$CSS);
 
   //JS
-  $JS[]  = "js/jquery.js";
-  $smarty->assign('JS','');
+  $JS[]  = URL_JS . "jquery.1.9.1.js";
+
+  //Datepicker UI
+  $JS[]  = URL_JS . "ui/jquery-ui-1.10.2.custom.min.js";
+  $JS[]  = URL_JS . "ui/i18n/jquery.ui.datepicker-es.js";
+
+  //Validation
+  $JS[]  = URL_JS . "validate/idiomas/jquery.validationEngine-es.js";
+  $JS[]  = URL_JS . "validate/jquery.validationEngine.js";
+
+  $smarty->assign('JS',$JS);
 
   //CREAR UN TIPO   DE DEF
   leerClase('Tribunal');
@@ -38,6 +51,7 @@ try {
   
   $o_string   = $docente->getOrderString($filtro);
   $obj_mysql  = $docente->getAll('',$o_string,$filtro_sql,TRUE,TRUE);
+  
   $objs_pg    = new Pagination($obj_mysql, 'g_docente','',false,10);
 
   $smarty->assign("filtros"  ,$filtro);
@@ -68,21 +82,8 @@ WHERE   u.`id`=es.`usuario_id` and  es.`id`=pe.`estudiante_id` and  pe.`proyecto
    $arraytribunal[]=$fila;
  }
 
-
-//foreach ()
-
-
-//var_dump($arraytribunal);
 $smarty->assign('arraytribunal'  , $arraytribunal);
- /**
- $resultado = mysql_query($sql);
- while ($fila = mysql_fetch_assoc($resultado)) {
-    echo $fila["id"];
-    echo $fila["nombre"];
-    echo $fila["apellidos"];
-}
  
- */
  while ($usuario_mysql && $row = mysql_fetch_array($usuario_mysql[0]))
  {
    $usuario_id[]     = $row['id'];
@@ -135,12 +136,6 @@ while ($proyecto_sql && $rows = mysql_fetch_array($proyecto_sql[0]))
 $smarty->assign('proyecto_id',$proyecto_id);
 $smarty->assign('proyecto_nombre',$proyecto_nombre);
   
-
-
-  
-  //$tribunal = new Tribunal();
-  //$smarty->assign("tribunal", $tribunal);
-  
   if(isset($_POST['buscar']))
   {
    echo   $_POST['codigosis'];
@@ -156,31 +151,16 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
     }
   
     $usuariobuscado= new Usuario($estudiante->usuario_id);
-  //echo  $estudiante->i;
-  //  var_dump( $proyecto->getArea());
-   // echo $estudiante->codigo_sis;
-     $smarty->assign('usuariobuscado',  $usuariobuscado);
+      $smarty->assign('usuariobuscado',  $usuariobuscado);
     $smarty->assign('estudiantebuscado', $estudiante);
      $smarty->assign('proyectobuscado', $proyecto);
       $smarty->assign('proyectoarea', $proyecto->getArea());
     
-    
-   // return $proyecto;
-    
-    //$proyecto->getProyectoAprobados();
-    
-  //  var_dump($proyecto->getProyectoAprobados());
-   // $
-   
-    
   }
   
   $proyecto_tribunal= new Proyecto_tribunal();
-  //$varfdf=$_POST['proyecto_id'];
- // $proyecto_tribunal->proyecto_id=$varfdf;
-  //if(isset($_POST['proyecto_id']))
- // echo $_POST['proyecto_id'];
-   
+  
+  
   
   
    if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
@@ -205,8 +185,7 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
                $tribunal->save();
      }
    }
-
-  
+     
   
   $smarty->assign("ERROR", $ERROR);
   
@@ -220,7 +199,11 @@ catch(Exception $e)
   $smarty->assign("ERROR", handleError($e));
 }
 
-$TEMPLATE_TOSHOW = 'tribunal/listas.lista.tpl';
+$contenido = 'tribunal/listas.lista.tpl';
+  $smarty->assign('contenido',$contenido);
+
+
+$TEMPLATE_TOSHOW = 'tribunal/tribunal.3columnas.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 
 ?>

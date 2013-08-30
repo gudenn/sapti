@@ -4,10 +4,10 @@
     <div id="container" class="clear">
       {include file="tribunal/columna.left.tpl"}
      
-      {if !isset($columnacentro)}
+      {if !isset($contenido)}
         {include file="tribunal/index.centro.tpl"}
       {else}
-        {include file=$columnacentro}
+        {include file=$contenido}
       {/if}
     </div>
   </div>
