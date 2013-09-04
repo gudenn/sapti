@@ -18,7 +18,14 @@
        
        {/section}
 
-       <p>
+       
+         <p>
+           <select name=customer_id>
+   {html_options options=$cust_options selected=$customer_id}
+</select>
+         </p>
+       
+           <p>
               <input type="text" name="email" id="email" value="{$usuario->email}" size="22" data-validation-engine="validate[],custom[email]"  >
               <label for="email"><small>E-Mail</small></label>
             </p>
@@ -26,6 +33,20 @@
               <input type="text" name="fecha_cumple" id="fecha_cumple" value="{$usuario->fecha_cumple}" size="22">
               <label for="fecha_cumple"><small>Fecha de Cumplea&ntilde;os</small></label>
             </p>
+            
+            <p>
+             {html_select_time use_12_hours=true}
+             <label for="fecha_cumple"><small>HORA INICIO</small></label>
+            </p>
+            
+            <p>
+             {html_select_time use_12_hours=true}
+             <label for="fecha_cumple"><small>HORA FIN</small></label>
+            </p>
+            
+            
+           
+            
        
        
        

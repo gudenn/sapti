@@ -7,6 +7,12 @@
             <li><a href="estudiante.evaluacion-editar.php">Evaluaciones</a></li>
             <li><a href="calendario.eventos.php">Calendario</a></li>
           </ul>
+          
+          <h2 class="title">MEMU TRIBUNAL</h2>
+          <ul class="nostart">
+            <li><a href="notitribunal.php">NOTIFICACIONES</a></li>
+               <li><a href="configuracion.php">DATOS</a></li>
+          </ul>
         </div>
         <div class="holder">
           <h2 class="title">Lorem ipsum dolor</h2>
