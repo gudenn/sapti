@@ -5,6 +5,7 @@
             <li><a href="inscripcion.estudiante-cvs_mascara.php">Inscribir Estudiantes</a></li>
             <li><a href="estudiante.lista.php">Alumnos Inscritos</a></li>
             <li><a href="estudiante.evaluacion-editar.php">Evaluaciones</a></li>
+            <li><a href="calendario.eventos.php">Calendario</a></li>
           </ul>
         </div>
         <div class="holder">
