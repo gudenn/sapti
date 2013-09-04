@@ -12,7 +12,7 @@
                  
                 </ul>
                  <li><a href="{$URL}tribunal/listatribunal.php">LISTA DE PROYECTOS ASIGNADOS</a></li>
-                 <li><a href="{$URL}asignacion/registro.php">ASIGNACION DE FECHAS DE DEFENSA</a></li>
+                 <li><a href="{$URL}tribunal/listadefensa.php">ASIGNACION DE FECHAS DE DEFENSA</a></li>
                  <li><a href="editar.cuenta.php">CAMBIO DE TEMAS</a></li>
                  
                  <li><a href="{$URL}?salirestudiante=1">Salir</a></li>

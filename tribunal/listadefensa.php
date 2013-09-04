@@ -74,7 +74,7 @@ catch(Exception $e)
   $smarty->assign("ERROR", handleError($e));
 }
 
-$contenido = 'asignacion/regist.tpl';
+$contenido = 'tribunal/listadefensa.tpl';
   $smarty->assign('contenido',$contenido);
   
 
