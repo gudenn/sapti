@@ -38,6 +38,10 @@ try {
   leerClase("Filtro");
   leerClase("Proyecto_tribunal");
   leerClase("Proyecto_estudiante");
+  leerClase("Lugar");
+  leerClase("Tipo_defensa");
+  leerClase("Defensa");
+    
   
   
  $filtro     = new Filtro('g_docente',__FILE__);
@@ -83,10 +87,41 @@ while ($proyecto_sql && $rows = mysql_fetch_array($proyecto_sql[0]))
    $proyecto_nombre[] = $rows['nombre_proyecto'];
  }
 
-
 $smarty->assign('proyecto_id',$proyecto_id);
 $smarty->assign('proyecto_nombre',$proyecto_nombre);
   
+
+$lugar= new Lugar();
+$lugar_sql= $lugar->getAll();
+
+$lugar_id= array();
+$lugar_nombre=array();
+while ($lugar_sql && $ro = mysql_fetch_array($lugar_sql[0]))
+ {
+   $lugar_id[]     = $ro['id'];
+   $lugar_nombre[] = $ro['nombre'];
+ }
+
+$smarty->assign('lugar_id',$lugar_id);
+$smarty->assign('lugar_nombre',$lugar_nombre);
+
+
+$tipo= new Tipo_defensa();
+$tipo_sql= $tipo->getAll();
+
+$tipo_id= array();
+$tipo_nombre=array();
+while ($tipo_sql && $r = mysql_fetch_array($tipo_sql[0]))
+ {
+   $tipo_id[]     = $r['id'];
+   $tipo_nombre[] = $r['nombre'];
+ }
+
+$smarty->assign('tipo_id',$tipo_id);
+$smarty->assign('tipo_nombre',$tipo_nombre);
+
+
+
   if(isset($_GET['tribunal_id']))
   {
     
@@ -105,7 +140,7 @@ WHERE  u.`id`=d.`usuario_id` and d.`id`=t.`docente_id` and  t.`proyecto_tribunal
 $smarty->assign('arraytribunal'  , $arraytribunal);
     
   
-  $sqllt=  "SELECT u.nombre , u.apellidos , e.codigo_sis , p.nombre as nombreproyecto
+  $sqllt=  "SELECT  pt.id as idproyecto, u.nombre , u.apellidos , e.codigo_sis , p.nombre as nombreproyecto
 FROM  usuario u , estudiante e , proyecto_estudiante pe , proyecto p, proyecto_tribunal pt
 WHERE u.id= e.usuario_id and e.id=pe.estudiante_id and p.id= pe.proyecto_id and p.id=pt.proyecto_id and pt.id=".$_GET['tribunal_id'];
 
@@ -119,35 +154,17 @@ $resultados = mysql_query($sqllt);
       
       $smarty->assign('arraytribunaldatos'  , $arraytribunaldatos);
   }
-
-  
-  //$tribunal = new Tribunal();
-  //$smarty->assign("tribunal", $tribunal);
-  
-  if(isset($_POST['buscar']))
-  {
-   echo   $_POST['codigosis'];
-    $estudiante = new Estudiante(false,$_POST['codigosis']);
-    $proyecto   = new Proyecto();
-    $proyecto_aux = $estudiante->getProyecto();
-    if ($proyecto_aux)
-      $proyecto = $proyecto_aux;
-    else
-    {
-      //@todo no tiene proyecto 
-      
-    }
-  
-    $usuariobuscado= new Usuario($estudiante->usuario_id);
-  //echo  $estudiante->i;
-  //  var_dump( $proyecto->getArea());
-   // echo $estudiante->codigo_sis;
-     $smarty->assign('usuariobuscado',  $usuariobuscado);
-    $smarty->assign('estudiantebuscado', $estudiante);
-     $smarty->assign('proyectobuscado', $proyecto);
-      $smarty->assign('proyectoarea', $proyecto->getArea());
+        $defensa= new Defensa();
+         if( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
+            {
+          if (isset($_POST['proyecto_tribunal_id']))
+             {
+       $defensa->objBuidFromPost();
+       $defensa->estado = Objectbase::STATUS_AC;
+       $defensa->save();
+                   }
    
-  }
+            }
 
   
   $smarty->assign("ERROR", $ERROR);

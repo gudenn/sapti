@@ -1,49 +1,54 @@
  <div id="content">
-
-      
-        <div class="clear"></div>
-      <div class="clear"></div>    
- <div style="width: 50%;float: left;" class="tbl_filtro">
-  
-  </div>
-    <div style="width: 50%;float: left;" class="tbl_filtro">
-        
-   <form action="" method="post">
+     <form action="" method="post">
       <h1> Detalle del Proyecto </h1>
         {section name=ic loop=$arraytribunaldatos}
-       <label for="nombre">nombre:  {$arraytribunaldatos[ic]['nombre']}</label><br />
-        <label for="nombre">Apellidos:  {$arraytribunaldatos[ic]['apellidos']}</label><br />
-         <label for="nombre">Codigo Sis:  {$arraytribunaldatos[ic]['codigo_sis']}</label><br />
-          <label for="nombre">Nombre Proyecto:  {$arraytribunaldatos[ic]['nombreproyecto']}</label><br />
-       
+       <label for="nombre">NOMBRE       :  {$arraytribunaldatos[ic]['nombre']}</label><br />
+        <label for="nombre">APELLIDOS   :   {$arraytribunaldatos[ic]['apellidos']}</label><br />
+         <label for="nombre">CODIGO SIS :  {$arraytribunaldatos[ic]['codigo_sis']}</label><br />
+          <label for="nombre">PROYECTO  :  {$arraytribunaldatos[ic]['nombreproyecto']}</label><br />
+          
+          <input type="hidden" name="proyecto_tribunal_id" value="{$arraytribunaldatos[ic]['idproyecto']}">
        {/section}
 
        
-         <p>
-           <select name=customer_id>
-   {html_options options=$cust_options selected=$customer_id}
-</select>
+       <p>
+         <select name=lugar_id>
+         {html_options values=$lugar_id output=$lugar_nombre}
+         </select>
+         <label for="lugar"><small>LUGAR</small></label>
+         </p>
+         
+           <p>
+         <select name=tipo_defensa_id>
+         {html_options values=$tipo_id output=$tipo_nombre}
+         </select>
+         <label for="lugar"><small>TIPO DEFENSA</small></label>
          </p>
        
-           <p>
-              <input type="text" name="email" id="email" value="{$usuario->email}" size="22" data-validation-engine="validate[],custom[email]"  >
-              <label for="email"><small>E-Mail</small></label>
-            </p>
+
              <p>
-              <input type="text" name="fecha_cumple" id="fecha_cumple" value="{$usuario->fecha_cumple}" size="22">
-              <label for="fecha_cumple"><small>Fecha de Cumplea&ntilde;os</small></label>
+              <input type="text" name="fecha_defensa" id="fecha_defensa" value="" size="22">
+              <label for="fecha_cumple"><small>FECHA DEFENSA</small></label>
             </p>
             
             <p>
+             <select name=hora_inicio>
              {html_select_time use_12_hours=true}
+             </select>
              <label for="fecha_cumple"><small>HORA INICIO</small></label>
             </p>
             
             <p>
              {html_select_time use_12_hours=true}
-             <label for="fecha_cumple"><small>HORA FIN</small></label>
+             <label for="hora_final"><small>HORA FIN</small></label>
             </p>
-            
+            <div style="text-align: center">
+        <input type="hidden" name="id" value="" />
+        <input type="hidden" name="salida_id" value="25" />
+        <input type="submit" value="grabar" name="tarea" class="sendme"  />
+         
+ 
+      </div>
             
            
             
@@ -51,22 +56,13 @@
        
        
  </form>
-  <div style="width: 50%;float: left;" class="tbl_filtro">  </div>
-   <h1> Lista de los Tribunales </h1>
-</div>  
-
- 
-
- 
-
-
               
  </div>
               
                <script type="text/javascript">
         {literal} 
           $(function(){
-            $('#fecha_cumple').datepicker({
+            $('#fecha_defensa').datepicker({
               dateFormat:'dd/mm/yy',
               changeMonth: true,
               changeYear: true,
