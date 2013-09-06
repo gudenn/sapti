@@ -107,3 +107,10 @@ INSERT INTO `sapti`.`area` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NUL
 INSERT INTO `sapti`.`area` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'Sistemas Expertos', NULL, 'AC');
 INSERT INTO `sapti`.`lugar` (`id`, `nombre`, `estado`) VALUES (1, 'Auditorio de memi', 'AC');
 INSERT INTO `sapti`.`tipo_defensa` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'PUBLICA', '', 'AC');
+
+INSERT INTO `sapti`.`turno` (`id`, `nombre`, `descripcion`, `estado`) VALUES (1, 'MAÑANA', NULL, 'AC');
+INSERT INTO `sapti`.`turno` (`id`, `nombre`, `descripcion`, `estado`) VALUES (2, 'TARDE', NULL, 'AC');
+
+INSERT INTO `sapti`.`dia` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'LUNES', NULL, 'AC'), (NULL, 'MARTES', NULL, 'AC');
+INSERT INTO `sapti`.`dia` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'MIERCOLES', NULL, 'AC'), (NULL, 'JUEVES', NULL, 'AC');
+INSERT INTO `sapti`.`dia` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'VIERNES', NULL, 'AC');

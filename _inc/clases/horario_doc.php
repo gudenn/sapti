@@ -15,7 +15,7 @@ class Horario_doc extends Objectbase
   * @var INT(11)
   */
   var $dia_id;
-
+   var $turno_id;     
 }
 
 ?>

@@ -36,44 +36,13 @@ try {
     leerClase("Docente");
 
  
-  $area = new Area();
-  $area_sql = $area->getAll();
-  $area_id = array();
-
-  $area_nombre = array();
-  while ($area_sql && $rows = mysql_fetch_array($area_sql[0]))
-  {
-     $area_id[] = $rows['id'];
-     $area_nombre[] = $rows['nombre'];
-  }
-
-
-  $smarty->assign('area_id', $area_id);
-  $smarty->assign('area_nombre', $area_nombre);
-
-  $docente     =  getSessionDocente();
-    $docente_ids =  $docente->id;
-    $sql="select a.id
-from usuario u, docente d ,area a , apoyo ap
-where u.id=d.`usuario_id` and d.`id`=ap.`docente_id` and ap.`area_id`=a.id and u.`estado`='AC' and d.`estado`='AC' and u.`id`=".$docente_ids.";";
-    $resultado   =  mysql_query($sql);
-    $areaselec_id= array();
- 
- while ($fila = mysql_fetch_array($resultado)) 
- {
-    $areaselec_id[]=$fila['id'];
- }
-  $smarty->assign('areaselec_id'     ,$areaselec_id);
-  
-  
-  
+    
+     
    if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
   {
     $docentes     =  getSessionDocente();
     $docente_idss =  $docentes->id;
-    
-    
-     
+ 
     $sqla="select a.id, ap.`id` as idapoyo
 from usuario u, docente d ,area a , apoyo ap
 where u.id=d.`usuario_id` and d.`id`=ap.`docente_id` and ap.`area_id`=a.id and u.`estado`='AC' and d.`estado`='AC' and u.`id`=".$docente_idss.";";
@@ -86,10 +55,7 @@ where u.id=d.`usuario_id` and d.`id`=ap.`docente_id` and ap.`area_id`=a.id and u
     $apoyo->delete();
  }
   
-            
-            
-    
-    
+     
     $sql="select d.id from usuario u, docente d
     where u.id=d.`usuario_id` and u.`estado`='AC' and d.`estado`='AC' and u.`id`=".$docente_idss.";";
     $resultado   =  mysql_query($sql);
@@ -125,20 +91,39 @@ where u.id=d.`usuario_id` and d.`id`=ap.`docente_id` and ap.`area_id`=a.id and u
      }
  
  }
-  
-  
-  
-  
-  
-  if (isset($_POST['observaciones'])) 
-  $observaciones=$_POST['observaciones'];
-  $docente=  getSessionDocente();
-  $docente_ids=$docente->id;
-  
-  
+    
+    
+  $area = new Area();
+  $area_sql = $area->getAll();
+  $area_id = array();
 
-  $smarty->assign("revisionesid", $revisionesid);
+  $area_nombre = array();
+  while ($area_sql && $rows = mysql_fetch_array($area_sql[0]))
+  {
+     $area_id[] = $rows['id'];
+     $area_nombre[] = $rows['nombre'];
+  }
+
+
+  $smarty->assign('area_id', $area_id);
+  $smarty->assign('area_nombre', $area_nombre);
+
+  $docente     =  getSessionDocente();
+    $docente_ids =  $docente->id;
+    $sql="select a.id
+from usuario u, docente d ,area a , apoyo ap
+where u.id=d.`usuario_id` and d.`id`=ap.`docente_id` and ap.`area_id`=a.id and u.`estado`='AC' and d.`estado`='AC' and u.`id`=".$docente_ids.";";
+    $resultado   =  mysql_query($sql);
+    $areaselec_id= array();
+ 
+ while ($fila = mysql_fetch_array($resultado)) 
+ {
+    $areaselec_id[]=$fila['id'];
+ }
+  $smarty->assign('areaselec_id'     ,$areaselec_id);
+
   
+ 
   $columnacentro = 'docente/configuracion.tpl';
   $smarty->assign('columnacentro',$columnacentro);
 

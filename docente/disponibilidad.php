@@ -1,6 +1,8 @@
 <?php
 try {
   require('_start.php');
+    if(!isDocenteSession())
+    header("Location: login.php"); 
   global $PAISBOX;
 
   /** HEADER */
@@ -27,115 +29,93 @@ try {
   $JS[]  = URL_JS . "validate/jquery.validationEngine.js";
 
   $smarty->assign('JS',$JS);
-  //CREAR UN TIPO   DE DEF
-  leerClase('Tribunal');
-  leerClase("Proyecto");
-  leerClase("Usuario");
-  leerClase("Docente");
-  leerClase("Estudiante");
-  leerClase("Formulario");
-  leerClase("Pagination");
-  leerClase("Filtro");
-  leerClase("Proyecto_tribunal");
-  leerClase("Proyecto_estudiante");
+  leerClase("Horario_doc");
   
   
- $filtro     = new Filtro('g_docente',__FILE__);
-  $docente = new Docente();
-  $docente->iniciarFiltro($filtro);
-  $filtro_sql = $docente->filtrar($filtro);
+$horario_doc= new Horario_doc();
 
-  $docente->usuario_id ='%';
-  
-  $o_string   = $docente->getOrderString($filtro);
-  $obj_mysql  = $docente->getAll('',$o_string,$filtro_sql,TRUE,TRUE);
-  $objs_pg    = new Pagination($obj_mysql, 'g_docente','',false,10);
-
-  $smarty->assign("filtros"  ,$filtro);
-  $smarty->assign("objs"     ,$objs_pg->objs);
-  $smarty->assign("pages"    ,$objs_pg->p_pages);
-
-  
- $rows = array();
-$usuario = new Usuario();
-//$smarty->assign('rows', $rows);
- $usuario_mysql  = $usuario->getAll();
- $usuario_id     = array();
- $usuario_nombre = array();
- while ($usuario_mysql && $row = mysql_fetch_array($usuario_mysql[0]))
+  $docente     =  getSessionDocente();
+  $docente_ids =  $docente->id;
+    $sqldocente="select  d.`id`
+from `usuario` u , `docente` d
+where u.`id`= d.`usuario_id` and u.`estado`='AC' and d.`estado`='AC' and u.`id`=".$docente_ids.";";
+ $resultadodocente= mysql_query($sqldocente);
+$idocente=0;
+ 
+ while ($filadocente = mysql_fetch_array($resultadodocente)) 
  {
-   $usuario_id[]     = $row['id'];
-   $usuario_nombre[] = $row['nombre'];
-   $rows=$row;
- }
-// $smarty->assign('filas'  , $rows);
-$smarty->assign('usuario_id'  , $usuario_id);
-$smarty->assign('usuario_nombre', $usuario_nombre);
-
-
-$proyecto= new Proyecto();
-$proyecto_sql= $proyecto->getAll();
-$proyecto_id= array();
-$proyecto_nombre=array();
-while ($proyecto_sql && $rows = mysql_fetch_array($proyecto_sql[0]))
- {
-   $proyecto_id[]     = $rows['id'];
-   $proyecto_nombre[] = $rows['nombre_proyecto'];
- }
-
-
-$smarty->assign('proyecto_id',$proyecto_id);
-$smarty->assign('proyecto_nombre',$proyecto_nombre);
-  
-  if(isset($_GET['tribunal_id']))
-  {
+   $idocente=$filadocente['id'];
     
-   // echo $_GET['tribunal_id'];
-     $sql="
-SELECT d.id, u.nombre , u.apellidos
-FROM  usuario u, docente d, tribunal t, proyecto_tribunal pt
-WHERE  u.`id`=d.`usuario_id` and d.`id`=t.`docente_id` and  t.`proyecto_tribunal_id`=pt.`id` and pt.`id`=".$_GET['tribunal_id'];
+ }
+  
+  
+
+
+ if ( isset($_POST['tarea']) && $_POST['tarea'] == 'registrar' )
+  {     
+      $horario_doc->objBuidFromPost();
+      $horario_doc->estado = Objectbase::STATUS_AC;
+      $horario_doc->docente_id= $idocente;
+      $horario_doc->save();
+      
+         
+ }
+
+  
+   if (isset($_GET['eliminar']) && isset($_GET['horario_id']) && is_numeric($_GET['horario_id']) )
+  {
+    $horarioborrar = new Horario_doc($_GET['horario_id']);
+    $horarioborrar->delete();
+  }
+
+
+  
+/////////////cargando los dias de la semana///////////
+  $sqldia="select d.`id` , d.`nombre`
+from dia d;";
+ $resultadodia = mysql_query($sqldia);
+ $diaid= array();
+  $dianombre= array();
+ 
+ while ($filadia = mysql_fetch_array($resultadodia)) 
+                {
+    $diaid[]=$filadia['id'];
+    $dianombre[]=$filadia['nombre'];
+ }
+$smarty->assign('diaid'  , $diaid);
+$smarty->assign('dianombre'  , $dianombre);
+ ////////////////cargando los turnos de opciones de tiempo///////////
+  $sqlturno="select t.`id` , t.`nombre`
+ from `turno` t;";
+ $resultadoturno = mysql_query($sqlturno);
+ $turnoid= array();
+  $turnonombre= array();
+ 
+ while ($filaturno = mysql_fetch_array($resultadoturno)) 
+                {
+    $turnoid[]=$filaturno['id'];
+    $turnonombre[]=$filaturno['nombre'];
+ }
+$smarty->assign('turnoid'  , $turnoid);
+$smarty->assign('turnonombre'  , $turnonombre);  
+
+ $sql="select hd.`id`, d.`nombre` as nombredia, t.`nombre` as nombreturno
+from `turno` t , `dia` d , `horario_doc` hd, `usuario` u, `docente` doc
+where hd.`turno_id`= t.`id`  and hd.`dia_id`= d.`id` and u.`id`= doc.`usuario_id` and
+ t.`estado`='AC' and d.`estado`='AC' and hd.`estado`='AC' and u.`estado`='AC' and doc.`estado`='AC'
+ and u.`id`=".$docente_ids;
  $resultado = mysql_query($sql);
- $arraytribunal= array();
+ $listadias= array();
  
  while ($fila = mysql_fetch_array($resultado)) 
                 {
-    $arraytribunal[]=$fila;
+    $listadias[]=$fila;
  }
-$smarty->assign('arraytribunal'  , $arraytribunal);
+$smarty->assign('listadias'  , $listadias);
+
+
+
     
-  }
-
-  
-  //$tribunal = new Tribunal();
-  //$smarty->assign("tribunal", $tribunal);
-  
-  if(isset($_POST['buscar']))
-  {
-   echo   $_POST['codigosis'];
-    $estudiante = new Estudiante(false,$_POST['codigosis']);
-    $proyecto   = new Proyecto();
-    $proyecto_aux = $estudiante->getProyecto();
-    if ($proyecto_aux)
-      $proyecto = $proyecto_aux;
-    else
-    {
-      //@todo no tiene proyecto 
-      
-    }
-  
-    $usuariobuscado= new Usuario($estudiante->usuario_id);
-  //echo  $estudiante->i;
-  //  var_dump( $proyecto->getArea());
-   // echo $estudiante->codigo_sis;
-     $smarty->assign('usuariobuscado',  $usuariobuscado);
-    $smarty->assign('estudiantebuscado', $estudiante);
-     $smarty->assign('proyectobuscado', $proyecto);
-      $smarty->assign('proyectoarea', $proyecto->getArea());
-   
-  }
-
-  
   $smarty->assign("ERROR", $ERROR);
   
 

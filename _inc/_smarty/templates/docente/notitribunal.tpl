@@ -1,16 +1,5 @@
  <div id="content">
-
-      
-        <div class="clear"></div>
-      <div class="clear"></div>    
- <div style="width: 50%;float: left;" class="tbl_filtro">
-  
-  </div>
-    <div style="width: 50%;float: left;" class="tbl_filtro">
-  
-  <div style="width: 50%;float: left;" class="tbl_filtro">  </div>
    <h1> Lista de los Tribunales </h1>
-</div>  
 
         <table class="tbl_lista">
   <thead>
