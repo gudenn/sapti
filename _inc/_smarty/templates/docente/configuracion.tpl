@@ -1,9 +1,8 @@
-
+ <div id="content">
       <form   id="form1" action="" method="post"  id="sitesearch">
     
           
-          
-             <div class='container'>
+   
                 <h3>Seleccione</h3>
 	       <br/>
         <div class='span12'>
@@ -31,7 +30,7 @@
  
          
         
-       </div>
+ 
       
            <input type="hidden" id="tarea" name="tarea" value="grabar" />
         <input type="submit" value="registro" />
@@ -57,5 +56,5 @@
           </script>
    	
         
-              
+</div>            
 
