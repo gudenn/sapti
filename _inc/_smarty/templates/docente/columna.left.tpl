@@ -12,6 +12,7 @@
           <ul class="nostart">
             <li><a href="notitribunal.php">NOTIFICACIONES</a></li>
                <li><a href="configuracion.php">DATOS</a></li>
+               <li><a href="disponibilidad.php">HORARIO</a></li>
           </ul>
         </div>
         <div class="holder">
