@@ -30,13 +30,6 @@
     header("Location: index.php");
     exit();
   }
-  if (isset($_GET['salirtutor'])||isset($_POST['salirtutor']))
-  {  
-       closeTutorSession();
-    header("Location: index.php");
-    exit();
-  }
-
   
     if (isset($_GET['salirdocente'])||isset($_POST['salirdocente']))
   {  

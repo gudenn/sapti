@@ -70,26 +70,6 @@ function initDocenteSession($login, $passwd) {
   else
     return false;
 }
-/**
- * Inicia la session del tutor
- */
-function initTutorSession($login, $passwd) {
-  global $SYSTEM_NAME,$SESSION_TIME;
-  leerClase("Tutor");
-  $tutor = new Tutor();
-  $tutor = $tutor->issetTutor($login, $passwd);
-  if ($tutor) {
-    saveObject($tutor, "$SYSTEM_NAME-TUTOR");
-    setcookie("$SYSTEM_NAME-TUTOR", $login, time() + $SESSION_TIME, '/');
-    return true;
-  }
-  else
-    return false;
-}
-
-
-
-
 
 function isUserSession() {
   global $SYSTEM_NAME,$SESSION_TIME;
@@ -168,22 +148,6 @@ function isDocenteSession() {
   return isset($_SESSION["$SYSTEM_NAME-DOCENTE"]) ? 1 : 0;
 }
 
-function isTutorSession() {
-  global $SYSTEM_NAME,$SESSION_TIME;
-  if(!isset($_SESSION))
-    session_start();
-  if ( !isset($_COOKIE["$SYSTEM_NAME-TUTOR"]) )
-  {
-    closeTutorSession();
-    return 0;
-  }
-  // renovamos en tiempo de la session pq hay actividad del usuario
-  $login = $_COOKIE["$SYSTEM_NAME-TUTOR"];
-  setcookie("$SYSTEM_NAME-TUTOR", $login, time() + $SESSION_TIME, '/');
-
-  return isset($_SESSION["$SYSTEM_NAME-TUTOR"]) ? 1 : 0;
-}
-
 
 
 function getSessionUser() {
@@ -220,16 +184,6 @@ function getSessionDocente() {
   global $SYSTEM_NAME;
   if (isDocenteSession()) {
     return loadObject("$SYSTEM_NAME-DOCENTE");
-  }
-  else {
-    return 0;
-  }
-}
-
-function getSessionTutor() {
-  global $SYSTEM_NAME;
-  if (isTutorSession()) {
-    return loadObject("$SYSTEM_NAME-TUTOR");
   }
   else {
     return 0;
@@ -292,14 +246,6 @@ function closeDocenteSession() {
     unset($_SESSION["$SYSTEM_NAME-DOCENTE"]);
   }
 }
-function closeTutorSession() {
-  global $SYSTEM_NAME,$SESSION_TIME;
-  if(isset($_SESSION)) {
-    setcookie("$SYSTEM_NAME-TUTOR", "" , 1 - ($SESSION_TIME * 2), '/');
-    unset($_SESSION["$SYSTEM_NAME-TUTOR"]);
-  }
-}
-
 
 function getIP() {
   if (getenv("HTTP_X_FORWARDED_FOR"))
