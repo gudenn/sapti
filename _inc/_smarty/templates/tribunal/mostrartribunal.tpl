@@ -1,34 +1,28 @@
  <div id="content">
 
-      
-        <div class="clear"></div>
-      <div class="clear"></div>    
- <div style="width: 50%;float: left;" class="tbl_filtro">
-  
-  </div>
-    <div style="width: 50%;float: left;" class="tbl_filtro">
+    <div >
         
    <form action="" method="post">
-      <h1> Detalle del Proyecto </h1>
+      <h1> DETALLE DEL PROYECTO </h1>
         {section name=ic loop=$arraytribunaldatos}
-       <label for="nombre">nombre:  {$arraytribunaldatos[ic]['nombre']}</label><br />
-        <label for="nombre">Apellidos:  {$arraytribunaldatos[ic]['apellidos']}</label><br />
-         <label for="nombre">Codigo Sis:  {$arraytribunaldatos[ic]['codigo_sis']}</label><br />
-          <label for="nombre">Nombre Proyecto:  {$arraytribunaldatos[ic]['nombreproyecto']}</label><br />
+       <label for="nombre">NOMBRE:  {$arraytribunaldatos[ic]['nombre']}</label><br />
+        <label for="nombre">APELLIDOS:  {$arraytribunaldatos[ic]['apellidos']}</label><br />
+         <label for="nombre">CODIGO SIS:  {$arraytribunaldatos[ic]['codigo_sis']}</label><br />
+          <label for="nombre">PROYECTO:  {$arraytribunaldatos[ic]['nombreproyecto']}</label><br />
        
        {/section}
  </form>
   <div style="width: 50%;float: left;" class="tbl_filtro">  </div>
-   <h1> Lista de los Tribunales </h1>
+   <h1> TRIBUNALES </h1>
 </div>  
 
         <table class="tbl_lista">
   <thead>
     <tr>
-      <th><a href='?order=id'                    accesskey="" class="tajax"  title='Ordenar por Id'           >Id           {$filtros->iconOrder('id')}</a></th>
-      <th><a href='?order=proyecto_id'                        class="tajax"  title='Ordenar por Proyecto'     >Nombre     {$filtros->iconOrder('proyecto_id')}</a></th>
-      <th><a href='?order=fecha_observacion'                  class="tajax"  title='Ordenar por Fecha'        >Apellidos     {$filtros->iconOrder('fecha_observacion')}</a></th>
-      <th><a href='?order=fecha_observacion'                  class="tajax"  title='Ordenar por Fecha'        >Carta  {$filtros->iconOrder('fecha_observacion')}</a></th>
+      <th><a  >ID          </a></th>
+      <th><a  >NOMBRE  </a></th>
+      <th><a  >APELLIDOS    </a></th>
+      <th><a  >CARTA </a></th>
        </tr>
   </thead>
   

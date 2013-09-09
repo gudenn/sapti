@@ -1,19 +1,19 @@
 
 <div id="content">
-   <div class="clear"></div>
+
     <h1 style="text-align: center;margin: 5px 0;">
-    Lista de los proyectos Asignados
+    LISTA DE PROYECTOS ASIGNADOS
     </h1>
-    <div class="clear"></div>
+  
         <form action="" method="get" >
      <table class="tbl_lista">
   <thead>
     <tr>
-      <th><a href='?order=id'                    accesskey="" class="tajax"  title='Ordenar por Id'           >Id           {$filtros->iconOrder('id')}</a></th>
-      <th><a href='?order=proyecto_id'                        class="tajax"  title='Ordenar por Proyecto'     >Estudiante     {$filtros->iconOrder('proyecto_id')}</a></th>
-      <th><a href='?order=fecha_observacion'                  class="tajax"  title='Ordenar por Fecha'        >Proyecto       {$filtros->iconOrder('fecha_observacion')}</a></th>
-      <th><a href='?order=revisor'                            class="tajax"  title='Ordenar por Revisor'      >Ver Tribunales     {$filtros->iconOrder('revisor')}</a></th>
-      <th>Opciones</th>
+      <th><a href='?order=id'                    accesskey="" class="tajax"  title='Ordenar por Id'           >ID        {$filtros->iconOrder('id')}</a></th>
+      <th><a href='?order=proyecto_id'                        class="tajax"  title='Ordenar por Proyecto'     >ESTUDIANTE    {$filtros->iconOrder('proyecto_id')}</a></th>
+      <th><a href='?order=fecha_observacion'                  class="tajax"  title='Ordenar por Fecha'        >PROYECTO       {$filtros->iconOrder('fecha_observacion')}</a></th>
+      <th><a href='?order=revisor'                            class="tajax"  title='Ordenar por Revisor'      >VER TRIBUNALES     {$filtros->iconOrder('revisor')}</a></th>
+      <th>OPCIONES</th>
     </tr>
   </thead>
   
