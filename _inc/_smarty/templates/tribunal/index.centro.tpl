@@ -1,5 +1,5 @@
       <div id="content"  style="width:685px;min-height: 450px;">
-        <h1 class="title"><b>Estudiante:</b><br />{$usuario->nombre}, {$usuario->apellidos}</h1>
+        <h1 class="title"><b></b><br />{$usuario->nombre}{$usuario->apellidos}</h1>
         {if ($proyecto)}
           <h2 class="title"><b>Proyecto Final:</b><br />{$proyecto->nombre}.</h2>
         <div class="imgholder" style="float: left">

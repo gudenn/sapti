@@ -7,6 +7,8 @@
 
     <meta name="description" content="{$description}" />
     <meta name="keywords" content="{$keywords}" />
+<link href="{$URL_CSS}css/multi-select.css" media="screen" rel="stylesheet" type="text/css" />
+ <link href="{$URL_CSS}css/application.css" media="screen" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" href="{$URL_CSS}academic/layout.css" type="text/css" />
     {section name=css_i loop=$CSS}
@@ -16,6 +18,12 @@
     {section name=js_i loop=$JS}
       <script type="text/javascript" src="{$JS[js_i]}"></script>
     {/section}
+    
+    <script type="text/javascript" src="{$URL_JS}js/jquery.js"></script>
+<script type="text/javascript" src="{$URL_JS}js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="{$URL_JS}js/application.js"></script>
+<script type="text/javascript" src="{$URL_JS}js/jquery.validate.min"></script>
+
 
 </head>
 <body id="top">

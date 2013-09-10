@@ -188,10 +188,7 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
   }
   
   $proyecto_tribunal= new Proyecto_tribunal();
-  //$varfdf=$_POST['proyecto_id'];
- // $proyecto_tribunal->proyecto_id=$varfdf;
-  //if(isset($_POST['proyecto_id']))
- // echo $_POST['proyecto_id'];
+
   if(isset($_GET['eliminar']) && isset($_GET['tribunaleliminar_id']) && is_numeric($_GET['tribunaleliminar_id']) )
   {
       echo $_GET['tribunaleliminar_id'];

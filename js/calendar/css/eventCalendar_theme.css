@@ -137,12 +137,31 @@
 				/*	box-shadow:inset 5px 5px 10px #C1C1C1;
 					text-shadow: 2px 2px 2px #C1C1C1;*/
 				}
+<<<<<<< HEAD
 			.eventsCalendar-daysList li.today #mm {
+=======
+			.eventsCalendar-daysList li.today a {
 				color:#fff;
 				background:#aaa;
 			/*	box-shadow:inset 5px 5px 10px #777;
 				text-shadow: 2px 2px 2px #777;*/
 			}
+				li.eventsCalendar-day.today a:hover {
+					background-color:#ccc;
+					/*box-shadow:inset 5px 5px 10px #999;*/
+				}
+
+			.eventsCalendar-daysList li.dayWithEvents a {
+				background:#89B814;
+				/*box-shadow:inset 5px 5px 10px #698B10;
+				text-shadow: 2px 2px 2px #698B10;*/
+>>>>>>> origin/master
+				color:#fff;
+				background:#aaa;
+			/*	box-shadow:inset 5px 5px 10px #777;
+				text-shadow: 2px 2px 2px #777;*/
+			}
+<<<<<<< HEAD
 				li.eventsCalendar-day.today #mm:hover {
 					background-color:#ccc;
 					/*box-shadow:inset 5px 5px 10px #999;*/
@@ -155,13 +174,20 @@
 				color:#fff;
 			}
 				li.eventsCalendar-day.dayWithEvents #mm:hover {
+=======
+				li.eventsCalendar-day.dayWithEvents a:hover {
+>>>>>>> origin/master
 					background-color:#C2D374;
 					/*box-shadow:inset 5px 5px 10px #89B814;
 					text-shadow: 2px 2px 2px #89B814;*/
 				}
 
 
+<<<<<<< HEAD
 			.eventsCalendar-daysList li.current #mm {
+=======
+			.eventsCalendar-daysList li.current a {
+>>>>>>> origin/master
         color: #FFF;
         background: #4889B9;
         box-shadow: inset 5px 5px 10px #076E83;

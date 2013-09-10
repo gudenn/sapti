@@ -1,11 +1,11 @@
 a.tooltip {outline:none;text-decoration:none;border-bottom:dotted 1px blue;}
- a.tooltip strong {line-height:30px;} 
+ a.tooltip strong {line-height:60px;} 
  a.tooltip > 
  span { 
  width:200px;
   padding: 10px 20px;
    margin-top: 20px; 
-   margin-left: -85px;
+   margin-left: /*-85*/12px;
     opacity: 0; 
     visibility: hidden;
      z-index: 10;
@@ -31,14 +31,13 @@ a.tooltip {outline:none;text-decoration:none;border-bottom:dotted 1px blue;}
               transition-property:opacity, margin-top, visibility, margin-left; 
               transition-duration:0.4s, 0.3s, 0.4s, 0.3s;
                transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out; }
-                /*a.tooltip > span:hover,*/
-                 a.tooltip:hover > span {
+                a.tooltip > span:hover, a.tooltip:hover > span {
                   opacity: 1;
                    text-decoration:none; 
                    visibility: visible; 
                    overflow: visible;
-                    margin-top:50px;
-                     display: inline; margin-left: -60px; }
+                    margin-top:20px;
+                     display: inline; margin-left: 12px; }
                       a.tooltip span b {
                        width: 15px; 
                       height: 15px; 
@@ -54,7 +53,7 @@ a.tooltip {outline:none;text-decoration:none;border-bottom:dotted 1px blue;}
                         -moz-box-shadow: inset 0 1px 0 #fff; 
                         -o-box-shadow: inset 0 1px 0 #fff;
                          box-shadow: inset 0 1px 0 #fff; 
-                         display: none\0/; *display: none; }
+                         display:  none; }
                           a.tooltip > span { 
                           color: #000000;
                            background: #FBF5E6;

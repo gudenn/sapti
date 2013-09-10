@@ -29,6 +29,8 @@ INSERT INTO `docente` (`usuario_id`, `estado`) VALUES (6, 'AC');
 INSERT INTO `usuario` ( `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`, `clave`, `ci`, `sexo`, `estado`) VALUES
 ( 'APAZA MONTES', ' ALEJANDRO ARIEL', 'ariel@gmail.com', '1989-01-17', 'alejandro', 'alejandro', '78875', 'M', 'AC');
 
+
+
 INSERT INTO `usuario` ( `nombre`, `apellidos`, `email`, `fecha_cumple`, `login`, `clave`, `ci`, `sexo`, `estado`) VALUES
 ( 'DENIS ROGER', 'ARRATIA RODRIGUEZ', 'rodriguez@gmail.com', '1989-01-17', 'rodriguez', 'rodriguez', '78889', 'M', 'AC');
 
@@ -103,3 +105,12 @@ INSERT INTO `grupo` (`id`, `codigo`, `descripcion`, `estado`) VALUES
 
 INSERT INTO `sapti`.`area` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'Ingeniería de Software', NULL, 'AC');
 INSERT INTO `sapti`.`area` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'Sistemas Expertos', NULL, 'AC');
+INSERT INTO `sapti`.`lugar` (`id`, `nombre`, `estado`) VALUES (1, 'Auditorio de memi', 'AC');
+INSERT INTO `sapti`.`tipo_defensa` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'PUBLICA', '', 'AC');
+
+INSERT INTO `sapti`.`turno` (`id`, `nombre`, `descripcion`, `estado`) VALUES (1, 'MAÑANA', NULL, 'AC');
+INSERT INTO `sapti`.`turno` (`id`, `nombre`, `descripcion`, `estado`) VALUES (2, 'TARDE', NULL, 'AC');
+
+INSERT INTO `sapti`.`dia` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'LUNES', NULL, 'AC'), (NULL, 'MARTES', NULL, 'AC');
+INSERT INTO `sapti`.`dia` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'MIERCOLES', NULL, 'AC'), (NULL, 'JUEVES', NULL, 'AC');
+INSERT INTO `sapti`.`dia` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'VIERNES', NULL, 'AC');
