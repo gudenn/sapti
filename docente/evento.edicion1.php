@@ -11,10 +11,12 @@ try {
   $smarty->assign('keywords','Proyecto Final');
 
   //CSS
-  $CSS[]  = URL_CSS . "academic/tables.css";
+  $CSS[]  = URL_CSS . "academic/3_column.css";
   $CSS[]  = URL_JS  . "/validate/validationEngine.jquery.css";
   
   $CSS[]  = URL_JS . "ui/cafe-theme/jquery-ui-1.10.2.custom.min.css";
+  
+  $CSS[]  = URL_CSS . "ventanas-modales.css";
   
   $smarty->assign('CSS',$CSS);
 
@@ -28,8 +30,6 @@ try {
   //Validation
   $JS[]  = URL_JS . "validate/idiomas/jquery.validationEngine-es.js";
   $JS[]  = URL_JS . "validate/jquery.validationEngine.js";
-  $JS[]  = URL_JS . "jquery.addfield.js";
-  $JS[]  = URL_JS . "jquery-latest.js";
   
   $smarty->assign('JS',$JS);
   $smarty->assign("ERROR", '');
@@ -44,21 +44,17 @@ try {
     $array=$_GET['array']; 
     $array=array_recibe($array);
   
-  //CREAR UNA REVISION
-  leerClase('Revision');
-  leerClase('Observacion');
-  if (isset($_POST['observaciones'])) 
-  $observaciones=$_POST['observaciones'];
-
-  $proyecto_ids = $array['id_pr'];
+  //CREAR UN EVENTO
+  leerClase('Evento');
+  
   $docente=  getSessionDocente();
   $docente_ids=$docente->id;
-  
-  $observacion = new Observacion();
-  $revision = new Revision();
+  $columnacentro = 'docente/columna.centro.evento.registro.tpl';
+  $smarty->assign('columnacentro',$columnacentro);  
 
-  $smarty->assign("revision", $revision);
-  $smarty->assign("observacion", $observacion);
+  $evento = new Evento();
+  
+  $smarty->assign("evento", $evento);
     
     $nombre_n=$array['nombre'];
     $nombre_a=$array['apellidos'];
@@ -68,39 +64,22 @@ try {
     
     $smarty->assign("nombre_es", $nombre_es);
     $smarty->assign("nombre_pr", $nombre_pr);
-    $urlpdf=".../ARCHIVO/proyecto.pdf";
-    $smarty->assign("urlpdf", $urlpdf);
     
-    date_default_timezone_set('UTC');
-    $revision->fecha_revision=date("d/m/Y");
-
+    //date_default_timezone_set('UTC');
+    //$evento->fecha_evento=date("d/m/Y");
+    
     if (isset($_POST['tarea']) && $_POST['tarea'] == 'registrar' && isset($_POST['token']) && $_SESSION['register'] == $_POST['token'])
     {
-    $revision->objBuidFromPost();
-    $revision->estado = Objectbase::STATUS_AC;
-    $revision->revisor=$docente_ids;
-    $revision->proyecto_id=$proyecto_ids;
-    $revision->save();
-    foreach ($observaciones as $obser_array){
-    $observacion->objBuidFromPost();
-    $observacion->estado = Objectbase::STATUS_AC;
-    $observacion->observacion=$obser_array;
-    $observacion->revision_id = $revision->id;
-    $observacion->save();
-    }
-    $url="estudiante.lista.php";
+    $evento->objBuidFromPost();
+    $evento->estado = Objectbase::STATUS_AC;
+    $evento->dicta_id=4;
+    $evento->save();
+
+    $url="calendario.evento.php";
     $ir = "Location: $url";
         header($ir);
     }
-
   
-  $token = sha1(URL . time());
-  $_SESSION['register'] = $token;
-  $smarty->assign('token',$token);
-  
-  
-  
-
   //No hay ERROR
   $smarty->assign("ERROR",'');
   
@@ -109,7 +88,10 @@ catch(Exception $e)
 {
   $smarty->assign("ERROR", handleError($e));
 }
+$token                = sha1(URL . time());
+$_SESSION['register'] = $token;
+$smarty->assign('token',$token);
 
-$TEMPLATE_TOSHOW = 'docente/full-width.observacion.registro.tpl';
+$TEMPLATE_TOSHOW = 'docente/docente.3columnas.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 ?>

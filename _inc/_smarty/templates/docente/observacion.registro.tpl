@@ -42,8 +42,6 @@
         </div>
         <p>{$ERROR}</p>
         <p>Todos los campos con (*) son obligatorios.</p>
-        <script type="text/javascript" src="jquery-latest.js"></script>
-        <script type="text/javascript" src="jquery.addfield.js"></script>
         <script type="text/javascript">
         {literal} 
           $(function(){

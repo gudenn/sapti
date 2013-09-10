@@ -39,9 +39,7 @@
         <p>{$ERROR}</p>
         
         <script src="js/editablegrid-2.0.1.js"></script>   
-		<!-- I use jQuery for the Ajax methods -->
-	<script src="js/jquery-1.7.2.min.js" ></script>
-	<script src="js/demo.js" ></script>
+	<script src="js/tablaeditable.js" ></script>
         <script type="text/javascript">
                     datagrid = new DatabaseGrid('0',{$revisionesid});
         </script>

@@ -11,9 +11,7 @@
         </div>
         <a href="evaluacion.estudiante-cvs.php" type="button">CARGAR NOTAS POR CVS</a>
         <script src="js/editablegrid-2.0.1.js"></script>   
-		<!-- I use jQuery for the Ajax methods -->
-	<script src="js/jquery-1.7.2.min.js" ></script>
-	<script src="js/demo.js" ></script>
+	<script src="js/tablaeditable.js" ></script>
         <script type="text/javascript">
                     datagrid = new DatabaseGrid('evatd', {$docente_ids});
         </script>
