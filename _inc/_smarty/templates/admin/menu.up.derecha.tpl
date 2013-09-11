@@ -2,7 +2,8 @@
       <ul>
         <li><a href="{$URL}admin">Modificar Cuenta</a></li>
         <li><a href="{$URL}admin">Preferencias</a></li>
-        <li class="last"><a href="{$URL}">Cerrar Sesion</a></li>
+        <li><a href="{$URL}">Cerrar Sesion</a></li>
+        <li class="last"><a href="{$URL}ayuda/administrador.pdf" target="_blank">Ayuda {icono('basicset/helpdesk_48.png','Ayuda')}</a></li>
       </ul>
       <form action="#" method="post" id="sitesearch">
         <fieldset>
