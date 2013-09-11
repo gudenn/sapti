@@ -76,7 +76,7 @@
 				var eventTarget = $(this).attr('target');
 
 				// create a button to go to event url
-				desc.append('<a href="' + eventUrl + '" target="'+eventTarget+'" class="bt">'+eventsOpts.txt_GoToEventUrl+'</a>')
+				desc.append('<a id="tb" href="' + eventUrl + '" target="'+eventTarget+'" class="bt">'+eventsOpts.txt_GoToEventUrl+'</a>')
 			}
 
 			if (desc.is(':visible')) {
@@ -98,8 +98,8 @@
 	function dateSlider(show, year, month) {
 		var $eventsCalendarSlider = $("<div class='eventsCalendar-slider'></div>"),
 			$eventsCalendarMonthWrap = $("<div class='eventsCalendar-monthWrap'></div>"),
-			$eventsCalendarTitle = $("<div class='eventsCalendar-currentTitle'><a href='#' class='monthTitle'></a></div>"),
-			$eventsCalendarArrows = $("<a href='#' class='arrow prev'><span>" + eventsOpts.txt_prev + "</span></a><a href='#' class='arrow next'><span>" + eventsOpts.txt_next + "</span></a>");
+			$eventsCalendarTitle = $("<div class='eventsCalendar-currentTitle'><a id='mt' href='#' class='monthTitle'></a></div>"),
+			$eventsCalendarArrows = $("<a id='ap' href='#' class='arrow prev'><span>" + eventsOpts.txt_prev + "</span></a><a id='ap' href='#' class='arrow next'><span>" + eventsOpts.txt_next + "</span></a>");
 			$eventsCalendarDaysList = $("<ul class='eventsCalendar-daysList'></ul>"),
 			date = new Date();
 
@@ -198,7 +198,7 @@
 			if (day > 0 && dayCount === day && year === currentYear) {
 				dayClass = "today";
 			}
-			daysList.push('<li id="dayList_' + dayCount + '" rel="'+dayCount+'" class="eventsCalendar-day '+dayClass+'"><a href="#">' + dayCount + '</a></li>');
+			daysList.push('<li id="dayList_' + dayCount + '" rel="'+dayCount+'" class="eventsCalendar-day '+dayClass+'"><a id="mm" href="#">' + dayCount + '</a></li>');
 		}
 		$eventsCalendarDaysList.append(daysList.join(''));
 

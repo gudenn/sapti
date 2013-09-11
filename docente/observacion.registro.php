@@ -29,6 +29,7 @@ try {
   $JS[]  = URL_JS . "validate/idiomas/jquery.validationEngine-es.js";
   $JS[]  = URL_JS . "validate/jquery.validationEngine.js";
   $JS[]  = URL_JS . "jquery.addfield.js";
+  $JS[]  = URL_JS . "jquery-latest.js";
   
   $smarty->assign('JS',$JS);
   $smarty->assign("ERROR", '');

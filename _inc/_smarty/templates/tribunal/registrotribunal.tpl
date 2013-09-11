@@ -1,18 +1,15 @@
 
 
  <div id="content">
-        <div class="clear"></div>
-    <center> <td bgcolor="#F7F7F7" style="text-align:center"><strong>FORMULARIO DE REGISTRO DE TRIBUNALES</strong></td></center>
+     
+    <center> <strong>FORMULARIO DE REGISTRO DE TRIBUNALES</strong></td></center>
     
-    <div class="clear"></div>
-    
-    
-    <div style="width: 50%;float: left;" class="tbl_filtro">
+    <div style="width: 50%;float: left;"  class="tbl_filtro">
     <form action="" method="post" >
-             <h1>  Busqueda por Estudiante</h1>
-          <table  style="width: 100%;float: left;" class="tbl_filtro">
+             <h1>  BUSQUEDA POR ESTUDIANTE</h1>
+          <table  >
           <tr>
-              <th><label for="estado_lugar">Codigo Sis</label></th>
+              <th><label for="estado_lugar">CODIGO SIS</label></th>
                
           </tr>
            <tr>
@@ -30,38 +27,31 @@
     <div style="width: 50%;float: left;" class="tbl_filtro">
         
    <form action="" method="post">
-      <h1> Resultado de la  Busqueda</h1>
-        <label for="nombre">nombre:  {$usuariobuscado->nombre}</label><br />
-        <label for="nombre">Apellidos:   {$usuariobuscado->apellidos}</label><br />
-         <label for="nombre">Codigo Sis:   {$estudiantebuscado->codigo_sis}</label><br />
-         <label for="nombre">Proyecto:   {$proyectobuscado->nombre}</label><br />
-         <label for="Area">Numero:   {$proyectobuscado->id}</label><br />
-         <label for="nombre">Area del Proyecto:   {$proyectoarea->nombre}</label><br />
+      <h1> RESULTADO DE LA BUSQUEDA</h1>
+        <label for="nombre">NOMBRE:  {$usuariobuscado->nombre}</label><br />
+        <label for="nombre">APELLIDOS:   {$usuariobuscado->apellidos}</label><br />
+         <label for="nombre">CODIGO SIS:   {$estudiantebuscado->codigo_sis}</label><br />
+         <label for="nombre">PROYECTO:   {$proyectobuscado->nombre}</label><br />
+         <label for="Area">NUMERO:   {$proyectobuscado->id}</label><br />
+         <label for="nombre">AREA:   {$proyectoarea->nombre}</label><br />
        
  </form>
  </div>   
-       
-       
-<div style="width: 100%;float: left;" class="tbl_filtro"></div>
-<hr>
-
-
-<div style="width: 100%;float: left;" class="tbl_filtro"></div>
-   
+  <hr>
       
            
 <div >
   
   
    <div style="width: 45%;float: left;" class="tbl_filtro">
-     <Hi> Lista de Docentes </Hi>
+     <Hi> LISTA DE LOS DOCENTES</Hi>
     <table class="tbl_lista" id="docentes"  mane="docentes">
   <thead>
   <tr>
-    <th><a href='?order=id'                class="tajax"   title='Ordenar por Id'               >Id            </a></th>
-    <th><a href='?order=codigo_box'        class="tajax"   title='Ordenar por Codigo'           >Nombre       </a></th>
-    <th><a href='?order=proveedor'         class="tajax"   title='Ordenar por Proveedor'        >Apellidos     </a></th>
-    <th><a href='?order=especialidad'         class="tajax"   title='Ordenar por Especialidad'        >Especialidad</a></th>
+    <th><a >ID          </a></th>
+    <th><a >NOMBRE      </a></th>
+    <th><a  >APELLIDOS     </a></th>
+    <th><a >ES</a></th>
      </tr>
   </thead>
   <tbody>
@@ -97,25 +87,25 @@
     </tbody> 
 </table>
    </div>          
-    <div style="width: 45%;float: left; padding-left:10px" class="tbl_filtro">
+    <div style="width: 45%;float: left; padding-left:27px">
       
        <form action="" method="post" id="pedido_form" >
  
-    
-      <table >
+   <Hi> LISTA DE LOS DOCENTES ASIGNADOS</Hi>
+     
         <tr>
      
           <td>
-             <h1> Lista de Docentes Asignados </h1>
+             
          
              
        <table  multiple id="asignados" >
         <thead>
           <tr>
-            <th>Id            </th>
-            <th>Nombre       </th>
-            <th>Apellidos    </th>
-             <th>Especialidad</th>
+            <th>ID          </th>
+            <th>NOMBRE       </th>
+            <th>APELLIDOS   </th>
+             <th>ES</th>
            
           </tr>
         </thead>
@@ -123,13 +113,8 @@
   
         </tbody>
       </table>
-          
-          </td>
-        </tr>
-      
-      
-      </table>
-
+        
+     
       <input type="hidden" id="proyecto_id" name="proyecto_id" value="{$proyectobuscado->id}" /><br />
        <input type="hidden" id="proyecto_id" name="estudiante_id" value="{$estudiantebuscado->codigo_sis}" /><br />
       

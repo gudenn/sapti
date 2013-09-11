@@ -8,9 +8,11 @@ class Tribunal extends Objectbase
      * Codigo identificador de objeto proyecto
      */
    
-    var $proyecto_tribunal_id;
+     var $proyecto_tribunal_id;
     
      var $docente_id;
+     var $archivo;
+     var $accion;
 
   /**
    * Retorna el nombre completo del usuario

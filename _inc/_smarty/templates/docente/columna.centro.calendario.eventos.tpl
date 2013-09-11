@@ -1,5 +1,13 @@
       <div id="content" style="width:685px;min-height: 450px;">
           <form action="#" method="post" id="registro" name="registro" >
+<<<<<<< HEAD
+        <h1 class="title">CALENDARIO DE EVENTOS PROGRAMADOS</h1>
+
+              <h2 class="title">EVENTOS REGISTRADOS DE LA MATERIA</h2>
+        <div id="calendariosalidas"></div>
+         </form>
+        <p>{$ERROR}</p>
+=======
         <h1 class="title">INSCRIPCION DE ESTUDIANTES USANDO CVS</h1>
 
               <h2 class="title">SELECCIONE MATERIA PARA CARGAR EL FORMULARIO DE INSCRIPCION</h2>
@@ -7,6 +15,7 @@
          </form>
         <p>{$ERROR}</p>
         <p>Todos los campos con (*) son obligatorios.</p>
+>>>>>>> origin/master
         
         <script type="text/javascript">
         {literal}
@@ -26,8 +35,12 @@
               txt_next: "siguiente",
               txt_prev: "anterior",
               txt_NextEvents: "Próximos Eventos:",
+<<<<<<< HEAD
+              showDescription: true,
+=======
               txt_GoToEventUrl: "Crear Pedido de Embarque",
               showDescription: false,
+>>>>>>> origin/master
               openEventInNewWindow: false,
               eventsLimit: 10,
               cacheJson: false

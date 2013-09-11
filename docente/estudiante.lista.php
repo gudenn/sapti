@@ -8,14 +8,8 @@ try {
 //  if(!isAdminSession())
 //    header("Location: login.php");
 
-  leerClase("Estudiante");
-  leerClase("Usuario");
-  leerClase("Docente");
-  leerClase("Proyecto");
-  leerClase("Formulario");
+  leerClase("Evento");
   leerClase("Pagination");
-  leerClase("Filtro");
-
 
   $ERROR = '';
 
