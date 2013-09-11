@@ -86,6 +86,33 @@ class Revision extends Objectbase
 
   }
 
+  function getEstadoRevision($estado_revision = '') 
+  {
+    $estado   = $this->estado_revision;
+    if ( trim($estado_revision) != '' )
+      $estado = $estado_revision;
+    //estado 1 creado (CR), estado 2 visto por el tutor (VI), estado 3 aprobado por el tutor (AP)
+    switch ($estado) {
+      case 'CR':
+        $estado = 'Nuevo';
+        break;
+      case 'RE':
+        $estado = 'Respuesta';
+        break;
+      case 'VI':
+        $estado = 'Revisando';
+        break;
+      case 'AP':
+        $estado = 'Aprobado';
+        break;
+      default:
+        $estado = 'Nuevo';
+        break;
+        break;
+    }
+    return $estado;
+  }
+  
   function iniciarFiltro(&$filtro) 
   {
     

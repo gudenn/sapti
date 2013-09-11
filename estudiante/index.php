@@ -19,7 +19,15 @@ try {
 
   // Escritorio del estuddinate
   leerClase('Usuario');
+  leerClase('Proyecto');
   leerClase('Estudiante');
+  
+  /**
+   * Menu superior
+   */
+  $menuList[]     = array('url'=>URL.Estudiante::URL,'name'=>'Estudiante');
+  $smarty->assign("menuList", $menuList);
+
   
   $estudiante_aux = getSessionEstudiante();
   $estudiante     = new Estudiante($estudiante_aux->estudiante_id);

@@ -3,7 +3,6 @@
             <h2>Menu Estudiante</h2>
             <ul>
               <li><a href="{$URL}estudiante/">Inicio</a></li>
-              <li><a href="editar.cuenta.php">Modificar Cuenta</a></li>
               {if ($proyecto)}
               <li><a href="{$URL}estudiante/">Proyecto Final</a>
                 <ul>
@@ -13,6 +12,8 @@
                 </ul>
               </li>
               {/if}
+              <li><a href="editar.cuenta.php">Modificar Cuenta</a></li>
+              <li><a href="editar.cuenta.php">Preferencias</a></li>
               <li><a href="{$URL}?salirestudiante=1">Salir</a></li>
             </ul>
           </div>

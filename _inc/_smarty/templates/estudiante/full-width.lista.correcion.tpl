@@ -2,9 +2,8 @@
 <div class="wrapper row3">
   <div class="rnd">
     <div id="container">
-        <h1 class="title"><b>Estudiante:</b><br />{$usuario->nombre}, {$usuario->apellidos}</h1>
         {if ($proyecto)}
-          <h2 class="title"><b>Proyecto Final:</b><br />{$proyecto->nombre}.</h2>
+          <h1 class="title"><b>Proyecto Final:</b><br />{$proyecto->nombre}.</h1>
         {/if}
       {include file='estudiante/filtro.tpl'}
       {if !isset($mascara)}

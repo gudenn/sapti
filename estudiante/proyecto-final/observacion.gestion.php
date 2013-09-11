@@ -34,11 +34,20 @@ try {
   leerClase('Filtro');
   leerClase('Usuario');
   leerClase('Estudiante');
+  leerClase('Proyecto');
   leerClase('Revision');
   leerClase('Pagination');
   leerClase('Observacion');
   
+  /**
+   * Menu superior
+   */
+  $menuList[]     = array('url'=>URL.Estudiante::URL,'name'=>'Estudiante');
+  $menuList[]     = array('url'=>URL.Estudiante::URL.Proyecto::URL,'name'=>'Proyecto Final');
+  $menuList[]     = array('url'=>URL.Estudiante::URL.Proyecto::URL.__FILE__,'name'=>'Detalle de Correcciones');
+  $smarty->assign("menuList", $menuList);
 
+  
   $estudiante_aux = getSessionEstudiante();
   $estudiante     = new Estudiante($estudiante_aux->estudiante_id);
   $usuario        = $estudiante->getUsuario();

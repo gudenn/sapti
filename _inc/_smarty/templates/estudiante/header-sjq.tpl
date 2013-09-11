@@ -8,10 +8,10 @@
     <meta name="description" content="{$description}" />
     <meta name="keywords" content="{$keywords}" />
 
-    <link rel="stylesheet" href="{$URL_CSS}academic/layout.css" type="text/css" />
     {section name=css_i loop=$CSS}
       <link rel="stylesheet" href="{$CSS[css_i]}" type="text/css" />
     {/section}
+    <link rel="stylesheet" href="{$URL_CSS}academic/layout.css" type="text/css" />
 
     {section name=js_i loop=$JS}
       <script type="text/javascript" src="{$JS[js_i]}"></script>

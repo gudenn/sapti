@@ -7,6 +7,11 @@
  */
 class Estudiante extends Objectbase {
 
+  /** constant to add in the begin of the key to find the date values   */
+  const URL                  = "estudiante/";
+  /** constant to add in the begin of the key to find the date values   */
+  const ARCHIVO_PATH         = "estudiante/proyecto-final";
+
   /**
    * Codigo identificador del Objeto Usuario
    * @var INT(11)
@@ -222,6 +227,25 @@ class Estudiante extends Objectbase {
     }
     else
       return false;
+  }
+
+  function grabarAvance() 
+  {
+    $proyecto    = $this->getProyecto();
+    if (!$proyecto || !isset($proyecto->id))
+      return false;
+    $avance = new Avance();
+    $avance->objBuidFromPost();
+    if ( get_magic_quotes_gpc() )
+      $avance->descripcion = htmlspecialchars( stripslashes((string)$avance->descripcion) );
+    else
+      $avance->descripcion = htmlspecialchars( (string)$avance->descripcion);
+
+    $avance->proyecto_id  = $proyecto->id;
+    $avance->fecha_avance = date('d/m/Y');
+    $avance->estado       = Objectbase::STATUS_AC;
+    $avance->save();
+    return $avance;
   }
 
 }

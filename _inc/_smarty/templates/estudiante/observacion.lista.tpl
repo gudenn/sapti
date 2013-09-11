@@ -7,17 +7,23 @@
       <th>Opciones</th>
     </tr>
   </thead>
-  {section name=ic loop=$objs}
   <tbody>
+  {section name=ic loop=$objs}
     <tr  class="{cycle values="light,dark"}">
       <td>{$objs[ic]['id']}</td>
-      <td>{$objs[ic]['revision_fecha_revision']}</td>
+      <td>{$objs[ic]['revision_fecha_revision_toshow']}</td>
       <td>{$objs[ic]['observacion']}</td>
-      {assign var="ides" value=$objs[ic]['id']}
       <td>
-        <a href="correciones.registro.php?observacion_id={$objs[ic]['id']}" target="_blank" >{icono('detalle.png','Detalle')}</a>
+      </td>
+    </tr>
+  {/section}
+    <tr  class="{cycle values="light,dark"}">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <a href="avance.registro.php?revision_id={$objs[0]['revision_id']}" target="_blank" >Resolver {icono('basicset/pencil_48.png','Detalle')}</a>
       </td>
     </tr>
   </tbody>
-  {/section}
 </table>
