@@ -22,20 +22,20 @@ try {
   $smarty->assign("carrera", $carrera);
   // $modalidad->objBuidFromPost();
     //$modalidad->save();
-  if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
+ if (isset($_POST['tarea']) && $_POST['tarea'] == 'registrar' && isset($_POST['token']) && $_SESSION['register'] == $_POST['token'])
   {
     $carrera->objBuidFromPost();
+    $carrera->estado = Objectbase::STATUS_AC;
     $carrera->save();
+    echo " <script> windows.location.href ='estudiante/index.php' </script>";
+    //header('location:'.urldecode($url("estudiante/index.php")));
   }
-
-  
-  
+  $token = sha1(URL . time());
+  $_SESSION['register'] = $token;
+  $smarty->assign('token',$token);
   $smarty->assign("ERROR", $ERROR);
-  
-
   //No hay ERROR
   $smarty->assign("ERROR",'');
-  
 } 
 catch(Exception $e) 
 {

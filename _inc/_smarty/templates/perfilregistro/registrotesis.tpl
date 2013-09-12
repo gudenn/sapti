@@ -157,7 +157,7 @@
       <label for="nombre">Fecha:</label>
     </strong></p>
       <p align="left"><strong>
-        <input type="date" id="fecha" name="fecha" value="{$smarty.now|date_format:"%D"}" />
+        <input type="date" id="fecha" name="fecha" value="{$defensa->fecha_defensa}" />
         <label for="nombre"><br />
         </label>
         <br />

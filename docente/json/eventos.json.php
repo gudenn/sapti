@@ -16,34 +16,32 @@ if ( isset($_GET['year']) && isset($_GET['month']) && isset($_GET['day']) )
     
   if ( $_GET['year'] && $_GET['month'] && $_GET['day'] )
   {
-<<<<<<< HEAD
-    $month      = $_GET['month'] + 1;
-=======
+      $month      = $_GET['month'] + 1;
+  }
+
     //$month      = $_GET['month'] + 1;
     $month      = $_GET['month'];
->>>>>>> origin/master
+
     $evento->fecha_evento = "{$_GET['day']}/{$month}/{$_GET['year']}";
   }
   // para un solo mes
   elseif ( $_GET['year'] && $_GET['month'] && !$_GET['day'] )
   {
-<<<<<<< HEAD
+
     $month      = $_GET['month']+1;
-=======
+
     $month      = $_GET['month'];
->>>>>>> origin/master
+
     $year       = $_GET['year'];
     $day        = date('d',  mktime(0, 0, 0, $month, 1, $year));
     $day_end    = date('t',  mktime(0, 0, 0, $month, 1, $year));
     $date_start = Objectbase::dateHumanToSQl("{$day}/{$month}/{$year}");
     $date_end   = Objectbase::dateHumanToSQl("{$day_end}/{$month}/{$year}");
     $filter     = " AND evento.fecha_evento  >=  '{$date_start}' AND evento.fecha_evento  <=  '{$date_end}' ";
-<<<<<<< HEAD
+
 
     }
-=======
-  }
->>>>>>> origin/master
+
   // para la primera carga de pagina
   else
   {
@@ -61,13 +59,10 @@ if ( isset($_GET['year']) && isset($_GET['month']) && isset($_GET['day']) )
             ".$filter."
             ".$order."
             ";
-<<<<<<< HEAD
+
   $result = mysql_query($sql1);
-=======
-      
  $result = mysql_query($sql1);
->>>>>>> origin/master
-    $i=2;
+ $i=2;
   if ($result)
   while ($row = mysql_fetch_array($result)) 
   {
@@ -85,6 +80,5 @@ ______SALIDAS;
       $i++;
   }
   echo "[{$rsal}]";
-}
 
 ?>
