@@ -43,6 +43,7 @@
 <div >
   
   
+  
    <div style="width: 45%;float: left;" class="tbl_filtro">
      <Hi> LISTA DE LOS DOCENTES</Hi>
     <table class="tbl_lista" id="docentes"  mane="docentes">
@@ -51,7 +52,8 @@
     <th><a >ID          </a></th>
     <th><a >NOMBRE      </a></th>
     <th><a  >APELLIDOS     </a></th>
-    <th><a >ES</a></th>
+    <th><a >AREAS</a></th>
+    <th><a >TIEMPO</a></th>
      </tr>
   </thead>
   <tbody>
@@ -77,8 +79,20 @@
   {/foreach}
 {/foreach}
  </span> 
-        
-       </a>
+    </a>
+</td>
+       <td>     <a  class="tooltip"> DIS
+  <span>
+  <b>
+ </b>
+{foreach name=outer item=contact from=$listadocentes[ic][4]}
+  <hr />
+  {foreach key=key item=item from=$contact}
+  {$item}
+  {/foreach}
+{/foreach}
+ </span> 
+    </a>
 </td>
 
      
@@ -105,7 +119,8 @@
             <th>ID          </th>
             <th>NOMBRE       </th>
             <th>APELLIDOS   </th>
-             <th>ES</th>
+           <th><a >AREAS</a></th>
+            <th><a >TIEMPO</a></th>
            
           </tr>
         </thead>

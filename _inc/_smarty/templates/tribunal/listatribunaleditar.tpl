@@ -25,10 +25,10 @@
       <td>{$arraytribunal[ic]['id']}</td>
       <td>{$arraytribunal[ic]['nombre']} {$arraytribunal[ic]['apellidos']}</td>
       <td>{$arraytribunal[ic]['nombreproyecto']}</td>
-      <td> <a href="mostrartribunal.php?tribunal_id={$arraytribunal[ic]['id']}" target="_blank" >{icono('detalle.png','Ver Tribunales')}</a>
+      <td> <a href="mostrartribunal.php?tribunal_id={$arraytribunal[ic]['id']}" target="_self" >{icono('detalle.png','Ver Tribunales')}</a>
       </td>
       <td>
-   <a href="editartribunal.php?editar&tribunaleditar_id={$arraytribunal[ic]['id']}" target="_blank">{icono('editar.png','Editar')}</a>
+   <a href="editartribunal.php?editar&tribunaleditar_id={$arraytribunal[ic]['id']}" target="_self">{icono('editar.png','Editar')}</a>
       </td>
         
     </tr>

@@ -11,6 +11,7 @@ class Turno extends Objectbase
   */
   var $nombre;
   var $descripcion;
+  var $peso;
 }
 
 ?>

@@ -101,6 +101,50 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
   
 
 
+  $proyecto_tribunal= new Proyecto_tribunal();
+   
+  if ( isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
+  {
+  
+       echo $_POST['proyecto_tribunal_id'];
+     
+    
+       
+       $sqlls="SELECT t.id as llaveid FROM tribunal t WHERE  t.proyecto_tribunal_id=".$_POST['proyecto_tribunal_id'].";";
+      $resultadoff = mysql_query($sqlls);
+
+ $contador=0;
+ 
+    foreach ($_POST['ids'] as $id)
+     {
+      echo $id;
+              
+     }
+ 
+ while ($filas = mysql_fetch_array($resultadoff, MYSQL_ASSOC))
+    { 
+   if (isset($_POST['ids']))
+   {
+     echo $filas['llaveid'];
+  $tribunalesw= new Tribunal((int)$filas['llaveid']);
+  $tribunalesw->proyecto_tribunal_id=$_POST['proyecto_tribunal_id'];
+  $tribunalesw->docente_id =$_POST['ids'][$contador];
+  $tribunalesw->archivo="";
+  $tribunalesw->accion="";
+  $tribunalesw->estado = Objectbase::STATUS_AC;
+  $tribunalesw->save();
+   }
+$contador++;
+   }      
+ //echo "<script>window.location.href='listatribunaleditar.php'</script>";
+    
+   }
+
+
+
+
+
+
   
   //$tribunal = new Tribunal();
   //$smarty->assign("tribunal", $tribunal);
@@ -135,9 +179,86 @@ $smarty->assign('proyecto_nombre',$proyecto_nombre);
   {
      
      // echo $_GET['tribunaleditar_id'];
-     // echo "hola eli";
+     
+     
+       
+  $sqlr="SELECT  d.`id`, u.`nombre`,u.`apellidos`
+FROM  `usuario` u ,`docente` d
+WHERE  u.`id`=d.`usuario_id` and u.`estado`='AC' and   d.id not in(
+select dd.`id`
+from  `proyecto` p, `proyecto_tribunal` pt,  `tribunal` t ,`docente` dd
+where p.`id`=pt.`proyecto_id` and pt.`id`=t.`proyecto_tribunal_id` and t.`docente_id`=dd.`id` and pt.`id`=".$_GET['tribunaleditar_id'].");";
+ $resultado = mysql_query($sqlr);
+ $arraytribunal= array();
+ 
+ while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) 
+         { 
+   
+   
+   
+        $listaareas=array();
+        $lista_areas=array();
+        $lista_areas[] = $fila["id"];
+        $lista_areas[] =  $fila["nombre"];
+        $lista_areas[] =  $fila["apellidos"];
+ 
+ 
+$sqla="select  a.`nombre`
+from `docente` d , `apoyo` ap , `area` a
+where  d.`id`=ap.`docente_id` and a.`id`=ap.`area_id` and d.`estado`='AC' and ap.`estado`='AC' and a.`estado`='AC'and d.`id`=".$fila["id"];
+ $resultadoa = mysql_query($sqla);
+ 
+  while ($filas = mysql_fetch_array($resultadoa, MYSQL_ASSOC)) 
+  {
+     $listaareas[]=$filas;
+  }
+  $lista_areas[]=$listaareas;
+  $arraytribunal[]= $lista_areas;
+ }
+ $smarty->assign('listadocentes'  , $arraytribunal);
+  
+     
+     //////////////////////////seleccionados////////////////////
+   $sqlselec="SELECT  d.`id`, u.`nombre`,u.`apellidos`
+FROM  `usuario` u ,`docente` d
+WHERE  u.`id`=d.`usuario_id` and u.`estado`='AC' and   d.id  in(
+select dd.`id`
+from  `proyecto` p, `proyecto_tribunal` pt,  `tribunal` t ,`docente` dd
+where p.`id`=pt.`proyecto_id` and pt.`id`=t.`proyecto_tribunal_id` and t.`docente_id`=dd.`id` and pt.`id`=".$_GET['tribunaleditar_id'].");";
+ $resultadoselect = mysql_query($sqlselec);
+ $arraytribunalselec= array();
+ 
+ while ($filaselec = mysql_fetch_array($resultadoselect, MYSQL_ASSOC)) 
+         { 
+   
+   
+   
+        $listaareas=array();
+        $lista_areas=array();
+        $lista_areas[] = $filaselec["id"];
+        $lista_areas[] =  $filaselec["nombre"];
+        $lista_areas[] =  $filaselec["apellidos"];
+ 
+ 
+$sqla="select  a.`nombre`
+from `docente` d , `apoyo` ap , `area` a
+where  d.`id`=ap.`docente_id` and a.`id`=ap.`area_id` and d.`estado`='AC' and ap.`estado`='AC' and a.`estado`='AC'and d.`id`=".$filaselec["id"];
+ $resultadoa = mysql_query($sqla);
+ 
+  while ($filas = mysql_fetch_array($resultadoa, MYSQL_ASSOC)) 
+  {
+     $listaareas[]=$filas;
+  }
+  $lista_areas[]=$listaareas;
+  $arraytribunalselec[]= $lista_areas;
+ }
+ $smarty->assign('listadocenteselec'  , $arraytribunalselec);
+ $smarty->assign('idproyectotribunal'  , $_GET['tribunaleditar_id']);
+     
+ 
       
-    $sqll=  "SELECT u.nombre , u.apellidos , e.codigo_sis , p.nombre as nombreproyecto
+ 
+$sqll=  "SELECT u.nombre , u.apellidos , e.codigo_sis , p.nombre as nombreproyecto
 FROM  usuario u , estudiante e , proyecto_estudiante pe , proyecto p, proyecto_tribunal pt
 WHERE u.id= e.usuario_id and e.id=pe.estudiante_id and p.id= pe.proyecto_id and p.id=pt.proyecto_id and pt.id=".$_GET['tribunaleditar_id'];
 
@@ -149,58 +270,19 @@ $resultado = mysql_query($sqll);
    $arraytribunaldatos[]=$fila;
  }
       
-      $smarty->assign('arraytribunaldatos'  , $arraytribunaldatos);
+     $smarty->assign('arraytribunaldatos'  , $arraytribunaldatos);
+     $proyectotribunals=new Proyecto_tribunal($_GET['tribunaleditar_id']);
+    //  echo $proyectotribunals->proyecto_id;
       
-      
-      
-      $proyectotribunals=new Proyecto_tribunal($_GET['tribunaleditar_id']);
-      echo $proyectotribunals->proyecto_id;
-      
-      $proyectos= new Proyecto($proyectotribunals->proyecto_id);
+     $proyectos= new Proyecto($proyectotribunals->proyecto_id);
 
      $smarty->assign('proyectotribunals', $proyectotribunals);
-      $smarty->assign('proyectoarea', $proyecto->getArea());
+     $smarty->assign('proyectoarea', $proyecto->getArea());
+      
+      
   }
   
   
-  $proyecto_tribunal= new Proyecto_tribunal();
-  //$varfdf=$_POST['proyecto_id'];
- // $proyecto_tribunal->proyecto_id=$varfdf;
-  //if(isset($_POST['proyecto_id']))
- // echo $_POST['proyecto_id'];
-   
-  
-  
-   if ( isset($_POST['tarea']) && $_POST['tarea'] == 'Guardar' )
-  {
-     
-     //if(isset($_POST['mensaje']))
-       echo $_POST['codigo'];
-    
-       $sqlls="SELECT t.id as llaveid FROM tribunal t WHERE  t.proyecto_tribunal_id=".$_POST['codigo'].";";
-      $resultadoff = mysql_query($sqlls);
-
- $contador=0;
- while ($filas = mysql_fetch_array($resultadoff, MYSQL_ASSOC))
- { 
-   if (isset($_POST['ids']))
-   {
-  $tribunalesw= new Tribunal((int)$filas['llaveid']);
-  $tribunalesw->usuario_id =$_POST['ids'][$contador];
-$tribunalesw->estado = Objectbase::STATUS_AC;
-$tribunalesw->proyecto_tribunal_id=$_POST['codigo'];
-            
- $tribunalesw->save();
-   }
-$contador++;
-    }
-    
-    
-     
-     
- echo "<script>window.location.href='listatribunaleditar.php'</script>";
-     
-   }
 
   
   

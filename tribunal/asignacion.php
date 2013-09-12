@@ -124,8 +124,7 @@ $smarty->assign('tipo_nombre',$tipo_nombre);
 
   if(isset($_GET['tribunal_id']))
   {
-    
-   // echo $_GET['tribunal_id'];
+
      $sql="
 SELECT d.id, u.nombre , u.apellidos
 FROM  usuario u, docente d, tribunal t, proyecto_tribunal pt
@@ -133,9 +132,35 @@ WHERE  u.`id`=d.`usuario_id` and d.`id`=t.`docente_id` and  t.`proyecto_tribunal
  $resultado = mysql_query($sql);
  $arraytribunal= array();
  
+ 
  while ($fila = mysql_fetch_array($resultado)) 
-                {
-    $arraytribunal[]=$fila;
+ {
+      
+   
+
+        $lista_areas=array();
+        $lista_areas[] = $fila["id"];
+        $lista_areas[] =  $fila["nombre"];
+        $lista_areas[] =  $fila["apellidos"];
+ 
+
+ 
+ $listatiempo=array();
+        //$lista_tiempo=array();
+        
+  $sqltiempo="select  d.`id` , d.`nombre` , t.`nombre` as nombreturno
+from `dia` d, `horario_doc` hd , `turno` t
+where  d.`id`=hd.`dia_id` and hd.`turno_id`=t.`id` and  d.`estado`='AC' and hd.`estado`='AC'and t.`estado`='AC' and hd.`docente_id`=".$fila["id"]."
+ORDER BY d.`pesodia` ASC;";
+ $resultadotiempo= mysql_query($sqltiempo);
+ 
+  while ($filatiempo = mysql_fetch_array($resultadotiempo, MYSQL_ASSOC)) 
+  {
+     $listatiempo[]=$filatiempo;
+  }
+  //$lista_tiempo[]= $listatiempo;
+  $lista_areas[]= $listatiempo;
+  $arraytribunal[]= $lista_areas;
  }
 $smarty->assign('arraytribunal'  , $arraytribunal);
     

@@ -11,6 +11,7 @@ class Dia extends Objectbase
   */
   var $nombre;
   var $descripcion;
+   var $pesodia;
 }
 
 ?>

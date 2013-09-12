@@ -20,7 +20,7 @@
      <td>{$listasignacion[ic]['id']}</td>
       <td>{$listasignacion[ic]['nombre']} {$listasignacion[ic]['apellidos']}</td>
        <td>{$listasignacion[ic]['nombreproyecto']} </td>
-      <td> <a href="asignacion.php?tribunal_id={$listasignacion[ic]['id']}" target="_blank" >{icono('detalle.png','PDF')}</a>
+      <td> <a href="asignacion.php?tribunal_id={$listasignacion[ic]['id']}" target="_self" >{icono('detalle.png','PDF')}</a>
     
         </td>
       

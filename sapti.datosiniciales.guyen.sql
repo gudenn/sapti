@@ -106,7 +106,8 @@ INSERT INTO `grupo` (`id`, `codigo`, `descripcion`, `estado`) VALUES
 INSERT INTO `sapti`.`area` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'Ingeniería de Software', NULL, 'AC');
 INSERT INTO `sapti`.`area` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'Sistemas Expertos', NULL, 'AC');
 INSERT INTO `sapti`.`lugar` (`id`, `nombre`, `estado`) VALUES (1, 'Auditorio de memi', 'AC');
-INSERT INTO `sapti`.`tipo_defensa` (`id`, `nombre`, `descripcion`, `estado`) VALUES (NULL, 'PUBLICA', '', 'AC');
+INSERT INTO `sapti`.`tipo_defensa` (`id`, `nombre`, `descripcion`, `estado`) VALUES (1, 'PUBLICA', '', 'AC');
+INSERT INTO `sapti`.`tipo_defensa` (`id`, `nombre`, `descripcion`, `estado`) VALUES (2, 'PRIVADA', '', 'AC');
 
 INSERT INTO `sapti`.`turno` (`id`, `nombre`, `descripcion`, `estado`) VALUES (1, 'MAÑANA', NULL, 'AC');
 INSERT INTO `sapti`.`turno` (`id`, `nombre`, `descripcion`, `estado`) VALUES (2, 'TARDE', NULL, 'AC');

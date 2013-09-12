@@ -33,7 +33,7 @@
      <td>{$arraytribunal[ic]['id']} </td>
       <td>{$arraytribunal[ic]['nombre']} </td>
        <td>{$arraytribunal[ic]['apellidos']}</td>
-      <td> <a href="carta.php?tribunal_id={$arraytribunal[ic]['id']}" target="_blank" >{icono('detalle.png','PDF')}</a>
+      <td> <a href="carta.php?tribunal_id={$arraytribunal[ic]['id']}" target="_self" >{icono('detalle.png','PDF')}</a>
     
         </td>
       
