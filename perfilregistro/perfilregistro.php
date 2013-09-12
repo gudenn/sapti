@@ -1,15 +1,14 @@
 <?php
-
+//include './upload.lib.php';
 try {
- require('_start.php');
-  global $PAISBOX;
-  /** HEADER */
-  
-  
-  if(!isEstudianteSession())
+    require('_start.php');
+ 
+ if(!isEstudianteSession())
     header("Location: ../estudiante/login.php");  
-
-  $smarty->assign('title','SAPTI - Registro Estudiantes');
+ 
+ 
+/** HEADER */
+ $smarty->assign('title','SAPTI - Registro Estudiantes');
   $smarty->assign('description','Formulario de registro de estudiantes');
   $smarty->assign('keywords','SAPTI,Estudiantes,Registro');
 
@@ -36,8 +35,11 @@ try {
 
 
   $smarty->assign("ERROR", '');
-  
- // CREAR UN PERFIL DIRIGIDO
+
+  // CREAR UN PERFIL DIRIGIDO
+leerClase("Formulario");
+ leerClase("Pagination");
+ leerClase("Filtro");
  leerClase("Perfilregistro");
  leerClase("Carrera");
  leerClase("Modalidad");
@@ -48,10 +50,55 @@ try {
  leerClase("Estudiante");
  leerClase("Docente");
  leerClase("Tutor");
- leerClase("Proyecto");
- 
+ leerClase("Semestre");
+ leerClase('Perfil_archivo');
+
+ /////// carga al estudiante ///////////////////
+ $estudiante_aux = getSessionEstudiante();
+  $estudiante  = new Estudiante($estudiante_aux->estudiante_id);
   
- ///// AKI CREAMOS LOS ID DE LA CARRERA  PARA CARGAR AL FORMULARIO ////////
+  $usuari= $estudiante->getUsuario();
+  //$proyecto  = $estudiante->getProyecto();
+  
+  $smarty->assign("estudiante", $estudiante);
+  $smarty->assign("usuari", $usuari);
+  //$smarty->assign("proyecto", $proyecto);
+ 
+ ///////////////////////////////////////////////
+/*
+ $sqlr="SELECT d.`id` ,concat(u.nombre , u.apellidos) as nombres
+from `usuario` u , `docente` d
+where u.`id`=d.`usuario_id` and u.`estado`='AC' and d.`estado`='AC';";
+ $resultado = mysql_query($sqlr);
+ $docente_id= array();
+ $docente_nombre=array();
+ 
+ while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) 
+ {
+  // $arraytribunal=$fila;
+   $docente_id[] = $fila['id'];
+     $docente_nombre[] = $fila['nombre'];
+  }
+ $smarty->assign('docente_id'  , $docente_id);
+ $smarty->assign('docente_nombre'  , $docente_nombre);
+ */
+ /////////// Semestre ////////////////
+/*
+ $sqls="SELECT s. `id`,s.`codigo`,s.`estado`
+FROM  semestre s
+WHERE  s.`estado`='AC';";
+ $resultado= mysql_query($sqls);
+ $semestre_id= array();
+ $semestre_codigo=array();
+ while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)) 
+ {
+     $semestre_id[]=$fila['id'];
+     $semestre_codigo[]=$fila['codigo'];
+ }
+ $smarty->assign('$semestre_id',$semestre_id);
+ $smarty->assign('$semestre_codigo',$semestre_codigo);
+ * */
+///// AKI CREAMOS LOS ID DE LA CARRERA  PARA CARGAR AL FORMULARIO ////////
   $carrera = new Carrera();
   $carrera_sql = $carrera->getAll();
   $carrera_id = array();
@@ -65,6 +112,20 @@ try {
   $smarty->assign('carrera_id', $carrera_id);
   $smarty->assign('carrera_nombre', $carrera_nombre);
  
+  ///////// gestion /////////////////////
+
+  $semestre = new Semestre();
+  $semestre_sql = $semestre->getAll();
+  $semestre_id = array();
+  $semestre_codigo = array();
+  while ($semestre_sql && $rows = mysql_fetch_array($semestre_sql[0])) 
+ {
+     $semestre_id[] = $rows['id'];
+     $semestre_codigo[] = $rows['codigo'];
+  }
+
+  $smarty->assign('semestre_id', $semestre_id);
+  $smarty->assign('semestre_codigo', $semestre_codigo);
 ////// AKI CREAMOS LOS ID DE LA MODALIDAD  PARA CARGAR AL FORMULARIO //////
   $modalidad = new Modalidad();
   $modalidad_sql = $modalidad->getAll();
@@ -117,191 +178,57 @@ try {
      $institucion_id[] = $rows['id'];
      $institucion_nombre[] = $rows['nombre'];
   }
-  
-  
-  
-  $id     = '';
- 
-  if (isEstudianteSession())
-  {
-    $estudiante = getSessionEstudiante();
-    $id     = $estudiante->id;
-  }
-  echo  $id;
-
-  //$estudiante = new Estudiante($id);
-  //$usuario    = new Usuario($estudiante->usuario_id);
- $usuario    = new Usuario($id);
-
-  echo $usuario->nombre;
-  $smarty->assign("usuario"   , $usuario);
-  //$smarty->assign("estudiante", $estudiante);
-  
- 
-  
-  
-  
 
   $smarty->assign('institucion_id', $institucion_id);
   $smarty->assign('institucion_nombre', $institucion_nombre); 
   
-   
-  /////////////////////// Creamos estudiante ////////////////////////
-  $resultado=mysql_query("SELECT e.`id` ,e.`codigo_sis`,u.`nombre`, u.`apellidos` , u.`email`
-from `usuario` u , `estudiante` e
-where u.`id`=e.`usuario_id` and u.`estado`='AC';");
+  ///////////////////////// Administrador ///////////////////////
   
+  $user=new Usuario(1);      ///mandar su "Id"
+  $smarty->assign('user', $user);
+   
 ////////////////////////////////////////////////////////////
 
-// AKI CREAMOS TUTOR PARA CARGAR AL FORMULARIO
-  $tutor = new Tutor();
-  $tutor_sql = $tutor->getAll();
-  $tutor_id = array();
-  $tutor_nombre = array();
-  $tutor_apellidos = array();
-  while ($tutor_sql && $rows = mysql_fetch_array($tutor_sql[0])) 
+// AKI CREAMOS LOS ID Del TuTOr = Usuario  PARA CARGAR AL FORMULARIO
+  $usuario = new Usuario();
+  $usuario_sql = $usuario->getAll();
+  $usuario_id = array();
+  $usuario_nombre = array();
+  $usuario_apellidos = array();
+  while ($usuario_sql && $rows = mysql_fetch_array($usuario_sql[0])) 
  {
-      
-     $tutor_id[] = $rows['id'];
-     $nombres=$rows['nombre']+ $rows['apellidos'];
-     $tutor_nombre[] = $nombres;
-     $tutor_apellidos[] = $rows['apellidos'];
+     $usuario_id[] = $rows['id'];
+     $usuario_nombre[] = $rows['nombre'];
+     $usuario_apellidos[] = $rows['apellidos'];
  }
 
-  $smarty->assign('tutor_id', $tutor_id);
-  $smarty->assign('tutor_nombre', $tutor_nombre); 
-  $smarty->assign('tutor_apellidos', $tutor_apellidos); 
-  
-  
-      $sqls="
-SELECT d.`id` ,u.`nombre`, u.`apellidos`
-from `usuario` u , `docente` d
-where u.`id`=d.`usuario_id` and u.`estado`='AC' and d.`estado`='AC';";
- $resultado = mysql_query($sqls);
- 
-$docente_id= array();
-$docente_nombre=array();
- while ($fila = mysql_fetch_array($resultado)) 
- {
-    // var_dump($fila);
-   $docente_id[]     = $fila['id'];
-   $docente_nombre[] = $fila['nombre'] ;
+  $smarty->assign('usuario_id', $usuario_id);
+  $smarty->assign('usuario_nombre', $usuario_nombre); 
+  $smarty->assign('usuario_apellidos', $usuario_apellidos); 
 
- }
-  $smarty->assign("docente_id"   , $docente_id);
-  $smarty->assign("docente_nombre", $docente_nombre);
- 
- 
- 
- 
-//////////////////  creamos docente/////////////////////
-  $docente = new Docente();
-  $docente_sql = $docente->getAll();
-  $docente_sql_id = array();
-  $docente_nombre = array();
-  $docente_apellidos = array();
-  $docente_email = array();
-  while ($docente_sql && $rows = mysql_fetch_array($docente_sql[0])) 
- {
-     $docente_id[] = $rows['id'];
-    
-  }
-
-  //$smarty->assign('docente_id', $estudiante_id);
-  $smarty->assign('docente_nombre', $estudiante_nombre); 
-  $smarty->assign('docente_apellidos', $estudiante_apellidos);
-  $smarty->assign('docente_email', $do_email); 
-
- /*
-$upload = new upload;    // upload
-$upload ->SetDirectory($dir);
-$file = $_FILES['formularioaprobacion']['dir'];
-$arreglo['url_documento']= " ";
-if ($_FILES[$perfilregistro->formularioaprobacion]['dir'] != " ")
-  {
-  $tipo_archivo = $_FILES[$perfilregistro->formularioaprobacion]['type'];
-  if (!(strpos($tipo_archivo, "pdf")))
-   {
-    $todoOK = false;
-   echo "<script>alert('solo archivos pdf. Por favor verifique e intente de nuevo, tipo: ".$tipo_archivo."');</script>";
-  } else 
-  {
-       $tamanio = $_FILES[$perfilregistro->formularioaprobacion]['size'];
-	 $dir = "pdf_".time();
-	 $upload -> SetFile("formularioaprobacion");
-	 if ($upload -> UploadFile( $dir ))
-	  {
-	   $urldocumento = "$dir".$dir.".".$upload->ext;
-	  }
-      }
-   }
-// }         
-   */    
-///// crear un perfilregistro////////////////
-  $perfilregistro = new Perfilregistro();
-  $perfilregistro_sql = $perfilregistro->getAll();
-  $perfilregistro_id = array();
-  $perfilregistro_nombre = array();
-  while ($perfilregistro_sql && $rows = mysql_fetch_array($perfilregistro_sql[0])) 
- {
-     $perfilregistro_id[] = $rows['id'];
-     $perfilregistro_nombre[] = $rows['titulo'];
-  }
-  $smarty->assign('perfilregistro_id', $perfilregistro_id);
-  $smarty->assign('perfilregistro_titulo', $perfilregistro_titulo);          
-          
-
+        
+ $perfilregistro = new Perfilregistro();
+ //$smarty->assign("perfilregistro", $perfilregistro); 
  //GUARDA ALA BASE DE DATOS 
-if (isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' && isset($_POST['token']) && $_SESSION['grabar'] == $_POST['token'])
+if (isset($_POST['tarea']) && $_POST['tarea'] == 'registrar' && isset($_POST['token']) && $_SESSION['register'] == $_POST['token'])
   {
     if(isset($_POST['trabajoconjunto']))
     {
       if($_POST['trabajoconjunto']=="Si")
       {
-        echo $_POST['trabajoconjunto'];
-      }
-      else
-      {
-        echo $_POST['trabajoconjunto'];
-      }
-    }
+        
     $perfilregistro->objBuidFromPost();
     $perfilregistro->estado = Objectbase::STATUS_AC;
     $perfilregistro->save();
-  }
-/*  
-if (isset($_POST['tarea']) && $_POST['tarea'] == 'grabar' )
-  {  
-    echo 'hola eli';
-    if(isset($_POST['trabajoconjunto']))
-    {
-      if($_POST['trabajoconjunto']=="Si")
-      {
-        echo $_POST['trabajoconjunto'];
-      }else
-      {
-        echo $_POST['trabajoconjunto'];
       }
     }
-  
-      $perfilregistro->objBuidFromPost();
-      $perfilregistro->estado = Objectbase::STATUS_AC;
-      $perfilregistro->save();
-   }
-*/
-    /*   if (isset($_POST['ids']))
- 
-  
-     foreach ($_POST['ids'] as $id)
-     {
-       echo $id;
-        $perfilregistro= new Perfilregistro();         
-        $perfilregistro->usuario_id =$id;
-        $perfilregistro->estado = Objectbase::STATUS_AC;
-        $perfilregistro->proyecto_tribunal_id=$perfilregistro->id;;
-        $perfilregistro->objBuidFromPost();
-        $perfilregistro->save();
-     } */
+   
+    echo " <script> windows.location.href ='estudiante/index.php' </script>";
+    //header('location:'.urldecode($url("estudiante/index.php")));
+  }
+  $token = sha1(URL . time());
+  $_SESSION['register'] = $token;
+  $smarty->assign('token',$token);
   $smarty->assign("ERROR", $ERROR);
   //No hay ERROR
   $smarty->assign("ERROR",'');
@@ -310,6 +237,7 @@ catch(Exception $e)
 {
   $smarty->assign("ERROR", handleError($e));
 }
+
 $TEMPLATE_TOSHOW = 'perfilregistro/perfilregistros.tpl';
 $smarty->display($TEMPLATE_TOSHOW);
 

@@ -35,12 +35,12 @@
               txt_next: "siguiente",
               txt_prev: "anterior",
               txt_NextEvents: "Próximos Eventos:",
-<<<<<<< HEAD
+
               showDescription: true,
-=======
+
               txt_GoToEventUrl: "Crear Pedido de Embarque",
               showDescription: false,
->>>>>>> origin/master
+
               openEventInNewWindow: false,
               eventsLimit: 10,
               cacheJson: false
