@@ -33,6 +33,7 @@ try {
   // Escritorio del estuddinate
   leerClase('Usuario');
   leerClase('Proyecto');
+  leerClase('Revision');
   leerClase('Estudiante');
   leerClase('Avance');
 
@@ -41,9 +42,26 @@ try {
    */
   $menuList[]     = array('url'=>URL.Estudiante::URL,'name'=>'Estudiante');
   $menuList[]     = array('url'=>URL.Estudiante::URL.Proyecto::URL,'name'=>'Proyecto Final');
-  $menuList[]     = array('url'=>URL.Estudiante::URL.Proyecto::URL.__FILE__,'name'=>'Registro de Avance');
+  $menuList[]     = array('url'=>URL.Estudiante::URL.Proyecto::URL.basename(__FILE__),'name'=>'Registro de Avance');
   $smarty->assign("menuList", $menuList);
-
+  $editores = '';
+          
+          
+          
+  if ( isset($_GET['revision_id']) && is_numeric($_GET['revision_id']) )
+  {
+    $revision = new Revision($_GET['revision_id']);
+    $revision->getAllObjects();
+    $smarty->assign("revision", $revision);
+    
+    
+    $editores = ",
+                {toolbar: [ 
+                  [ 'Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ],
+                  [ 'FontSize', 'TextColor', 'BGColor' ]]}";
+    
+  }
+  $smarty->assign("editores", $editores);
   
   $estudiante_aux = getSessionEstudiante();
   $estudiante     = new Estudiante($estudiante_aux->estudiante_id);
@@ -78,10 +96,10 @@ try {
   {
     $html = new Html();
     if ($EXITO)
-    {
       $mensaje = array('mensaje'=>'Se grabo correctamente el Avance','titulo'=>'Registro de Avance' ,'icono'=> 'tick_48.png');
-      $ERROR = $html->getMessageBox ($mensaje);
-    }
+    else
+      $mensaje = array('mensaje'=>'Hubo un problema, No se grabo correctamente el Avance','titulo'=>'Registro de Avance' ,'icono'=> 'warning_48.png');
+   $ERROR = $html->getMessageBox ($mensaje);
   }
   $smarty->assign("ERROR",$ERROR);
   

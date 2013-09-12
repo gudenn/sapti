@@ -16,7 +16,7 @@
         </div>
         <div class="dashboard">
           <h2>Correciones</h2>
-          <a href="{$URL}estudiante/proyecto-final/avance.registro.php">
+          <a href="{$URL}estudiante/proyecto-final/revision.gestion.php?estado_revision=CR">
             <img src="{$URL_IMG}icons/estudiante/correccion.png"   width="64px" height="64" alt="Correciones">
             <h3>Correcciones Pendientes</h3>
             <p>Todas las correcciones presentadas por Tutor(es), Docente(s) y Tribunales para el Proyecto Final</p>

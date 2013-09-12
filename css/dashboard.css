@@ -7,12 +7,14 @@
 */
 
 #container .dashboard { 
+  border-radius: 13px;
   width: 325px;
   border: 1px solid #DEDACB;
   float: left;
   margin-right: 15px;
 }
 #container .dashboard h2{
+  border-radius: 13px 13px 0 0;
   color: #FFF;
   padding: 8px;
   background-color: #06213F;

@@ -28,11 +28,11 @@
           </ul>
         </div>
         <div id="newsletter">
-          <form action="#" method="post">
+          <form action="www.fcyt.umss.edu.bo/lista/nueva.php" method="post">
             <fieldset>
-              <legend>Subscribe To Our Newsletter:</legend>
-              <input type="text" value="Enter Email Here&hellip;" onfocus="this.value=(this.value=='Enter Email Here&hellip;')? '' : this.value ;" />
-              <input type="text" id="subscribe" value="Submit" />
+              <legend>Registrese en la lista de noticias:</legend>
+              <input type="text" name="xemail" value="Ingrese su E-mail Aca&hellip;" onfocus="this.value=(this.value=='Ingrese su E-mail Aca&hellip;')? '' : this.value ;" />
+              <input type="text" name="btn22"  id="subscribe" value="Aceptar" />
             </fieldset>
           </form>
         </div>

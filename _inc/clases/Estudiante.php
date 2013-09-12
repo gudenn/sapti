@@ -244,8 +244,38 @@ class Estudiante extends Objectbase {
     $avance->proyecto_id  = $proyecto->id;
     $avance->fecha_avance = date('d/m/Y');
     $avance->estado       = Objectbase::STATUS_AC;
+    if ( isset($_POST['revision_id']) && is_numeric($_POST['revision_id']) )
+    {
+      $this->grabarRespuestaRevision($_POST['revision_id']);
+    }
+    $avance->estado_avance = Avance::E1_CREADO;
     $avance->save();
     return $avance;
+  }
+  
+  function grabarRespuestaRevision($revision_id) 
+  {
+    leerClase('Revision');
+    leerClase('Observacion');
+    $revision = new Revision($revision_id);
+    $revision->getAllObjects();
+    foreach ($revision->observacion_objs as $observacion) 
+    {
+      if ( isset($_POST['observacion_id_' . $observacion->id]) && trim($_POST['observacion_id_' . $observacion->id]) != '' )
+      {
+        $observacion->respuesta = $_POST['observacion_id_' . $observacion->id];
+        if ( get_magic_quotes_gpc() )
+          $observacion->respuesta   = htmlspecialchars( stripslashes((string)$observacion->respuesta) );
+        else
+          $observacion->respuesta   = htmlspecialchars( (string)$observacion->respuesta);
+        $observacion->estado_observacion = Observacion::E2_CORREGIDO;
+        $observacion->save();
+      }
+    }
+    $revision->estado_revision  = Revision::E3_RESPONDIDO;
+    $revision->fecha_correccion = date('d/m/Y');
+    $revision->save();
+    return true;
   }
 
 }

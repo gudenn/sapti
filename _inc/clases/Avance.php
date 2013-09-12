@@ -9,6 +9,14 @@ class Avance extends Objectbase
   /** constant to add in the begin of the key to find the date values   */
   const BASEDIRECTORIO = "avance";
 
+  /** constantes para los valores del estado de la avance
+   * estado 1 creado (CR), estado 2 visto por el tutor (VI), estado 3 aprobado por el tutor (AP)
+   */
+  const E1_CREADO     = "CR";
+  const E2_VISTO      = "VI";
+  const E3_APROBADO   = "AP";
+  
+  
  /**
   * Codigo identificador del Objeto Proyecto
   * @var INT(11)
@@ -64,13 +72,13 @@ class Avance extends Objectbase
       $estado = $estado_avance;
     //estado 1 creado (CR), estado 2 visto por el tutor (VI), estado 3 aprobado por el tutor (AP)
     switch ($estado) {
-      case 'CR':
+      case self::E1_CREADO:
         $estado = 'Nuevo';
         break;
-      case 'VI':
+      case self::E2_VISTO:
         $estado = 'Revisando';
         break;
-      case 'AP':
+      case self::E3_APROBADO:
         $estado = 'Aprobado';
         break;
       default:

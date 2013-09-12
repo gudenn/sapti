@@ -2,7 +2,11 @@
 <div class="wrapper row3">
   <div class="rnd">
     <div id="container">
+      {if (isset($revision))}
+        <h1 class="title">Registro de Correciones</h1>
+      {else}
         <h1 class="title">Registro de Avance</h1>
+      {/if}
         
 {literal}
 
@@ -125,36 +129,42 @@
 <!-- The main application script -->
 <script src="{$URL_JS}jQfu/js/main.js"></script>
 {literal}
-<script>
-// Initialize the jQuery UI theme switcher:
-$('#theme-switcher').change(function () {
-    var theme = $('#theme');
-    theme.prop(
-        'href',
-        theme.prop('href').replace(
-            /[\w\-]+\/jquery-ui.css/,
-            $(this).val() + '/jquery-ui.css'
-        )
-    );
-});
-</script>
+
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
 <!--[if (gte IE 8)&(lt IE 10)]>
 <script src="js/cors/jquery.xdr-transport.js"></script>
 <![endif]-->
 {/literal}
         
-        <h3><b>Descripcion</b></h3>
         
         <form action="" method="post" id="registro" name="registro" >
+          {if (isset($revision))}
+          <h3><b>Correciones</b></h3>
+          {assign var="objs" value=$revision->observacion_objs}
+          {section name=ic loop=$objs}
+            <p><b>Observasion:</b> {$objs[ic]->observacion}</p>
+            <p>
+              <textarea name="observacion_id_{$objs[ic]->id}" id="observacion_id_{$objs[ic]->id}" rows="4" cols="60" style="width: 431px;height: 305px;" data-validation-engine="validate[required]">{$objs[ic]->respuesta}</textarea>
+            </p>
+            <script>
+              CKEDITOR.replace('observacion_id_{$objs[ic]->id}'{$editores});
+            </script>
+          {/section}
+          {/if}
+          
+          <hr>
+          <h3><b>Descripcion del Avance</b></h3>
           <p>
             <textarea name="descripcion" id="descripcion" rows="4" cols="60" style="width: 431px;height: 305px;" data-validation-engine="validate[required]">{$avance->descripcion}</textarea>
           </p>
           <script>
-            CKEDITOR.replace('descripcion');
+            CKEDITOR.replace('descripcion'{$editores});
           </script>
           <input type="hidden" name="id"            value="{$avance->id}">
           <input type="hidden" name="directorio"    value="{$avance->directorio}">
+          {if (isset($revision))}
+          <input type="hidden" name="revision_id"   value="{$revision->id}">
+          {/if}
           <input type="hidden" name="tarea" value="registrar_avance">
           <input type="hidden" name="token" value="{$token}">
           <button type="submit" class="delete ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-disk"></span><span class="ui-button-text">Grabar</span></button>

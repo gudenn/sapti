@@ -63,12 +63,19 @@ try {
     $_SESSION['revision_id'] = $_GET['revision_id'];
 
   $revision       = new Revision($_SESSION['revision_id']);
+  if ($revision->estado_revision == Revision::E1_CREADO)
+  {
+    $revision->estado_revision = Revision::E2_VISTO;
+    $revision->save();
+  }
+    
   $observacion    = new Observacion();
   //Filtro
   $filtro   = new Filtro('e_observacion',__FILE__);
   $observacion->iniciarFiltro($filtro);
   $filtro_sql   = $observacion->filtrar($filtro);
   $observacion->revision_id = $revision->id;
+  $smarty->assign("observacion"  ,$observacion);
   
   
   $o_string   = $observacion->getOrderString($filtro);

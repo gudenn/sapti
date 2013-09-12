@@ -6,6 +6,14 @@
  */
 class Revision extends Objectbase
 {
+  /** constantes para los valores del estado de la revision
+   * estado 1 creado (CR), estado 2 visto (VI), estado 3 respondido  (RE), estado 4 aprobado (AP)
+   */
+  const E1_CREADO     = "CR";
+  const E2_VISTO      = "VI";
+  const E3_RESPONDIDO = "RE";
+  const E4_APROBADO   = "AP";
+  
  /**
   * Codigo identificador del Objeto Proyecto
   * @var INT(11)
@@ -91,18 +99,18 @@ class Revision extends Objectbase
     $estado   = $this->estado_revision;
     if ( trim($estado_revision) != '' )
       $estado = $estado_revision;
-    //estado 1 creado (CR), estado 2 visto por el tutor (VI), estado 3 aprobado por el tutor (AP)
+    //estado 1 creado (CR), estado 2 visto (VI), estado 3 respondido  (RE), estado 4 aprobado (AP)
     switch ($estado) {
-      case 'CR':
+      case self::E1_CREADO:
         $estado = 'Nuevo';
         break;
-      case 'RE':
+      case self::E2_VISTO:
+        $estado = 'Visto';
+        break;
+      case self::E3_RESPONDIDO:
         $estado = 'Respuesta';
         break;
-      case 'VI':
-        $estado = 'Revisando';
-        break;
-      case 'AP':
+      case self::E4_APROBADO:
         $estado = 'Aprobado';
         break;
       default:
@@ -120,14 +128,17 @@ class Revision extends Objectbase
       $filtro->order($_GET['order']);
 
     $filtro->nombres[] = 'Estado';
-    $filtro->valores[] = array ('select','estado'  ,$filtro->filtro('estado'),
-        array(''      ,'AC'         ,'NC'           ,'IN'          ,'DE'        ),
-        array('Todos' ,'Confirmados','No Confirmado','Desctivado'  ,'Eliminado' ));
-    $filtro->nombres[] = 'proyecto_id';
-    $filtro->valores[] = array ('input' ,'proyecto_id',$filtro->filtro('proyecto_id'));
-    $filtro->nombres[] = 'revisor';
-    $filtro->valores[] = array ('input' ,'revisor',$filtro->filtro('revisor'));
-    $filtro->nombres[] = 'fecha_observacion';
+    $filtro->valores[] = array ('select','estado_revision'  ,$filtro->filtro('estado_revision'),
+        array(''      ,'CR'   ,'VI'   ,'RE'          ,'AP'        ),
+        //estado 1 creado (CR), estado 2 visto (VI), estado 3 respondido  (RE), estado 4 aprobado (AP)
+        array('Todos' ,'Nuevo','Visto','Respondido'  ,'Aprobado' ));
+    //$filtro->nombres[] = 'proyecto_id';
+    //$filtro->valores[] = array ('input' ,'proyecto_id',$filtro->filtro('proyecto_id'));
+    $filtro->nombres[] = 'Revisor';
+    $filtro->valores[] = array ('select','revisor_tipo'  ,$filtro->filtro('revisor_tipo'),
+        array(''      ,'DO'     ,'TU'   ,'IN'       ),
+        array('Todos' ,'Docente','Tutor','Tribunal' ));
+    $filtro->nombres[] = 'Fecha';
     $filtro->valores[] = array ('input' ,'fecha_revision',$filtro->filtro('fecha_revision'));
 
   }
@@ -137,7 +148,7 @@ class Revision extends Objectbase
     $order_array['id']                  = " {$this->getTableName ()}.id ";
     $order_array['proyecto_id']         = " {$this->getTableName ()}.proyecto_id ";
     $order_array['revisor']             = " {$this->getTableName ()}.revisor";
-    $order_array['fecha_revision']        = " {$this->getTableName ()}.fecha_revision ";
+    $order_array['fecha_revision']      = " {$this->getTableName ()}.fecha_revision ";
     $order_array['estado']              = " {$this->getTableName ()}.estado ";
     return $filtro->getOrderString($order_array);
   }
