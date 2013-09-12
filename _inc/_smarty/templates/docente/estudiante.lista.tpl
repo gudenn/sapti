@@ -16,7 +16,7 @@
       <td>{$objs[ic]['apellidos']}</td>
       <td>{$objs[ic]['nombrep']}</td>
       <td>
-        <a href="revision.lista.php?array={urlencode(serialize($objs[ic]))}" target="_blank" >{icono('detalle.png','Seguimiento')}</a>
+        <a href="revision.lista.php?array={urlencode(serialize($objs[ic]))}" target="_self" >{icono('detalle.png','Seguimiento')}</a>
         <a href="observacion.registro.php?array={urlencode(serialize($objs[ic]))}" target="_blank">{icono('editar.png','Revisar')}</a>
         <a href="proyecto.evaluacion.php?array={urlencode(serialize($objs[ic]))}" target="_blank">{icono('evaluar.png','Evaluar')}</a>
       </td>

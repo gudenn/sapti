@@ -12,6 +12,14 @@ class Evento extends Objectbase
   */
   var $dicta_id;
 
+
+  /**
+  * Texto de identificador de organicador
+  * @var INT(20)
+  */
+  var $asunto;
+
+
  /**
   * Texto de identificador de organicador
   * @var VARCHAR(100)

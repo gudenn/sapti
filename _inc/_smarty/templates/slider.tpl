@@ -4,7 +4,7 @@
     <!-- ###### -->
     <div class="overlay_left"></div>
     <div id="featured_content">
-      <div class="featured_box" id="fc1"><img src="{$URL_IMG}academic/slider/1.gif" alt="" />
+      <div class="featured_box" id="fc1"><img src="{$URL_IMG}academic/slider/1.jpg" alt="" />
         <div class="floater">
           <h2>Nullamlacus dui ipsum</h2>
           <p>Attincidunt vel nam a maurisus lacinia consectetus magnisl sed ac morbi. Inmaurisus habitur pretium eu et ac vest penatibus id lacus parturpis.</p>

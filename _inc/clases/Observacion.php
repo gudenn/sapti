@@ -6,6 +6,12 @@
  */
 class Observacion extends Objectbase
 {
+  
+  /** constantes para los valores del estado de la observacion  */
+  const E1_CREADO    = "CR";
+  const E2_CORREGIDO = "CO";
+  const E3_APROBADO  = "AP";
+
  /**
   * Codigo identificador del Objeto Proyecto
   * @var INT(11)
@@ -30,6 +36,29 @@ class Observacion extends Objectbase
   */
   var $estado_observacion;
 
+  function getEstadoObservacion($estado_observacion = '') 
+  {
+    $estado   = $this->estado_observacion;
+    if ( trim($estado_observacion) != '' )
+      $estado = $estado_observacion;
+    //estado 1 creado (CR), estado 2 visto por el tutor (VI), estado 3 aprobado por el tutor (AP)
+    switch ($estado) {
+      case self::E1_CREADO:
+        $estado = 'Nuevo';
+        break;
+      case self::E2_CORREGIDO:
+        $estado = 'Corregido';
+        break;
+      case self::E3_APROBADO:
+        $estado = 'Aprobado';
+        break;
+      default:
+        $estado = 'Nuevo';
+        break;
+        break;
+    }
+    return $estado;
+  }
 
   function iniciarFiltro(&$filtro) 
   {

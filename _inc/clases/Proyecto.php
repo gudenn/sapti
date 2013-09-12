@@ -8,9 +8,11 @@ class Proyecto extends Objectbase
 {
 
   /** constant to add in the begin of the key to find the date values   */
-  const ARCHIVO_PATH         = "/ARCHIVO";
+  const URL                  = "proyecto-final/";
   /** constant to add in the begin of the key to find the date values   */
-  const ARCHIVO_PREFOLDER    = "/PROYECTO_ID_";
+  const ARCHIVO_PATH         = "archivo";
+  /** constant to add in the begin of the key to find the date values   */
+  const ARCHIVO_PREFOLDER    = "proyecto_";
   /** constant to add in the begin of the key to find the date values   */
   const ARCHIVO_CORRECIONES  = "/CORRECIONES";
 
@@ -75,7 +77,11 @@ class Proyecto extends Objectbase
     return $proyecto;
   }
   
-  
+  function getFolder()
+  {
+    return self::ARCHIVO_PREFOLDER.$this->id;
+    
+  }
   
   
    function getArea()

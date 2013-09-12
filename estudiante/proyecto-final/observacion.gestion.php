@@ -34,11 +34,20 @@ try {
   leerClase('Filtro');
   leerClase('Usuario');
   leerClase('Estudiante');
+  leerClase('Proyecto');
   leerClase('Revision');
   leerClase('Pagination');
   leerClase('Observacion');
   
+  /**
+   * Menu superior
+   */
+  $menuList[]     = array('url'=>URL.Estudiante::URL,'name'=>'Estudiante');
+  $menuList[]     = array('url'=>URL.Estudiante::URL.Proyecto::URL,'name'=>'Proyecto Final');
+  $menuList[]     = array('url'=>URL.Estudiante::URL.Proyecto::URL.__FILE__,'name'=>'Detalle de Correcciones');
+  $smarty->assign("menuList", $menuList);
 
+  
   $estudiante_aux = getSessionEstudiante();
   $estudiante     = new Estudiante($estudiante_aux->estudiante_id);
   $usuario        = $estudiante->getUsuario();
@@ -54,12 +63,19 @@ try {
     $_SESSION['revision_id'] = $_GET['revision_id'];
 
   $revision       = new Revision($_SESSION['revision_id']);
+  if ($revision->estado_revision == Revision::E1_CREADO)
+  {
+    $revision->estado_revision = Revision::E2_VISTO;
+    $revision->save();
+  }
+    
   $observacion    = new Observacion();
   //Filtro
   $filtro   = new Filtro('e_observacion',__FILE__);
   $observacion->iniciarFiltro($filtro);
   $filtro_sql   = $observacion->filtrar($filtro);
   $observacion->revision_id = $revision->id;
+  $smarty->assign("observacion"  ,$observacion);
   
   
   $o_string   = $observacion->getOrderString($filtro);

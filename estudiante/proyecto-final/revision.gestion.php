@@ -8,6 +8,7 @@ try {
   leerClase("Usuario");
   leerClase("Revision");
   leerClase("Observacion");
+  leerClase("Proyecto");
   leerClase("Formulario");
   leerClase("Pagination");
   leerClase("Filtro");
@@ -28,6 +29,14 @@ try {
   //JS
   $JS[]  = URL_JS . "jquery.js";
   $smarty->assign('JS',$JS);
+
+  /**
+   * Menu superior
+   */
+  $menuList[]     = array('url'=>URL.Estudiante::URL,'name'=>'Estudiante');
+  $menuList[]     = array('url'=>URL.Estudiante::URL.Proyecto::URL,'name'=>'Proyecto Final');
+  $menuList[]     = array('url'=>URL.Estudiante::URL.Proyecto::URL.basename(__FILE__),'name'=>'Archivo de Correcciones');
+  $smarty->assign("menuList", $menuList);
 
   
   //////////////////////////////////////////////////////////////////
@@ -51,6 +60,7 @@ try {
   $revision->iniciarFiltro($filtro);
   $filtro_sql   = $revision->filtrar($filtro);
   $revision->proyecto_id = $proyecto->id;
+  $smarty->assign("revision"  ,$revision);
   
   $o_string   = $revision->getOrderString($filtro);
   $obj_mysql  = $revision->getAll('',$o_string,$filtro_sql,TRUE,TRUE);

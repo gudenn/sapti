@@ -1,0 +1,42 @@
+/* 
+    Document   : dashboard
+    Created on : 09-09-2013, 10:29:10 PM
+    Author     : Guyen
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#container .dashboard { 
+  border-radius: 13px;
+  width: 325px;
+  border: 1px solid #DEDACB;
+  float: left;
+  margin-right: 15px;
+}
+#container .dashboard h2{
+  border-radius: 13px 13px 0 0;
+  color: #FFF;
+  padding: 8px;
+  background-color: #06213F;
+  text-align: center;
+}
+#container .dashboard a{
+  float: left;
+  margin-bottom: 10px;
+}
+#container .dashboard a img{
+  padding: 5px;
+  border: 1px solid #999;
+  margin-left: 10px;
+  float: left;
+}
+#container .dashboard a h3,#container .dashboard a p{
+  border: none;
+  width: 229px;
+  float: left;
+  padding: 0px;
+  margin: 0px 0px 0px 10px;
+}
+#container .dashboard a p{
+  color: #979797;
+}

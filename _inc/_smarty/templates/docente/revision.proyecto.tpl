@@ -17,8 +17,8 @@
       <td>{$objs[ic]['num']}</td>
       {assign var="ides" value=$objs[ic]['id']}
       <td>
-        <a href="observacion.detalle.php?revisiones_id={$objs[ic]['id_re']}" target="_blank" >{icono('detalle.png','Detalle')}</a>
-        <a href="observacion.editar.php?revisiones_id={$objs[ic]['id_re']}&array={urlencode(serialize($array))}" target="_blank">{icono('editar.png','Editar')}</a>
+        <a href="observacion.detalle.php?revisiones_id={$objs[ic]['id_re']}" target="_self" >{icono('detalle.png','Detalle')}</a>
+        <a href="observacion.editar.php?revisiones_id={$objs[ic]['id_re']}&array={urlencode(serialize($array))}" target="_self">{icono('editar.png','Editar')}</a>
       </td>
     </tr>
   </tbody>

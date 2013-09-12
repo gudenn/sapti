@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<!--
+/*
+ * jQuery File Upload Plugin jQuery UI Demo 8.7.0
+ * https://github.com/blueimp/jQuery-File-Upload
+ *
+ * Copyright 2013, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+-->
+<html lang="en">
+<head>
+<!-- Force latest IE rendering engine or ChromeFrame if installed -->
+<!--[if IE]>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<![endif]-->
+<meta charset="utf-8">
+<title>jQuery File Upload Demo - jQuery UI version</title>
+<meta name="description" content="File Upload widget with multiple file selection, drag&amp;drop support, progress bars, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads and client-side image resizing. Works with any server-side platform (PHP, Python, Ruby on Rails, Java, Node.js, Go etc.) that supports standard HTML form file uploads.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- jQuery UI styles -->
+<link rel="stylesheet" href="css/ui/overcast/jquery-ui-1.10.3.custom.min.css" id="theme">
+<!-- Demo styles -->
+<link rel="stylesheet" href="css/demo.css">
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="css/demo-ie8.css">
+<![endif]-->
+<style>
+/* Adjust the jQuery UI widget font-size: */
+.ui-widget {
+    font-size: 0.95em;
+}
+</style>
+<!-- blueimp Gallery styles -->
+<!--<link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">-->
+<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+<link rel="stylesheet" href="css/jquery.fileupload-ui.css">
+<!-- CSS adjustments for browsers with JavaScript disabled -->
+<noscript><link rel="stylesheet" href="css/jquery.fileupload-ui-noscript.css"></noscript>
+</head>
+<body>
+<!-- The file upload form used as target for the file upload widget -->
+<form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
+    <!-- Redirect browsers with JavaScript disabled to the origin page -->
+    <noscript><input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"></noscript>
+    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+    <div class="fileupload-buttonbar">
+        <div class="fileupload-buttons">
+            <!-- The fileinput-button span is used to style the file input field as button -->
+            <span class="fileinput-button">
+                <span>Add files...</span>
+                <input type="file" name="files[]" multiple>
+            </span>
+            <button type="submit" class="start">Start upload</button>
+            <button type="reset" class="cancel">Cancel upload</button>
+            <button type="button" class="delete">Delete</button>
+            <input type="checkbox" class="toggle">
+            <!-- The loading indicator is shown during file processing -->
+            <span class="fileupload-loading"></span>
+        </div>
+        <!-- The global progress information -->
+        <div class="fileupload-progress fade" style="display:none">
+            <!-- The global progress bar -->
+            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+            <!-- The extended global progress information -->
+            <div class="progress-extended">&nbsp;</div>
+        </div>
+    </div>
+    <!-- The table listing the files available for upload/download -->
+    <table role="presentation"><tbody class="files"></tbody></table>
+</form>
+<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
+<!--[if (gte IE 8)&(lt IE 10)]>
+<script src="js/cors/jquery.xdr-transport.js"></script>
+<![endif]-->
+</body> 
+</html>

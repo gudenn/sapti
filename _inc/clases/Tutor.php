@@ -14,7 +14,19 @@ class Tutor extends Objectbase
      */
     var $codigo;
     
-    
+    /**
+     * Retorna el nombre completo del usuario
+     * @param boolean $echo si muestra o solo devuelve
+     * @return boolean
+     */
+    function getNombreCompleto($echo = false) 
+    {
+      leerClase('Usuario');
+      if (!$this->usuario_id)
+        return false;
+      $usuario = new Usuario($this->usuario_id);
+      return $usuario->getNombreCompleto($echo);
+    }
       public function getNombreTutor($login, $clave) {
        $sql= "SELECT t.`id`, u.`nombre`
                 FROM  `usuario` u, `tutor` t

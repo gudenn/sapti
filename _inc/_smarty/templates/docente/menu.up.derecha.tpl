@@ -2,7 +2,8 @@
       <ul>
         <li><a href="{$URL}docente/editar.cuenta.php">Modificar Cuenta</a></li>
         <li><a href="{$URL}docente/editar.cuenta.php">Preferencias</a></li>
-        <li class="last"><a href="{$URL}?salirdocente=1">Cerrar Sesion</a></li>
+        <li><a href="{$URL}?salirdocente=1">Cerrar Sesion</a></li>
+        <li class="last"><a href="{$URL}ayuda/docente.pdf" target="_blank">Ayuda {icono('basicset/helpdesk_48.png','Ayuda')}</a></li>
       </ul>
       <form action="#" method="post" id="sitesearch">
         <fieldset>
