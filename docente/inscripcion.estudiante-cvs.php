@@ -72,7 +72,7 @@ try {
   leerClase('Estudiante');
   leerClase('Inscrito');
   leerClase('Evaluacion');
-  $docente=  getSessionDocente();
+  $ocente=  getSessionDocente();
   $docenteid=$docente->id;
   $inscritos=array();
   $yainscritos=array();
